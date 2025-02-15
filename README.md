@@ -4,6 +4,11 @@ This is group project of ITMO students, representing Website for psychological t
 ## How to work with project:
 ### Setup for the first time
 0. Check git is installed on your local machine, if not then download it <a href="https://git-scm.com/downloads">here</a>
+  After installing you must configure your account:
+  ```
+    git config --global user.name "your name"
+    git config --global user.email "your email"
+  ```
 1.  Clone the main branch into your local machine using this command: ` git clone https://github.com/scobca/opd-professional-score.git `
 2.  Create your own branch where you will make changes: ` git branch <your branch name> `
 3.  Switch into created branch that you've just made: ` git checkout <your branch name> `
