@@ -4,9 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/header.css">
     <title>Title - Main</title>
 </head>
 <body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo"><img src="assets/logo_end.png" width="150"> </a>
 
+            <div class="nav-links">
+                <a href="#professions" class="nav-item">Лист профессий</a>
+                <a href="#professions" class="nav-item">Лист 2</a>
+
+                <div class="auth-buttons">
+                    <a href="sign-in.html" class="btn login">Вход</a>
+                    <a href="sign-up.html" class="btn register">Регистрация</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="professions-section">
+            <h2>Популярные профессии</h2>
+            <div class="profession-cards-container">
+                <!-- Карточка профессии 1 -->
+                <div class="profession-card" onclick="flipCard(this)">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="profession-icon">
+                                <img src="images/developer-icon.png" alt="Разработчик">
+                            </div>
+                            <h3 class="profession-title">Разработчик</h3>
+                            <p class="profession-description">
+                                Разработчик создает программное обеспечение, веб-сайты и приложения.
+                                Владение языками программирования, такими как Python, JavaScript, Java,
+                                и понимание принципов работы баз данных — ключевые навыки.
+                            </p>
+                            <a class="profession-link">Подробнее</a>
+                        </div>
+                        <div class="card-back">
+                            <h3 class="profession-title">Разработчик</h3>
+                            <p class="profession-description">
+                                Навыки: Python, JavaScript, Java, SQL, Git.<br>
+                                Средняя зарплата: от 80 000 руб.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка профессии 2 -->
+                <div class="profession-card" onclick="flipCard(this)">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="profession-icon">
+                                <img src="images/designer-icon.png" alt="Дизайнер">
+                            </div>
+                            <h3 class="profession-title">Дизайнер</h3>
+                            <p class="profession-description">
+                                Дизайнер создает визуальные концепции, интерфейсы и графику.
+                                Работа с инструментами, такими как Adobe Photoshop, Figma, и понимание
+                                основ UX/UI — важные аспекты профессии.
+                            </p>
+                            <a class="profession-link">Подробнее</a>
+                        </div>
+                        <div class="card-back">
+                            <h3 class="profession-title">Дизайнер</h3>
+                            <p class="profession-description">
+                                Навыки: Figma, Adobe Photoshop, Illustrator, UX/UI.<br>
+                                Средняя зарплата: от 70 000 руб.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка профессии 3 -->
+                <div class="profession-card" onclick="flipCard(this)">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="profession-icon">
+                                <img src="images/marketer-icon.png" alt="Маркетолог">
+                            </div>
+                            <h3 class="profession-title">Маркетолог</h3>
+                            <p class="profession-description">
+                                Маркетолог анализирует рынок, разрабатывает стратегии продвижения
+                                и управляет рекламными кампаниями. Знание инструментов аналитики,
+                                SEO и SMM — ключевые навыки.
+                            </p>
+                            <a class="profession-link">Подробнее</a>
+                        </div>
+                        <div class="card-back">
+                            <h3 class="profession-title">Маркетолог</h3>
+                            <p class="profession-description">
+                                Навыки: SEO, SMM, Google Analytics, контекстная реклама.<br>
+                                Средняя зарплата: от 65 000 руб.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
+<script>
+    // Функция для переворота карточки
+    function flipCard(card) {
+        card.classList.toggle('flipped');
+    }
+</script>
 </html>
