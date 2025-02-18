@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Button from "../components/UI/CommonButton.vue";
-import TestScoreComponent from "../components/TestsListComponent.vue";
+import TestScoreComponent from "../components/TestsScoreList.vue";
 import {ref} from "vue";
 
 let username = "Владимир Фокин"

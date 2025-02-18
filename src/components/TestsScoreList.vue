@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TestScore from "./UI/TestScore.vue";
+import TestScore from "./UI/TestScoreElement.vue";
 import {computed, type PropType, ref} from "vue";
 import CommonButton from "./UI/CommonButton.vue";
 import type {TestsScoresDto} from "../api/dto/tests-scores.dto.ts";
