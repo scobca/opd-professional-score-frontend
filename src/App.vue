@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import Header from "./components/AppHeader.vue";
-import ProfessionsList from "./pages/ProfessionsList.vue";
 </script>
+
 <template>
   <Header/>
-  <ProfessionsList/>
+  <router-view></router-view>
 </template>
 
 <style scoped>
@@ -14,9 +14,11 @@ import ProfessionsList from "./pages/ProfessionsList.vue";
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
