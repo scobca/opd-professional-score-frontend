@@ -6,6 +6,45 @@ a{
     padding-top: 5vw;
 }
 
+.verify-email {
+    padding: 2%;
+    width: 25vw;
+}
+
+.auth-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.code-field {
+    justify-content: space-between;
+    width: 100%;
+    padding: 5% 0;
+}
+
+.code-field label {
+    display: flex;
+    width: 14%;
+    aspect-ratio: 1/1;
+}
+
+.code-field input {
+    width: 100%;
+    font-size: 2.3vw;
+    text-align: center;
+    border-radius: 10px;
+    border: solid 2px steelblue;
+}
+
+.code-field input[type='number'] {
+    -moz-appearance:textfield;
+    caret-color: transparent;
+}
+.code-field input::-webkit-outer-spin-button,
+.code-field input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
 form {
 	display: flex;
 	flex-direction: column;
@@ -13,7 +52,7 @@ form {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 0 10px #4127e4;
-    width: 500px; 
+    width: 500px;
     margin: 0 auto; 
     position: relative; 
 	z-index: 1;

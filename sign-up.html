@@ -24,7 +24,7 @@
         </nav>
     </header>
     <main class="form-container">
-        <form action="#" method="post">
+        <form action="#" method="post" id="sign-up-form">
             <h1>Регистрация</h1>
 
             <label for="username">Имя пользователя:</label>
@@ -36,12 +36,16 @@
             <label for="password">Пароль:</label>
             <input type="password" id="password" name="password" placeholder="Введите пароль" required>
 
-            <label for="confirm-password">Подтверждение пароля:</label>
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="Подтвердите пароль" required>
+            <label for="password-confirm">Подтверждение пароля:</label>
+            <input type="password" id="password-confirm" name="password-confirm" placeholder="Подтвердите пароль" required>
+
+            <a href="sign-in.html">Уже есть аккаунт?</a>
 
             <button type="submit">Зарегистрироваться</button>
         </form>
     </main>
 </body>
+<script type="module" src="js/popup.js"></script>
+<script type="module" src="js/auth.js"></script>
 </html>
 
