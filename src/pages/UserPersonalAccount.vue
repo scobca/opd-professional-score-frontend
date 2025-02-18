@@ -22,6 +22,7 @@ const testData = ref([
   {id: 13, test_name: 'Test 13', current_points: 78, max_points: 100, time: '00:14:00', valid: true},
   {id: 14, test_name: 'Test 14', current_points: 92, max_points: 100, time: '00:18:00', valid: true},
   {id: 15, test_name: 'Test 15', current_points: 30, max_points: 100, time: '00:03:00', valid: false},
+  {id: 16, test_name: 'Test 16', current_points: 23, max_points: 100, time: '00:02:00', valid: false},
 ]);
 </script>
 
