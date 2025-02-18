@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', sans-serif;
+  box-sizing: border-box;
 }
 
 body {
@@ -9,5 +10,10 @@ body {
   height: 100vh;
   background: #f0f2f5 url("assets/general-bg.webp") fixed no-repeat;
   background-size: cover;
+}
+
+:root {
+  --button-primary: rgb(240, 240, 245, 0.65);
+  --button-secondary: rgb(240, 240, 245, 0.4);
 }
 
