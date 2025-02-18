@@ -3,11 +3,25 @@ import Header from "./components/AppHeader.vue";
 </script>
 
 <template>
-  <Header/>
-  <router-view></router-view>
+  <div class="app_container">
+    <Header class="app_header"/>
+    <router-view></router-view>
+  </div>
 </template>
 
 <style scoped>
+.app_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.app_header {
+  width: 95vw;
+  margin-bottom: 2rem;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
