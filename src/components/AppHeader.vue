@@ -5,15 +5,15 @@
 <template>
   <header class="header">
     <nav class="nav-container">
-      <a href="index.html" class="logo"><img src="../assets/logo_end.png" width="150"> </a>
+      <a href="/" class="logo"><img src="../assets/logo_end.png" width="150"> </a>
 
       <div class="nav-links">
-        <a href="#professions" class="nav-item">Лист профессий</a>
+        <a href="/professions" class="nav-item">Лист профессий</a>
         <a href="#professions" class="nav-item">Лист 2</a>
 
         <div class="auth-buttons">
-          <a href="sign-in.html" class="btn login">Вход</a>
-          <a href="sign-up.html" class="btn register">Регистрация</a>
+          <a href="/auth/login" class="btn login">Вход</a>
+          <a href="/auth/registrationFirstStep" class="btn register">Регистрация</a>
         </div>
       </div>
     </nav>
