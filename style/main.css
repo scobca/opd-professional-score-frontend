@@ -1,4 +1,13 @@
 /* Основные стили */
+:root {
+    --background-primary: rgba(240, 242, 245, 0.2);
+    --background-secondary: rgba(240, 242, 245, 0.4);
+    --button-primary: rgb(240, 240, 245, 0.65);
+    --button-secondary: rgb(240, 240, 245, 0.4);
+    --danger-button-primary: rgba(255, 15, 15, 0.75);
+    --danger-button-secondary: rgba(255, 83, 83, 0.6);
+}
+
 * {
     margin: 0;
     padding: 0;

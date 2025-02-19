@@ -1,4 +1,4 @@
-import {getCookie, setCookie} from "./cookieHandler.js";
+import {deleteCookie, getCookie, setCookie} from "./cookieHandler.js";
 import {codeValidator} from "./validation.js"
 import {popupHandler} from "./popup.js";
 
@@ -6,6 +6,7 @@ const signInForm = document.getElementById("sign-in-form");
 const signUpForm = document.getElementById("sign-up-form");
 const emailVerifyForm = document.getElementById("email-verify-form");
 const resendCode = document.getElementById("resend-code");
+const logoutBtn = document.getElementById("logout-btn")
 
 if (signInForm) {
     signInForm.onsubmit = async (e) => {
@@ -24,7 +25,7 @@ if (signInForm) {
             popupHandler(result)
         } else {
             setCookie("jwt", result.jwt)
-            window.location.replace("profile.html")
+            window.location.replace(`user-profile.html`)
         }
     }
 }
@@ -63,7 +64,7 @@ if (emailVerifyForm) {
             })
             let result = await response.json()
             if (result.status <= 300) {
-                window.location.replace("profile.html")
+                window.location.replace("user-profile.html")
             }
             if (!result.jwt) {
                 popupHandler(result)
@@ -90,6 +91,15 @@ if (resendCode) {
         } else {
             window.location.replace("sign-in.html");
         }
+    })
+}
+
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        deleteCookie("jwt")
+        console.log('hi')
+        window.location.replace("index.html")
     })
 }
 

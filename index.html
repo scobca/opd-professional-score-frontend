@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/main.css">
     <link rel="stylesheet" href="style/header.css">
+    <link rel="stylesheet" href="style/styles.css">
     <title>Title - Main</title>
 </head>
 <body>
@@ -16,9 +17,13 @@
                 <a href="#professions" class="nav-item">Лист профессий</a>
                 <a href="#professions" class="nav-item">Лист 2</a>
 
-                <div class="auth-buttons">
+                <div class="auth-buttons unauthorized">
                     <a href="sign-in.html" class="btn login">Вход</a>
                     <a href="sign-up.html" class="btn register">Регистрация</a>
+                </div>
+                <div class="auth-buttons authorized">
+                    <a href="index.html" id="logout-btn" class="btn login">Выход</a>
+                    <a href="user-profile.html" class="btn register">Личный кабинет</a>
                 </div>
             </div>
         </nav>
@@ -32,7 +37,7 @@
                     <div class="card-inner">
                         <div class="card-front">
                             <div class="profession-icon">
-                                <img src="images/developer-icon.png" alt="Разработчик">
+                                <img src="/assets/developer-icon.png" alt="Разработчик">
                             </div>
                             <h3 class="profession-title">Разработчик</h3>
                             <p class="profession-description">
@@ -112,4 +117,6 @@
         card.classList.toggle('flipped');
     }
 </script>
+<script type="module" src="js/header.js"></script>
+<script type="module" src="js/auth.js"></script>
 </html>
