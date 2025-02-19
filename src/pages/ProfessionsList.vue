@@ -24,8 +24,8 @@ const cardsData = [
     descFront: " Маркетолог анализирует рынок, разрабатывает стратегии продвижения\n" +
         "       и управляет рекламными кампаниями. Знание инструментов аналитики,\n" +
         "       SEO и SMM — ключевые навыки.",
-    descBack: " Навыки: SEO, SMM, Google Analytics, контекстная реклама.<br>\n" +
-        "       Средняя зарплата: от 65 000 руб."
+    descBack: " Навыки: SEO, SMM, Google Analytics, контекстная реклама.\n " +
+        "Средняя зарплата: от 65 000 руб."
   }
 
 ]
@@ -61,6 +61,7 @@ const cardsData = [
   }
 
   .profession-cards-container {
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
