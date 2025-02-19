@@ -91,7 +91,9 @@ const professions = ref([
       <div class="tests-info">
         <p class="block_header">Все пользователи</p>
         <div class="test_data_block">
-          <UserManagerList :users="users" :max-elements-count="5"/>
+          <UserManagerList :users="users" :max-elements-count="5">
+            <template v-slot:placeholder>Установить роль</template>
+          </UserManagerList>
         </div>
       </div>
 
