@@ -1,19 +1,5 @@
 import {deleteCookie, getCookie} from "./cookieHandler.js";
-const logoutBtn = document.querySelector(".logout_button");
-const dataFromJWT = (token) => {
-    try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-
-        return JSON.parse(jsonPayload);
-    } catch (e) {
-        console.error("Error decoding JWT:", e);
-        return null;
-    }
-}
+import {dataFromJWT} from "./jwtHandler.js";
 
 const jwt = getCookie("jwt")
 if (jwt) {
@@ -30,8 +16,3 @@ if (jwt) {
 } else {
     window.location.replace("sign-in.html")
 }
-
-logoutBtn.addEventListener("click", () => {
-    deleteCookie("jwt")
-    window.location.replace("index.html");
-})

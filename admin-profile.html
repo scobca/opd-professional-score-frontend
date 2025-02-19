@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="style/main.css">
     <link rel="stylesheet" href="style/header.css">
     <link rel="stylesheet" href="style/profile.css">
+    <link rel="stylesheet" href="style/admin.css">
     <title>Title</title>
 </head>
 <body>
@@ -55,7 +56,19 @@
         <div class="tests-info">
           <p class="block_header">Все пользователи</p>
           <div class="test_data_block">
-
+            <div class="data">
+              <div class="userRow">
+                <div class="id">ID</div>
+                <div class="username">Username</div>
+                <div class="email">Email</div>
+                <div class="role">Role</div>
+                <button id="changeBtn">Change</button>
+              </div>
+            </div>
+            <div class="pagination">
+              <button id="prevBtn">Prev</button>
+              <button id="nextBtn">Next</button>
+            </div>
           </div>
         </div>
 
@@ -78,5 +91,6 @@
   <script type="module" src="js/profile.js"></script>
   <script type="module" src="js/header.js"></script>
   <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/admin.js"></script>
 </body>
 </html>
