@@ -19,7 +19,9 @@ import CommonButton from "./CommonButton.vue";
     </div>
     <div class="changeRole" @click="$emit('changeRole')">
       <CommonButton>
-        <template v-slot:placeholder> Установить роль </template>
+        <template v-slot:placeholder>
+          <slot name="placeholder"></slot>
+        </template>
       </CommonButton>
     </div>
   </div>

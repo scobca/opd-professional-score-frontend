@@ -61,6 +61,9 @@ const prevPage = () => {
       <template #username>{{ item.username }}</template>
       <template #email>{{ item.email }}</template>
       <template #role>{{ item.role }}</template>
+      <template v-slot:placeholder>
+        <slot name="placeholder"></slot>
+      </template>
     </UserManagerElement>
 
     <div class="pagination_controls">
