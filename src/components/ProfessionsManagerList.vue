@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import {computed, type PropType, ref} from "vue";
 import CommonButton from "./UI/CommonButton.vue";
-import type {UserManagerInput} from "../api/dto/user-manager.input.dto.ts";
-import UserManagerElement from "./UI/UserManagerElement.vue";
+import type {ProfessionsManagerInput} from "../api/dto/professions-manager.input.dto.ts";
+import ProfessionsManagerElement from "./UI/ProfessionsManagerElement.vue";
 
 const props = defineProps({
   maxElementsCount: {
     type: Number,
     default: 5,
   },
-  users: {
-    type: Array as PropType<UserManagerInput[]>,
+  professions: {
+    type: Array as PropType<ProfessionsManagerInput[]>,
     required: true,
   }
 });
@@ -20,11 +20,11 @@ const currentPage = ref(1);
 const paginatedData = computed(() => {
   const start = (currentPage.value - 1) * props.maxElementsCount;
   const end = start + props.maxElementsCount;
-  return props.users.slice(start, end);
+  return props.professions.slice(start, end);
 });
 
 const totalPages = computed(() => {
-  return Math.ceil(props.users.length / props.maxElementsCount);
+  return Math.ceil(props.professions.length / props.maxElementsCount);
 });
 
 const nextPage = () => {
@@ -47,21 +47,19 @@ const prevPage = () => {
         Id
       </div>
       <div class="test_name" id="test_name">
-        Username
+        Profession name
       </div>
-      <div class="score">Email</div>
-      <div class="time">Role</div>
-      <div class="valid">Change role</div>
+      <div class="time">Created</div>
+      <div class="valid">Delete</div>
     </div>
-    <UserManagerElement
+    <ProfessionsManagerElement
         v-for="item in paginatedData"
         :key="item.id"
     >
       <template #id>{{ item.id }}</template>
-      <template #username>{{ item.username }}</template>
-      <template #email>{{ item.email }}</template>
-      <template #role>{{ item.role }}</template>
-    </UserManagerElement>
+      <template #prof_name>{{ item.name }}</template>
+      <template #created>{{ item.username }}</template>
+    </ProfessionsManagerElement>
 
     <div class="pagination_controls">
       <CommonButton @click="prevPage">
@@ -103,7 +101,7 @@ const prevPage = () => {
   justify-content: center;
   align-items: center;
   display: grid;
-  grid-template-columns: 2fr 7fr 7fr 3fr 3fr;
+  grid-template-columns: 2fr 7fr 7fr 1fr;
   margin-bottom: 1rem;
 }
 
