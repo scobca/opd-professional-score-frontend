@@ -15,5 +15,6 @@ body {
 :root {
   --button-primary: rgb(240, 240, 245, 0.65);
   --button-secondary: rgb(240, 240, 245, 0.4);
+  overflow: hidden;
 }
 

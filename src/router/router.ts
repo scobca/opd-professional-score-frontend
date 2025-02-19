@@ -8,8 +8,8 @@ const routes = [
   { path: '/', component: ProfessionsList },
   { path: '/professions', component: ProfessionsList },
   { path: '/auth/login', component: LogIn },
-  {path: '/auth/registrationFirstStep', component: RegistrationFirstStep },
-  {path: '/auth/registrationSecondStep', component: RegistrationSecondStep },
+  { path: '/auth/registrationFirstStep', component: RegistrationFirstStep },
+  { path: '/auth/registrationSecondStep', component: RegistrationSecondStep },
 ];
 
 const router = createRouter({

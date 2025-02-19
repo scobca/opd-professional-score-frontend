@@ -1,4 +1,11 @@
 <script setup lang="ts">
+  import {jwtState} from "../utils/jwtState.ts";
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData')
+    jwtState.value = null
+  }
 
 </script>
 
@@ -11,9 +18,13 @@
         <a href="/professions" class="nav-item">Лист профессий</a>
         <a href="#professions" class="nav-item">Лист 2</a>
 
-        <div class="auth-buttons">
+        <div class="auth-buttons" v-if="!jwtState.value">
           <a href="/auth/login" class="btn login">Вход</a>
           <a href="/auth/registrationFirstStep" class="btn register">Регистрация</a>
+        </div>
+        <div class="auth-buttons" v-if="jwtState.value">
+          <a @click="logout" href="#" class="btn login">Выход</a>
+          <a href="/user/profile" class="btn register">Личный кабинет</a>
         </div>
       </div>
     </nav>

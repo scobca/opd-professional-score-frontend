@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import Header from "./components/AppHeader.vue";
+import PopUp from "./components/PopUp.vue";
 </script>
 
 <template>
   <div class="app_container">
     <Header class="app_header"/>
+    <PopUp/>
     <router-view></router-view>
   </div>
 </template>
@@ -18,7 +20,7 @@ import Header from "./components/AppHeader.vue";
 }
 
 .app_header {
-  width: 95vw;
+  width: 100%;
   margin-bottom: 2rem;
 }
 

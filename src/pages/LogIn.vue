@@ -1,22 +1,40 @@
 <script setup lang="ts">
+  import {login} from "../services/auth.ts";
+  import router from "../router/router.ts";
+  import {jwtState} from "../utils/jwtState.ts";
+  import {ref} from "vue";
+  import {popUpState} from "../utils/popUpState.ts";
+  const userData = ref({
+    email: "",
+    password: "",
+  })
 
+  const signIn = async() => {
+    const result = await login(userData.value)
+    if (result.status === 200) {
+      localStorage.setItem("token", result.body.token)
+      jwtState.value = result.body.token
+      await router.push("/")
+    } else {
+      popUpState.value = result.response.data.message;
+    }
+  }
 </script>
 
 <template>
   <main class="form-container">
-    <form action="#" method="post" id="sign-in-form">
+    <form @submit.prevent="signIn" method="post" id="sign-in-form">
       <h1>Вход</h1>
       <label for="email">Логин:</label>
-      <input type="email" id="email" name="email" placeholder="Введите адрес электронной почты" required>
+      <input v-model="userData.email" type="email" id="email" name="email" placeholder="Введите адрес электронной почты" required>
 
       <label for="password">Пароль:</label>
-      <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+      <input v-model="userData.password" type="password" id="password" name="password" placeholder="Введите пароль" required>
 
       <div class="auth-links">
         <a href="reset-password.html">Забыли пароль?</a>
         <a href="/auth/registrationFirstStep">Создать аккаунт</a>
       </div>
-
       <button type="submit">Войти</button>
     </form>
   </main>

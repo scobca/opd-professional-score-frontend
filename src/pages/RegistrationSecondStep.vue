@@ -1,18 +1,38 @@
 <script setup lang="ts">
+  import {ref} from "vue";
+  import {registrationSecondStep} from "../services/auth.ts";
+  import router from "../router/router.ts";
+  import {jwtState} from "../utils/jwtState.ts";
+  import {popUpState} from "../utils/popUpState.ts";
 
+  const authData = ref({
+    userData: JSON.parse(localStorage.getItem("userData")),
+    codeArr: []
+  })
+
+  const signUp = async () => {
+    const result = await registrationSecondStep(authData)
+    if (result.status === 200) {
+      localStorage.setItem("token", result.body.token)
+      jwtState.value = result.body.token
+      await router.push("/")
+    } else {
+      popUpState.value = result.response.data.message
+    }
+  }
 </script>
 
 <template>
   <main class="form-container">
-    <form action="#" method="post" id="email-verify-form" class="verify-email">
+    <form @submit.prevent="signUp" method="post" id="email-verify-form" class="verify-email">
       <h3>Подтверждение электронной почты</h3>
       <div class="code-field">
-        <label for="digit1"><input required id="digit1" min="0" max="9" type="number"></label>
-        <label for="digit2"><input required id="digit2" min="0" max="9" type="number"></label>
-        <label for="digit3"><input required id="digit3" min="0" max="9" type="number"></label>
-        <label for="digit4"><input required id="digit4" min="0" max="9" type="number"></label>
-        <label for="digit5"><input required id="digit5" min="0" max="9" type="number"></label>
-        <label for="digit6"><input required id="digit6" min="0" max="9" type="number"></label>
+        <label for="digit1"><input v-model="authData.codeArr[0]" required id="digit1" min="0" max="9" type="number"></label>
+        <label for="digit2"><input v-model="authData.codeArr[1]" required id="digit2" min="0" max="9" type="number"></label>
+        <label for="digit3"><input v-model="authData.codeArr[2]" required id="digit3" min="0" max="9" type="number"></label>
+        <label for="digit4"><input v-model="authData.codeArr[3]" required id="digit4" min="0" max="9" type="number"></label>
+        <label for="digit5"><input v-model="authData.codeArr[4]" required id="digit5" min="0" max="9" type="number"></label>
+        <label for="digit6"><input v-model="authData.codeArr[5]" required id="digit6" min="0" max="9" type="number"></label>
       </div>
       <a id="resend-code" href="#">Отправить код еще раз</a>
       <button type="submit">Подтвердить</button>
