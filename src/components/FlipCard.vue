@@ -37,8 +37,9 @@ const isFlipped = ref(false)
 
 <style scoped>
   .profession-card {
-    width: 300px;
-    height: 400px;
+    display: flex;
+    width: 20vw;
+    height: 45vh;
     perspective: 1000px; /* Для 3D-эффекта */
   }
 
@@ -58,6 +59,8 @@ const isFlipped = ref(false)
   .card-back {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     backface-visibility: hidden; /* Скрыть обратную сторону */
     border-radius: 15px;
@@ -65,6 +68,7 @@ const isFlipped = ref(false)
     background-color: #fff;
     padding: 25px;
     text-align: center;
+    box-sizing: border-box;
   }
 
   .card-back {
@@ -103,6 +107,7 @@ const isFlipped = ref(false)
     font-weight: bold;
     transition: background-color 0.3s ease;
     cursor: pointer;
+    margin-top: auto;
   }
 
   .profession-link:hover {
