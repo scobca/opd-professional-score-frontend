@@ -11,7 +11,7 @@
 
   const signIn = async() => {
     const result = await login(userData.value)
-    if (result.status === 200) {
+    if (result.status == 200) {
       localStorage.setItem("token", result.body.token)
       jwtState.value = result.body.token
       await router.push("/")

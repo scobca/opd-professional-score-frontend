@@ -3,6 +3,15 @@ import {computed, type PropType, ref} from "vue";
 import CommonButton from "./UI/CommonButton.vue";
 import type {UserManagerInput} from "../api/dto/user-manager.input.dto.ts";
 import UserManagerElement from "./UI/UserManagerElement.vue";
+import {jwtState} from "../utils/jwtState.ts";
+import router from "../router/router.ts";
+
+const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userData')
+  jwtState.value = null
+  router.push("/")
+}
 
 const props = defineProps({
   maxElementsCount: {

@@ -4,28 +4,28 @@ import FlipCard from "../components/FlipCard.vue";
 
 const cardsData = [
   {
-    title: "Разработчик",
-    descFront: "Разработчик создает программное обеспечение, веб-сайты и приложения.\n" +
-        "       Владение языками программирования, такими как Python, JavaScript, Java,\n" +
+    title: "Backend-Разработчик",
+    descFront: "Разработчик создает серверные приложения для взаимодействия веб-сайта и базы данных.\n" +
+        "       Владение языками программирования, такими как PHP, JavaScript, Java, SQL, Git,\n" +
         "       и понимание принципов работы баз данных — ключевые навыки.",
-    descBack: "Навыки: Python, JavaScript, Java, SQL, Git.<br>\n" +
-        "                                Средняя зарплата: от 80 000 руб."
+    descBack: "Навыки: PHP, JavaScript, Java, SQL, Git.\n" +
+        "                                Средняя зарплата: от 180 000 руб.",
+  },
+  {
+    title: "Frontend-Разработчик",
+    descFront: "Разработчик создает клиентское приложение, внешний вид веб-сайтов.\n" +
+        "       Владение технологиями, такими как HTML, CSS, JavaScript, Git,\n" +
+        "       и понимание принципов работы взаимодействия пользователя и браузера с содержимым веб-страниц.",
+    descBack: "Навыки: HTML, CSS, JavaScript, Git.\n" +
+        "                                Средняя зарплата: от 170 000 руб."
   },
   {
     title: "Дизайнер",
     descFront: "Дизайнер создает визуальные концепции, интерфейсы и графику.\n" +
         "       Работа с инструментами, такими как Adobe Photoshop, Figma, и понимание\n" +
         "       основ UX/UI — важные аспекты профессии.",
-    descBack: " Навыки: Figma, Adobe Photoshop, Illustrator, UX/UI.<br>\n" +
+    descBack: " Навыки: Figma, Adobe Photoshop, Illustrator, UX/UI.\n" +
         "       Средняя зарплата: от 70 000 руб."
-  },
-  {
-    title: "Маркетолог",
-    descFront: " Маркетолог анализирует рынок, разрабатывает стратегии продвижения\n" +
-        "       и управляет рекламными кампаниями. Знание инструментов аналитики,\n" +
-        "       SEO и SMM — ключевые навыки.",
-    descBack: " Навыки: SEO, SMM, Google Analytics, контекстная реклама.\n " +
-        "Средняя зарплата: от 65 000 руб."
   }
 
 ]
@@ -41,6 +41,7 @@ const cardsData = [
         :title="card.title"
         :desc-front="card.descFront"
         :desc-back="card.descBack"
+        :icon="'backend.png'"
       />
     </div>
   </section>

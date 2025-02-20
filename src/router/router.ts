@@ -11,7 +11,7 @@ import RegistrationSecondStep from "../pages/RegistrationSecondStep.vue";
 const routes = [
   { path: '/', component: ProfessionsList },
   { path: '/professions', component: ProfessionsList },
-  { path: '/user', component: UserPersonalAccount },
+  { path: '/user/profile', component: UserPersonalAccount },
   { path: '/expert', component: ExpertPersonalAccount },
   { path: '/admin', component: AdminPersonalAccount },
   { path: '/consultant', component: ConsultantPersonalAccount },

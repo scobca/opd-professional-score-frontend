@@ -17,7 +17,7 @@ const isFlipped = ref(false)
     <div class="card-inner">
       <div class="card-front">
         <div class="profession-icon">
-          <img :src="`../assets/${icon}`" alt="">
+          <img src="../assets/icons/backend.png" alt="">
         </div>
         <h3 class="profession-title">{{ title }}</h3>
         <p class="profession-description">
@@ -38,7 +38,7 @@ const isFlipped = ref(false)
 <style scoped>
   .profession-card {
     display: flex;
-    width: 20vw;
+    width: 25vw;
     height: 45vh;
     perspective: 1000px; /* Для 3D-эффекта */
   }
@@ -112,5 +112,9 @@ const isFlipped = ref(false)
 
   .profession-link:hover {
     background-color: #4127e4; /* Темный фиолетовый */
+  }
+
+  .profession-description {
+    overflow: scroll;
   }
 </style>

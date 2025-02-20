@@ -1,10 +1,12 @@
 <script setup lang="ts">
   import {jwtState} from "../utils/jwtState.ts";
+  import router from "../router/router.ts";
 
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userData')
     jwtState.value = null
+    router.push("/")
   }
 
 </script>
@@ -16,7 +18,6 @@
 
       <div class="nav-links">
         <a href="/professions" class="nav-item">Лист профессий</a>
-        <a href="#professions" class="nav-item">Лист 2</a>
 
         <div class="auth-buttons" v-if="!jwtState.value">
           <a href="/auth/login" class="btn login">Вход</a>
