@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import FlipCard from "../components/FlipCard.vue";
+import FlipCard from "../components/UI/FlipCard.vue";
 
 const cardsData = [
   {
