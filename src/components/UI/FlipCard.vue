@@ -92,6 +92,7 @@ const isFlipped = ref(false)
   }
 
   .profession-description {
+    overflow: scroll;
     font-size: 16px;
     color: #555;
     margin-bottom: 20px;
