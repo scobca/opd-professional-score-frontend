@@ -1,30 +1,29 @@
 <script setup lang="ts">
-  import {jwtState} from "../utils/jwtState.ts";
+import {jwtState} from "../utils/jwtState.ts";
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userData')
-    jwtState.value = null
-  }
+const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userData')
+  jwtState.value = null
+}
 
 </script>
 
 <template>
   <header class="header">
     <nav class="nav-container">
-      <a href="/" class="logo"><img src="../assets/logo_end.png" width="150"> </a>
+      <router-link to="/">
+        <img src="../assets/logo_end.png" class="logo" alt="logo"/>
+      </router-link>
 
       <div class="nav-links">
-        <a href="/professions" class="nav-item">Лист профессий</a>
-        <a href="#professions" class="nav-item">Лист 2</a>
-
         <div class="auth-buttons" v-if="!jwtState.value">
-          <a href="/auth/login" class="btn login">Вход</a>
-          <a href="/auth/registrationFirstStep" class="btn register">Регистрация</a>
+          <router-link to="/auth/login" class="btn login">Вход</router-link>
+          <router-link to="/auth/registrationFirstStep" class="btn register">Регистрация</router-link>
         </div>
         <div class="auth-buttons" v-if="jwtState.value">
-          <a @click="logout" href="#" class="btn login">Выход</a>
-          <a href="/user/profile" class="btn register">Личный кабинет</a>
+          <router-link to="/" class="btn login" @click="logout">Выход</router-link>
+          <router-link to="/user/profile" class="btn register">Личный кабинет</router-link>
         </div>
       </div>
     </nav>
@@ -32,87 +31,64 @@
 </template>
 
 <style scoped>
-  .header {
-    padding: 2rem 5%;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-    position: relative;
-  }
+.header {
+  padding: 1.5rem 5%;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
 
-  .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 100vw;
-    margin: 0 auto;
-  }
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100vw;
+  margin: 0 auto;
+}
 
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-  }
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
 
-  .nav-item {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    position: relative;
-  }
+.logo {
+  width: 11vw;
+}
 
-  .nav-item:hover {
-    background: rgba(255,255,255,0.1);
-  }
+.auth-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-left: 2rem;
+}
 
-  .nav-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: #fff;
-    transition: all 0.3s;
-  }
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.6rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s;
+}
 
-  .nav-item:hover::after {
-    width: 70%;
-    left: 15%;
-  }
+.login {
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
 
-  .auth-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-left: 2rem;
-  }
+.login:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
 
-  .btn {
-    padding: 0.6rem 1.5rem;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s;
-  }
+.register {
+  background: white;
+  color: #1e3c72;
+}
 
-  .login {
-    color: white;
-    border: 2px solid rgba(255,255,255,0.3);
-  }
-
-  .login:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: white;
-  }
-
-  .register {
-    background: white;
-    color: #1e3c72;
-  }
-
-  .register:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  }
+.register:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
 </style>
