@@ -1,3 +1,28 @@
+.role-select {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-primary);
+    padding: 2vw;
+    width: 20vw;
+    box-sizing: border-box;
+}
+
+.role-select form {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.role-select label {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.role-select.hide {
+    display: none;
+}
+
 .data, .userRow {
     display: flex;
     flex-direction: column;
@@ -13,20 +38,27 @@
 }
 
 .userRow {
-    padding: 3%;
+    padding: 15px;
     width: 90%;
     display: grid;
     grid-template-columns: 1fr 4fr 3fr 2fr 2fr;
     background: var(--background-secondary);
     border-radius: 15px;
-    margin-bottom: 2%;
+    margin-bottom: 2vh;
+    min-height: 5vh;
 }
 
 .userRow div {
     display: flex;
     justify-content: center;
-    padding: 0 25%;
+    padding: 0 15%;
     border-right: 1px solid black;
+}
+
+.userRow button {
+    justify-self: center;
+    padding: 5%;
+    width: 70%;
 }
 
 .userRow div:first-child {
