@@ -7,6 +7,7 @@ import ConsultantPersonalAccount from "../pages/archive/ConsultantPersonalAccoun
 import LogIn from "../pages/LogIn.vue";
 import RegistrationFirstStep from "../pages/RegistrationFirstStep.vue";
 import RegistrationSecondStep from "../pages/RegistrationSecondStep.vue";
+import PersonalAccountPage from "../pages/PersonalAccountPage.vue";
 
 const routes = [
   { path: '/', component: ProfessionsList },
@@ -15,6 +16,7 @@ const routes = [
   { path: '/expert', component: ExpertPersonalAccount },
   { path: '/admin', component: AdminPersonalAccount },
   { path: '/consultant', component: ConsultantPersonalAccount },
+  { path: '/profile', component: PersonalAccountPage },
   { path: '/auth/login', component: LogIn },
   { path: '/auth/registrationFirstStep', component: RegistrationFirstStep },
   { path: '/auth/registrationSecondStep', component: RegistrationSecondStep },
