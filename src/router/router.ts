@@ -1,9 +1,9 @@
 import {createRouter, createWebHistory} from "vue-router";
-import ProfessionsList from "../pages/ProfessionsList.vue";
-import UserPersonalAccount from "../pages/UserPersonalAccount.vue";
-import ExpertPersonalAccount from "../pages/ExpertPersonalAccount.vue";
-import AdminPersonalAccount from "../pages/AdminPersonalAccount.vue";
-import ConsultantPersonalAccount from "../pages/ConsultantPersonalAccount.vue";
+import ProfessionsList from "../components/ProfessionsList.vue";
+import UserPersonalAccount from "../pages/archive/UserPersonalAccount.vue";
+import ExpertPersonalAccount from "../pages/archive/ExpertPersonalAccount.vue";
+import AdminPersonalAccount from "../pages/archive/AdminPersonalAccount.vue";
+import ConsultantPersonalAccount from "../pages/archive/ConsultantPersonalAccount.vue";
 import LogIn from "../pages/LogIn.vue";
 import RegistrationFirstStep from "../pages/RegistrationFirstStep.vue";
 import RegistrationSecondStep from "../pages/RegistrationSecondStep.vue";

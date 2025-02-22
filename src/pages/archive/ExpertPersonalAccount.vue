@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Button from "../components/UI/CommonButton.vue";
+import Button from "../../components/UI/CommonButton.vue";
 import {ref} from "vue";
-import TestsManagerList from "../components/TestsManagerList.vue";
+import TestsManagerList from "../../components/TestsManagerList.vue";
 
 let username = "Владимир Фокин"
 let email = "scobca18@yandex.ru"
