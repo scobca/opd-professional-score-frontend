@@ -79,8 +79,9 @@ body {
 }
 
 .profession-card {
-    width: 300px;
-    height: 400px;
+    display: flex;
+    width: 25vw;
+    height: 50vh;
     perspective: 1000px; /* Для 3D-эффекта */
 }
 
@@ -98,6 +99,9 @@ body {
 
 .card-front,
 .card-back {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -107,6 +111,7 @@ body {
     background-color: #fff;
     padding: 25px;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .card-back {
@@ -145,6 +150,8 @@ body {
     font-weight: bold;
     transition: background-color 0.3s ease;
     cursor: pointer;
+    margin-top: auto;
+    width: 60%;
 }
 
 .profession-link:hover {

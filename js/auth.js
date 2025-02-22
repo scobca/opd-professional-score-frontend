@@ -7,6 +7,7 @@ const signUpForm = document.getElementById("sign-up-form");
 const emailVerifyForm = document.getElementById("email-verify-form");
 const resendCode = document.getElementById("resend-code");
 const logoutBtn = document.getElementById("logout-btn")
+const profileLogoutBtn = document.querySelector(".logout_button");
 
 if (signInForm) {
     signInForm.onsubmit = async (e) => {
@@ -96,6 +97,15 @@ if (resendCode) {
 
 if (logoutBtn) {
     logoutBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        deleteCookie("jwt")
+        console.log('hi')
+        window.location.replace("index.html")
+    })
+}
+
+if (profileLogoutBtn) {
+    profileLogoutBtn.addEventListener("click", (e) => {
         e.preventDefault();
         deleteCookie("jwt")
         console.log('hi')
