@@ -1,10 +1,29 @@
 <script setup lang="ts">
-import Button from "../components/UI/CommonButton.vue";
-import TestScoreComponent from "../components/TestsScoreList.vue";
+import Button from "../../components/UI/CommonButton.vue";
 import {ref} from "vue";
+import UserManagerList from "../../components/UserManagerList.vue";
+import TestsScoreList from "../../components/TestsScoreList.vue";
 
 let username = "Владимир Фокин"
 let email = "scobca18@yandex.ru"
+
+const users = ref([
+  { id: 1, username: "john_doe", email: "john.doe@example.com", role: "USER" },
+  { id: 2, username: "jane_smith", email: "jane.smith@example.com", role: "ADMIN" },
+  { id: 3, username: "mike_johnson", email: "mike.johnson@example.com", role: "MANAGER" },
+  { id: 4, username: "lisa_white", email: "lisa.white@example.com", role: "CONSULTANT" },
+  { id: 5, username: "david_brown", email: "david.brown@example.com", role: "EXPERT" },
+  { id: 6, username: "sarah_davis", email: "sarah.davis@example.com", role: "USER" },
+  { id: 7, username: "chris_miller", email: "chris.miller@example.com", role: "ADMIN" },
+  { id: 8, username: "patricia_wilson", email: "patricia.wilson@example.com", role: "MANAGER" },
+  { id: 9, username: "james_taylor", email: "james.taylor@example.com", role: "CONSULTANT" },
+  { id: 10, username: "emily_anderson", email: "emily.anderson@example.com", role: "EXPERT" },
+  { id: 11, username: "robert_thomas", email: "robert.thomas@example.com", role: "USER" },
+  { id: 12, username: "jessica_jackson", email: "jessica.jackson@example.com", role: "ADMIN" },
+  { id: 13, username: "william_harris", email: "william.harris@example.com", role: "MANAGER" },
+  { id: 14, username: "mary_clark", email: "mary.clark@example.com", role: "CONSULTANT" },
+  { id: 15, username: "charles_lewis", email: "charles.lewis@example.com", role: "EXPERT" }
+]);
 
 const testData = ref([
   {id: 1, test_name: 'Test 1', current_points: 80, max_points: 100, time: '00:10:00', valid: true},
@@ -27,36 +46,47 @@ const testData = ref([
 </script>
 
 <template>
-<div class="container">
-  <div class="user-info">
-    <div class="user-data-block">
-      <p class="block_header">Информация о пользователе</p>
+  <div class="container">
+    <div class="user-info">
+      <div class="user-data-block">
+        <p class="block_header">Информация о пользователе</p>
 
-      <div class="info-block">
-        <p class="field_label">Имя пользователя</p>
-        <p class="field">{{ username }}</p>
+        <div class="info-block">
+          <p class="field_label">Имя пользователя</p>
+          <p class="field">{{ username }}</p>
+        </div>
+        <div class="info-block">
+          <p class="field_label">Email</p>
+          <p class="field">{{ email }}</p>
+        </div>
       </div>
-      <div class="info-block">
-        <p class="field_label">Email</p>
-        <p class="field">{{ email }}</p>
+      <div class="buttons_container">
+        <Button @click="console.log(1)">
+          <template v-slot:placeholder>Сменить пароль</template>
+        </Button>
+        <Button @click="console.log(2)" class="logout_button">
+          <template v-slot:placeholder>Выйти из аккаунта</template>
+        </Button>
       </div>
     </div>
-    <div class="buttons_container">
-      <Button @click="console.log(1)">
-        <template v-slot:placeholder>Сменить пароль</template>
-      </Button>
-      <Button @click="console.log(2)" class="logout_button">
-        <template v-slot:placeholder>Выйти из аккаунта</template>
-      </Button>
+    <div class="right-block">
+      <div class="tests-info">
+        <p class="block_header">Все пользователи</p>
+        <div class="test_data_block">
+          <UserManagerList :users="users" :max-elements-count="5">
+            <template v-slot:placeholder>Написать сообщение</template>
+          </UserManagerList>
+        </div>
+      </div>
+
+      <div class="tests-info">
+        <p class="block_header">Недавно пройденные тесты</p>
+        <div class="test_data_block">
+          <TestsScoreList :tests="testData" :max-elements-count="5"></TestsScoreList>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="tests-info">
-    <p class="block_header">Информация о пройденных тестах</p>
-    <div class="test_data_block">
-      <TestScoreComponent :tests="testData" :max-elements-count="5"/>
-    </div>
-  </div>
-</div>
 </template>
 
 <style scoped>
@@ -82,6 +112,13 @@ const testData = ref([
 
 .user-info {
   justify-content: space-between;
+}
+
+.right-block {
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .user-data-block {

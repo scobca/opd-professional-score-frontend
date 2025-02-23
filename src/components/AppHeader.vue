@@ -72,22 +72,22 @@ updateUserState()
   transition: all 0.3s;
 }
 
-.login {
+.login, .logout {
   color: white;
   border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-.login:hover {
+.login:hover, .logout:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: white;
 }
 
-.register {
+.register, .account {
   background: white;
   color: #1e3c72;
 }
 
-.register:hover {
+.register:hover, .account:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
