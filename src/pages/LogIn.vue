@@ -1,20 +1,15 @@
 <script setup lang="ts">
   import {login} from "../services/auth.ts";
   import router from "../router/router.ts";
-  import {jwtState} from "../utils/jwtState.ts";
-  import {ref} from "vue";
   import {popUpState} from "../utils/popUpState.ts";
-  const userData = ref({
-    email: "",
-    password: "",
-  })
+  import {updateUserState, UserState} from "../utils/userState/UserState.ts";
 
   const signIn = async() => {
-    const result = await login(userData.value)
+    const result = await login(UserState)
     if (result.status === 200) {
       localStorage.setItem("token", result.body.token)
-      jwtState.value = result.body.token
-      await router.push("/")
+      updateUserState()
+      await router.push("/profile")
     } else {
       popUpState.value = result.response.data.message;
     }
@@ -26,10 +21,10 @@
     <form @submit.prevent="signIn" method="post" id="sign-in-form">
       <h1>Вход</h1>
       <label for="email">Логин:</label>
-      <input v-model="userData.email" type="email" id="email" name="email" placeholder="Введите адрес электронной почты" required>
+      <input v-model="UserState.email" type="email" id="email" name="email" placeholder="Введите адрес электронной почты" required>
 
       <label for="password">Пароль:</label>
-      <input v-model="userData.password" type="password" id="password" name="password" placeholder="Введите пароль" required>
+      <input v-model="UserState.password" type="password" id="password" name="password" placeholder="Введите пароль" required>
 
       <div class="auth-links">
         <a href="reset-password.html">Забыли пароль?</a>
