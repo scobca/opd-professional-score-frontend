@@ -16,7 +16,11 @@ export const updateUserState = () => {
             UserState.status = "authorized";
             UserState.username = userData.username;
             UserState.email = userData.email;
-            UserState.role = userData.role;
+            if (userData.role) {
+                UserState.role = userData.role;
+            } else {
+                UserState.role = "USER"
+            }
         }
     } else if (userToVerify) {
         UserState.status = userToVerify.status;

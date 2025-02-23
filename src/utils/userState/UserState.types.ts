@@ -1,5 +1,5 @@
 export type UserStatus = "unauthorized" | "unverified" | "authorized";
-export type UserRole = "user" | "profile" | "expert" | "consult" | "moderator" | "admin"
+export type UserRole = "USER" | "EXPERT" | "CONSULTANT" | "MODERATOR" | "ADMIN"
 
 export interface UserState {
     /**

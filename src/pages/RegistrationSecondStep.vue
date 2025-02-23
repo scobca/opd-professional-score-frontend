@@ -3,7 +3,7 @@
   import {registrationSecondStep} from "../services/auth.ts";
   import router from "../router/router.ts";
   import {popUpState} from "../utils/popUpState.ts";
-  import {UserState} from "../utils/userState/UserState.ts";
+  import {updateUserState, UserState} from "../utils/userState/UserState.ts";
 
   const authData = ref({
     userData: {
@@ -20,8 +20,8 @@
     if (result.status === 200) {
       localStorage.setItem("token", result.body.token)
       localStorage.removeItem("userToVerify");
-      UserState.status = "authorized";
-      await router.push("/")
+      updateUserState()
+      await router.push("/profile")
     } else {
       popUpState.value = result.response.data.message
     }

@@ -5,10 +5,9 @@ import TestsManagerList from "../components/TestsManagerList.vue";
 import UserManagerList from "../components/UserManagerList.vue";
 import ProfessionsManagerList from "../components/ProfessionsManagerList.vue";
 import TestScoreList from "../components/TestsScoreList.vue";
-import {userState} from "../utils/userState/UserState.ts";
+import {UserState} from "../utils/userState/UserState.ts";
+import {logout} from "../services/auth.ts";
 
-let username = "Владимир Фокин"
-let email = "scobca18@yandex.ru"
 
 const users = ref([
   { id: 1, username: "john_doe", email: "john.doe@example.com", role: "USER" },
@@ -92,24 +91,29 @@ const professions = ref([
 
         <div class="info-block">
           <p class="field_label">Имя пользователя</p>
-          <p class="field">{{ username }}</p>
+          <p class="field">{{ UserState.username }}</p>
         </div>
         <div class="info-block">
           <p class="field_label">Email</p>
-          <p class="field">{{ email }}</p>
+          <p class="field">{{ UserState.email }}</p>
+        </div>
+        <div class="info-block">
+          <p class="field_label">Role</p>
+          <p class="field">{{ UserState.role }}</p>
         </div>
       </div>
       <div class="buttons_container">
         <Button @click="console.log(1)">
           <template v-slot:placeholder>Сменить пароль</template>
         </Button>
-        <Button @click="console.log(2)" class="logout_button">
+        <Button @click="logout" class="logout_button">
           <template v-slot:placeholder>Выйти из аккаунта</template>
         </Button>
       </div>
     </div>
     <div class="right-block">
-      <div class="tests-info">
+
+      <div class="tests-info" v-if="UserState.role == 'ADMIN'">
         <p class="block_header">Все пользователи</p>
         <div class="user_data_block">
           <UserManagerList :users="users" :max-elements-count="5">
@@ -118,14 +122,14 @@ const professions = ref([
         </div>
       </div>
 
-      <div class="tests-info">
+      <div class="tests-info" v-if="UserState.role == 'EXPERT' || UserState.role == 'ADMIN'">
         <p class="block_header">Все тесты</p>
         <div class="test_data_block">
           <TestsManagerList :tests="tests" :max-elements-count="5"/>
         </div>
       </div>
 
-      <div class="tests-info">
+      <div class="tests-info" v-if="UserState.role == 'EXPERT' || UserState.role == 'ADMIN'">
         <p class="block_header">Все профессии</p>
         <div class="profession_data_block">
           <ProfessionsManagerList :professions="professions" :max-elements-count="5"/>
@@ -138,6 +142,7 @@ const professions = ref([
           <TestScoreList :tests="testData" :max-elements-count="5"/>
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -161,6 +166,7 @@ const professions = ref([
   background-color: var(--background-primary);
   padding: 0.75rem;
   border-radius: 15px;
+  height: 100%;
 }
 
 .user-info {

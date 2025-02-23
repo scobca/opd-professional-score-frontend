@@ -1,12 +1,8 @@
 <script setup lang="ts">
 
 import {updateUserState, UserState} from "../utils/userState/UserState.ts";
+import {logout} from "../services/auth.ts";
 updateUserState()
-
-const logout = async () => {
-  localStorage.removeItem('token');
-  updateUserState()
-}
 
 </script>
 
