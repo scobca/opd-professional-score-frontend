@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import {jwtState} from "../utils/jwtState.ts";
 
-const logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userData')
-  jwtState.value = null
-}
+import {updateUserState, UserState} from "../utils/userState/UserState.ts";
+import {logout} from "../services/auth.ts";
+updateUserState()
 
 </script>
 
@@ -17,13 +14,16 @@ const logout = () => {
       </router-link>
 
       <div class="nav-links">
-        <div class="auth-buttons" v-if="!jwtState.value">
+        <div class="auth-buttons" v-if="UserState.status == 'unauthorized'">
           <router-link to="/auth/login" class="btn login">Вход</router-link>
           <router-link to="/auth/registrationFirstStep" class="btn register">Регистрация</router-link>
         </div>
-        <div class="auth-buttons" v-if="jwtState.value">
-          <router-link to="/" class="btn logout" @click="logout">Выход</router-link>
-          <router-link to="/profile" class="btn account">Личный кабинет</router-link>
+        <div class="auth-buttons" v-if="UserState.status == 'unverified'">
+          <router-link to="/auth/registrationSecondStep" class="btn register" @click="logout">Подтвердить почту</router-link>
+        </div>
+        <div class="auth-buttons" v-if="UserState.status == 'authorized'">
+          <router-link to="" class="btn login" @click="logout">Выход</router-link>
+          <router-link to="/profile" class="btn register">Личный кабинет</router-link>
         </div>
       </div>
     </nav>

@@ -2,11 +2,16 @@
   import {ref} from "vue";
   import {registrationSecondStep} from "../services/auth.ts";
   import router from "../router/router.ts";
-  import {jwtState} from "../utils/jwtState.ts";
   import {popUpState} from "../utils/popUpState.ts";
+  import {updateUserState, UserState} from "../utils/userState/UserState.ts";
 
   const authData = ref({
-    userData: JSON.parse(localStorage.getItem("userData")),
+    userData: {
+      "username": UserState.username,
+      "email": UserState.email,
+      "password": UserState.password,
+      "role": UserState.role
+    },
     codeArr: []
   })
 
@@ -14,8 +19,9 @@
     const result = await registrationSecondStep(authData)
     if (result.status === 200) {
       localStorage.setItem("token", result.body.token)
-      jwtState.value = result.body.token
-      await router.push("/")
+      localStorage.removeItem("userToVerify");
+      updateUserState()
+      await router.push("/profile")
     } else {
       popUpState.value = result.response.data.message
     }

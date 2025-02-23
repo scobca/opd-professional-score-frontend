@@ -1,4 +1,6 @@
 import http from "../http-common.ts";
+import {updateUserState} from "../utils/userState/UserState.ts";
+import router from "../router/router.ts";
 
 export const registrationFirstStep = async (data) => {
     try {
@@ -31,3 +33,8 @@ export const login = async (data) => {
     }
 }
 
+export const logout = async () => {
+    localStorage.removeItem('token');
+    updateUserState()
+    await router.push('/')
+}

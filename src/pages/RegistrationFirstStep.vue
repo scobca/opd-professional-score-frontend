@@ -3,24 +3,18 @@
   import {registrationFirstStep} from "../services/auth.ts";
   import router from "../router/router.ts";
   import {popUpState} from "../utils/popUpState.ts";
-
-  const userData = ref({
-    username: '',
-    email: '',
-    password: '',
-    role: 'USER'
-  })
-
+  import {UserState} from "../utils/userState/UserState.ts";
 
   const signUp = async () => {
     const passConf = document.getElementById("password-confirm")
-    if (passConf.value === userData.value.password) {
+    if (passConf.value === UserState.password) {
       const result = await registrationFirstStep({
-        "username": userData.value.username,
-        "email": userData.value.email,
+        "username": UserState.username,
+        "email": UserState.email,
       });
       if (result.status === 200) {
-        localStorage.setItem("userData", JSON.stringify(userData.value));
+        UserState.status = "unverified"
+        localStorage.setItem("userToVerify", JSON.stringify(UserState));
         await router.push("/auth/registrationSecondStep");
       } else {
         console.log(result.message)
@@ -39,13 +33,13 @@
       <h1>Регистрация</h1>
 
       <label for="username">Имя пользователя:</label>
-      <input v-model="userData.username" type="text" id="username" name="username" placeholder="Введите имя пользователя" required>
+      <input v-model="UserState.username" type="text" id="username" name="username" placeholder="Введите имя пользователя" required>
 
       <label for="email">Электронная почта:</label>
-      <input v-model="userData.email" type="email" id="email" name="email" placeholder="Введите электронную почту" required>
+      <input v-model="UserState.email" type="email" id="email" name="email" placeholder="Введите электронную почту" required>
 
       <label for="password">Пароль:</label>
-      <input v-model="userData.password" type="password" id="password" name="password" placeholder="Введите пароль" required>
+      <input v-model="UserState.password" type="password" id="password" name="password" placeholder="Введите пароль" required>
 
       <label for="password-confirm">Подтверждение пароля:</label>
       <input type="password" id="password-confirm" name="password-confirm" placeholder="Подтвердите пароль" required>
