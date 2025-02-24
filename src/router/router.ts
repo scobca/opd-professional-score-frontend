@@ -1,10 +1,10 @@
 import {createRouter, createWebHistory} from "vue-router";
-import ProfessionsList from "../pages/ProfessionsList.vue";
 import LogIn from "../pages/LogIn.vue";
 import RegistrationFirstStep from "../pages/RegistrationFirstStep.vue";
 import RegistrationSecondStep from "../pages/RegistrationSecondStep.vue";
 import PersonalAccount from "../pages/PersonalAccount.vue";
 import {UserState} from "../utils/userState/UserState.ts";
+import ProfessionsList from "../components/ProfessionsList.vue";
 
 const routes = [
   { path: '/', component: ProfessionsList },
