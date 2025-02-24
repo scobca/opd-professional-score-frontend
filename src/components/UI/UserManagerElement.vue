@@ -1,10 +1,12 @@
 <script setup lang="ts">
 
 import CommonButton from "./CommonButton.vue";
+
+defineEmits(["changeRole"])
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="wrapper" ref="reference">
     <div class="id" id="id">#
       <slot name="id">12345</slot>
     </div>
@@ -17,7 +19,7 @@ import CommonButton from "./CommonButton.vue";
     <div class="role">
       <slot name="role">NULL</slot>
     </div>
-    <div class="changeRole" @click="$emit('changeRole')">
+    <div class="changeRole" @click="$emit('changeRole', $event.currentTarget)">
       <CommonButton>
         <template v-slot:placeholder>
           <slot name="placeholder"></slot>

@@ -4,7 +4,6 @@
   import router from "../router/router.ts";
   import {popUpState} from "../utils/popUpState.ts";
   import {updateUserState, UserState} from "../utils/userState/UserState.ts";
-
   const authData = ref({
     userData: {
       "username": UserState.username,
@@ -16,10 +15,12 @@
   })
 
   const signUp = async () => {
+    updateUserState()
     const result = await registrationSecondStep(authData)
     if (result.status === 200) {
       localStorage.setItem("token", result.body.token)
       localStorage.removeItem("userToVerify");
+      popUpState.value = ""
       updateUserState()
       await router.push("/profile")
     } else {

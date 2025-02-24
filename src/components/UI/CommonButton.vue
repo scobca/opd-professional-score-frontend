@@ -18,6 +18,7 @@
   text-align: center;
   background: var(--button-primary);
   transition-duration: 0.2s;
+  user-select: none;
 }
 
 .wrapper:hover {
