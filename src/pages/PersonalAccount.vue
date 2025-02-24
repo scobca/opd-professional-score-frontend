@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import Button from "../components/UI/CommonButton.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import TestsManagerList from "../components/TestsManagerList.vue";
 import UserManagerList from "../components/UserManagerList.vue";
 import ProfessionsManagerList from "../components/ProfessionsManagerList.vue";
 import TestScoreList from "../components/TestsScoreList.vue";
 import {UserState} from "../utils/userState/UserState.ts";
 import {logout} from "../services/auth.ts";
+import {getAllUsers} from "../services/user.ts";
+import {popUpState} from "../utils/popUpState.ts";
 
 
 const users = ref([
@@ -26,6 +28,15 @@ const users = ref([
   { id: 14, username: "mary_clark", email: "mary.clark@example.com", role: "CONSULTANT" },
   { id: 15, username: "charles_lewis", email: "charles.lewis@example.com", role: "EXPERT" }
 ]);
+
+const reloadUsers = async () => {
+  const result = await getAllUsers();
+  if (result.status == 200) {
+    users.value = result.body
+  } else {
+    popUpState.value = result.message;
+  }
+}
 
 const tests = ref([
   {id: 1, name: "Тест по основам Python", header: "Проверка знаний основ языка Python", createdAt: "15.03.2024",},
@@ -81,6 +92,11 @@ const professions = ref([
   { id: 14, name: "Lawyer", username: "mary_clark" },
   { id: 15, name: "Architect", username: "charles_lewis" }
 ]);
+
+
+onMounted(() => {
+  reloadUsers()
+})
 </script>
 
 <template>
@@ -116,7 +132,11 @@ const professions = ref([
       <div class="tests-info" v-if="UserState.role == 'ADMIN'">
         <p class="block_header">Все пользователи</p>
         <div class="user_data_block">
-          <UserManagerList :users="users" :max-elements-count="5">
+          <UserManagerList
+              :users="users"
+              :max-elements-count="5"
+              @users-list-update="reloadUsers"
+          >
             <template v-slot:placeholder>Установить роль</template>
           </UserManagerList>
         </div>

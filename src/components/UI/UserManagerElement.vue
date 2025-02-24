@@ -3,6 +3,7 @@
 import CommonButton from "./CommonButton.vue";
 
 defineEmits(["changeRole"])
+defineProps<{isDisabled: boolean}>()
 </script>
 
 <template>
@@ -19,8 +20,11 @@ defineEmits(["changeRole"])
     <div class="role">
       <slot name="role">NULL</slot>
     </div>
-    <div class="changeRole" @click="$emit('changeRole', $event.currentTarget)">
-      <CommonButton>
+    <div class="changeRole">
+      <CommonButton
+          @click="$emit('changeRole', $event.currentTarget)"
+          :disabled="isDisabled"
+      >
         <template v-slot:placeholder>
           <slot name="placeholder"></slot>
         </template>

@@ -1,10 +1,11 @@
 <script setup lang="ts">
+defineProps<{disabled?: boolean}>()
 </script>
 
 <template>
-<div class="wrapper">
+<button :disabled="disabled" class="wrapper">
   <slot name="placeholder">Button name</slot>
-</div>
+</button>
 </template>
 
 <style scoped>
@@ -26,5 +27,9 @@
   border: 1px solid var(--button-primary);
   background-color: var(--button-secondary);
   transition-duration: 0.2s;
+}
+
+.wrapper[disabled="disabled"]:hover {
+  cursor: wait;
 }
 </style>
