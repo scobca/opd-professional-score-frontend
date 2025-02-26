@@ -10,7 +10,7 @@ body {
 }
 
 a{
-	margin-bottom: 10px;
+	margin: 7px;
 }
 
 form {
@@ -71,3 +71,8 @@ button:hover {
 }
 
 
+#preview {
+    max-width: 200px; 
+    max-height: 200px; 
+    margin: 15px; 
+}
