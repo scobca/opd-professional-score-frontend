@@ -8,8 +8,11 @@ const prevBtnUsers = document.getElementById("prevBtnUsers");
 const prevBtnProfessions = document.getElementById("prevBtnProfessions");
 const usersTable = document.querySelector(".userData");
 const professionsTable = document.querySelector(".professionData");
-const modal = document.querySelector(".role-select");
-const modalForm = document.getElementById("role-change-form");
+const modalRole = document.querySelector(".role-select");
+const modalProfession = document.querySelector(".profession-edit");
+const modalRoleForm = document.getElementById("role-change-form");
+const modalProfessionForm = document.getElementById("profession-change-form");
+const dataBlock = document.querySelector(".right-block")
 let userPage = 1
 let professionPage = 1
 const user = dataFromJWT(getCookie("jwt")).data;
@@ -73,19 +76,20 @@ const renderUsers = async (userPage) => {
                 userRow.append(changeRole)
 
                 changeRole.addEventListener("click", () => {
-                    Array.from(modalForm.elements).forEach(input => {
+                    Array.from(modalRoleForm.elements).forEach(input => {
                         if (input.value === users[i].role) {
                             input.checked = true
                         } else if (input.type === "number") {
                             input.value = users[i].id
                         }
                     })
-                    modal.classList.toggle("hide")
+                    modalRole.classList.toggle("hide")
+                    dataBlock.classList.toggle("freeze")
                     const btnCoords = changeRole.getBoundingClientRect()
-                    const modalCoords = modal.getBoundingClientRect()
-                    modal.style.top = btnCoords.top + btnCoords.height + 15 + 'px'
-                    modal.style.left = btnCoords.left - modalCoords.width + btnCoords.width + "px"
-                    modal.children[0].innerHTML = `Изменить роль пользователя ${users[i].username}`
+                    const modalCoords = modalRole.getBoundingClientRect()
+                    modalRole.style.top = btnCoords.top + btnCoords.height + 'px'
+                    modalRole.style.left = btnCoords.left - modalCoords.width + btnCoords.width + "px"
+                    modalRole.children[0].innerHTML = `Изменить роль пользователя ${users[i].username}`
                 })
             }
             usersTable.appendChild(userRow)
@@ -115,25 +119,28 @@ const renderProfessions = async (professionPage) => {
             nameDiv.innerHTML = professions.data[i].name
             descDiv.innerHTML = professions.data[i].description
             professionRow.append(idDiv, nameDiv, descDiv)
-            // const changeRole = document.createElement('button')
-            // changeRole.innerHTML = "Изменить роль"
-            // userRow.append(changeRole)
-            //
-            // changeRole.addEventListener("click", () => {
-            //     Array.from(modalForm.elements).forEach(input => {
-            //         if (input.value === users[i].role) {
-            //             input.checked = true
-            //         } else if (input.type === "number") {
-            //             input.value = users[i].id
-            //         }
-            //     })
-            //     modal.classList.toggle("hide")
-            //     const btnCoords = changeRole.getBoundingClientRect()
-            //     const modalCoords = modal.getBoundingClientRect()
-            //     modal.style.top = btnCoords.top + btnCoords.height + 15 + 'px'
-            //     modal.style.left = btnCoords.left - modalCoords.width + btnCoords.width + "px"
-            //     modal.children[0].innerHTML = `Изменить роль пользователя ${users[i].username}`
-            // })
+            const changeProfession = document.createElement('button')
+            changeProfession.innerHTML = "Изменить"
+            professionRow.append(changeProfession)
+
+            changeProfession.addEventListener("click", () => {
+                Array.from(modalProfessionForm.elements).forEach(input => {
+                    if (input.type === "text") {
+                        input.value = professions.data[i].name
+                    } else if (input.type === "number") {
+                        input.value = professions.data[i].id
+                    } else if ( input.type !== "submit") {
+                        input.value = professions.data[i].description
+                    }
+                })
+                modalProfession.classList.toggle("hide")
+                dataBlock.classList.toggle("freeze")
+                const btnCoords = changeProfession.getBoundingClientRect()
+                const modalCoords = modalProfession.getBoundingClientRect()
+                modalProfession.style.top = btnCoords.top + btnCoords.height + 'px'
+                modalProfession.style.left = btnCoords.left - modalCoords.width + btnCoords.width + "px"
+                modalProfession.children[0].innerHTML = `Изменить профессию ${professions.data[i].name}`
+            })
             professionsTable.appendChild(professionRow)
             renderedProfessionRows.push(professionRow)
         }
@@ -171,9 +178,9 @@ window.addEventListener("load", async () => {
     await renderProfessions(1)
 });
 
-modalForm.onsubmit = async (e) => {
-    const userId = Array.from(modalForm.elements).find(input => input.type === "number").value
-    const newRole = Array.from(modalForm.elements).find(input => input.checked === true).value
+modalRoleForm.onsubmit = async (e) => {
+    const userId = Array.from(modalRoleForm.elements).find(input => input.type === "number").value
+    const newRole = Array.from(modalRoleForm.elements).find(input => input.checked === true).value
     const data = new FormData
     data.append("user_id", userId)
     data.append("admin_email", user.email)
@@ -190,5 +197,29 @@ modalForm.onsubmit = async (e) => {
     popupHandler(result)
     if (result.status === 200) {
         await renderUsers(userPage)
+    }
+}
+
+modalProfessionForm.onsubmit = async (e) => {
+    const professionId = Array.from(modalProfessionForm.elements).find(input => input.type === "number").value
+    const professionName = Array.from(modalProfessionForm.elements).find(input => input.id === "profName").value
+    const professionDescription = Array.from(modalProfessionForm.elements).find(input => input.id === "profDesc").value
+    console.log(professionId, professionName, professionDescription)
+    const data = new FormData
+    data.append("profession_id", professionId)
+    data.append("profession_name", professionName)
+    data.append("profession_description", professionDescription)
+    e.preventDefault()
+    const response = await fetch("http://localhost:8081/update-profession", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${getCookie("jwt")}`,
+        },
+        body: data
+    })
+    const result = await response.json()
+    popupHandler(result)
+    if (result.status === 200) {
+        await renderProfessions(professionPage)
     }
 }

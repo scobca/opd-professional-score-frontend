@@ -61,7 +61,7 @@
               <label><input name="role" type="radio" value="expert">Эксперт</label>
               <label><input name="role" type="radio" value="moderator">Модератор</label>
               <label><input name="role" type="radio" value="admin">Администратор</label>
-              <input type="number" hidden="hidden" disabled>
+              <label><input type="number" hidden="hidden" disabled></label>
               <input type="submit" value="Изменить">
             </form>
           </div>
@@ -90,15 +90,12 @@
         </div>
 
         <div class="tests-info">
-          <div class="role-select hide">
+          <div class="profession-edit hide">
             <h4>Изменить профессию</h4>
             <form action="" id="profession-change-form">
-              <label><input name="role" type="radio" value="user">Пользователь</label>
-              <label><input name="role" type="radio" value="consultant">Консультант</label>
-              <label><input name="role" type="radio" value="expert">Эксперт</label>
-              <label><input name="role" type="radio" value="moderator">Модератор</label>
-              <label><input name="role" type="radio" value="admin">Администратор</label>
-              <input type="number" hidden="hidden" disabled>
+              <label><input required type="text" id="profName"></label>
+              <label><textarea required id="profDesc"></textarea></label>
+              <label><input required type="number" hidden="hidden" disabled></label>
               <input type="submit" value="Изменить">
             </form>
           </div>

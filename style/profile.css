@@ -22,6 +22,10 @@
     gap: 1.3rem;
 }
 
+.right-block.freeze {
+    overflow-y: hidden;
+}
+
 .user-info, .tests-info {
     display: flex;
     flex-direction: column;
