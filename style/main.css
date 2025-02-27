@@ -72,15 +72,16 @@ body {
 }
 
 .profession-cards-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 20vw));
+    justify-self: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
+    width: 100%;
+    gap: 2vw;
 }
 
 .profession-card {
     display: flex;
-    width: 25vw;
     height: 50vh;
     perspective: 1000px; /* Для 3D-эффекта */
 }

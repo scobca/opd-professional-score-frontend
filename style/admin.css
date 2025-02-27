@@ -1,4 +1,5 @@
-.role-select {
+.role-select,
+.profession-edit{
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -8,22 +9,38 @@
     box-sizing: border-box;
 }
 
-.role-select form {
+.role-select form,
+.profession-edit form {
     display: flex;
     flex-direction: column;
     gap: 1vh;
 }
 
+.profession-edit label,
 .role-select label {
     display: flex;
     gap: 0.5rem;
 }
 
-.role-select.hide {
+.profession-edit input,
+.profession-edit textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+.profession-edit textarea {
+    min-height: 10vh;
+}
+
+.role-select.hide,
+.profession-edit.hide {
     display: none;
 }
 
-.data, .userRow {
+.userData, .userRow,
+.professionData, .professionRow,
+.testData, .testRow {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,13 +48,12 @@
     width: 100%;
 }
 
-.data {
-    height: 45vh;
+.userData, .professionData, .testData {
     justify-content: flex-start;
     overflow-y: scroll;
 }
 
-.userRow {
+.userRow, .professionRow, .testRow {
     padding: 15px;
     width: 90%;
     display: grid;
@@ -48,14 +64,21 @@
     min-height: 5vh;
 }
 
-.userRow div {
+.professionRow {
+    grid-template-columns: 1fr 2fr 5fr 1fr;
+}
+
+.userRow div,
+.professionRow div,
+.testRow div {
     display: flex;
     justify-content: center;
     padding: 0 15%;
     border-right: 1px solid black;
 }
 
-.userRow button {
+.userRow button,
+.professionRow button {
     justify-self: center;
     padding: 5%;
     width: 70%;
@@ -66,6 +89,8 @@
 }
 
 .pagination {
+    margin-top: auto;
+    margin-bottom: 1vw;
     display: flex;
     width: 90%;
 }
