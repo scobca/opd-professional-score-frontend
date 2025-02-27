@@ -100,13 +100,53 @@
         </section>
     </main>
 </body>
+<script type="module" src="js/header.js"></script>
+<script type="module" src="js/auth.js"></script>
 <script>
+    const cardSection = document.querySelector(".profession-cards-container")
     fetch("http://localhost:8081")
     // Функция для переворота карточки
     function flipCard(card) {
         card.classList.toggle('flipped');
     }
+
+    window.onload = async () => {
+        const response = await fetch("http://localhost:8081/get-professions-all")
+        const professions = await response.json()
+        if (professions) {
+            professions.data.forEach(profession => {
+                console.log(profession)
+                const professionCard = document.createElement("div")
+                const cardInner = document.createElement("div")
+                const cardFront = document.createElement("div")
+                const cardBack = document.createElement("div")
+                const professionDesc = document.createElement("p")
+                const professionName = document.createElement("h3")
+                const professionIcon = document.createElement("div")
+                const professionLink = document.createElement("a")
+
+                professionCard.classList.add("profession-card")
+                cardInner.classList.add("card-inner")
+                cardFront.classList.add("card-front")
+                cardBack.classList.add("card-back")
+                professionName.classList.add("profession-title")
+                professionDesc.classList.add("profession-description")
+                professionIcon.classList.add("profession-icon")
+                professionLink.classList.add("profession-link")
+
+                professionName.innerHTML = profession.name
+                professionDesc.innerHTML = profession.description
+                professionLink.innerHTML = "Подробнее"
+                cardFront.append(professionIcon, professionName.cloneNode(true), professionDesc.cloneNode(true), professionLink)
+                cardBack.append(professionName, professionDesc)
+                cardInner.append(cardFront, cardBack)
+                professionCard.append(cardInner)
+                professionCard.addEventListener("click",() => {
+                    professionCard.classList.toggle("flipped")
+                })
+                cardSection.append(professionCard)
+            })
+        }
+    }
 </script>
-<script type="module" src="js/header.js"></script>
-<script type="module" src="js/auth.js"></script>
 </html>

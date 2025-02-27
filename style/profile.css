@@ -15,6 +15,13 @@
     gap: 1rem;
 }
 
+.right-block {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
 .user-info, .tests-info {
     display: flex;
     flex-direction: column;
@@ -22,6 +29,8 @@
     background-color: var(--background-primary);
     padding: 0.75rem;
     border-radius: 15px;
+    min-height: 75vh;
+    box-sizing: border-box;
 }
 
 .user-info {
@@ -78,4 +87,24 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100%;
+}
+
+.prevBtn, .nextBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5vw 1vw;
+    border-radius: 15px;
+    background-color: var(--background-primary);
+    outline: none;
+    border: none;
+    margin-right: 1vw;
+    transition: background-color 0.5s;
+}
+
+.prevBtn:hover,
+.nextBtn:hover  {
+    cursor: pointer;
+    background-color: var(--background-secondary);
 }

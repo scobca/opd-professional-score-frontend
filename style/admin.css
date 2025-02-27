@@ -23,7 +23,9 @@
     display: none;
 }
 
-.data, .userRow {
+.userData, .userRow,
+.professionData, .professionRow,
+.testData, .testRow {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,13 +33,12 @@
     width: 100%;
 }
 
-.data {
-    height: 45vh;
+.userData, .professionData, .testData {
     justify-content: flex-start;
     overflow-y: scroll;
 }
 
-.userRow {
+.userRow, .professionRow, .testRow {
     padding: 15px;
     width: 90%;
     display: grid;
@@ -48,7 +49,13 @@
     min-height: 5vh;
 }
 
-.userRow div {
+.professionRow {
+    grid-template-columns: 1fr 2fr 5fr 1fr;
+}
+
+.userRow div,
+.professionRow div,
+.testRow div {
     display: flex;
     justify-content: center;
     padding: 0 15%;
@@ -66,6 +73,8 @@
 }
 
 .pagination {
+    margin-top: auto;
+    margin-bottom: 1vw;
     display: flex;
     width: 90%;
 }
