@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить профессию</title>
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/header.css">
+    <link rel="stylesheet" href="style/styles.css">
+</head>
+<body>
+<header class="header">
+    <nav class="nav-container">
+        <a href="index.html" class="logo"><img src="assets/logo_end.png" width="150"> </a>
+
+        <div class="nav-links">
+            <a href="#professions" class="nav-item">Лист профессий</a>
+
+            <div class="auth-buttons unauthorized">
+                <a href="sign-in.html" class="btn login">Вход</a>
+                <a href="sign-up.html" class="btn register">Регистрация</a>
+            </div>
+            <div class="auth-buttons authorized">
+                <a href="index.html" id="logout-btn" class="btn login">Выход</a>
+                <a href="user-profile.html" class="btn register">Личный кабинет</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<main class="form-container">
+    <form action="#" method="post" id="add-profession-form">
+        <h1>Добавить профессию</h1>
+        <label for="profession-name">Название профессии:</label>
+        <input type="text" id="profession-name" name="profession-name" placeholder="Введите название профессии"
+               required>
+        <label for="description">Описание:</label>
+        <textarea id="description" name="description" placeholder="Описание профессии" rows="4" required></textarea>
+        <label for="requirements">Требования:</label>
+        <textarea id="requirements" name="requirements" placeholder="Требования к профессии" rows="4"
+                  required></textarea>
+        <label for="sphere">Сфера деятельности:</label>
+        <select id="sphere" name="sphere" required>
+            <option value="">Выберите сферу</option>
+            <option value="IT">IT</option>
+            <option value="Engineering">Инженерия</option>
+            <option value="Education">Образование</option>
+            <option value="Education">Другая</option>
+        </select>
+        <button type="submit">Добавить профессию</button>
+    </form>
+</main>
+</body>
+<script type="module" src="js/popup.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/header.js"></script>
+</html>
