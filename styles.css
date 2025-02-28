@@ -9,8 +9,11 @@ body {
     background-position: center center;
 }
 
-a{
-	margin: 7px;
+a, .primary{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 form {
@@ -75,4 +78,26 @@ button:hover {
     max-width: 200px; 
     max-height: 200px; 
     margin: 15px; 
+}
+
+.file-input {
+    display: none; /* Скрываем стандартный элемент input */
+}
+
+.file-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    padding: 10px;
+    background-color: #4127e4; /* Цвет фона */
+    color: white; /* Цвет текста */
+    border-radius: 5px; /* Скругление углов */
+    cursor: pointer; /* Указатель при наведении */
+    transition: background-color 0.3s;
+    margin-bottom: 15px; /* Отступ снизу */
+}
+
+.file-label:hover {
+    background-color: #9a8bf8; /* Цвет фона при наведении */
 }

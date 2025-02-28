@@ -8,8 +8,8 @@
 <body>
     <form action="#" method="POST">
         <h1>Редактировать профиль</h1>
-        <label1 for="profile-pic">Фото профиля:</label1>
-        <input type="file" id="profile-pic" name="profile-pic" accept="image/*" onchange="previewImage(event)">
+        <label for="profile-pic" class="file-label">Выберите фото профиля</label>
+        <input type="file" id="profile-pic" name="profile-pic" accept="image/*" class="file-input" onchange="previewImage(event)">       
         <img id="preview" src="ava.webp" alt="Предварительный просмотр изображения">
         <label for="username">Имя пользователя:</label>
         <input type="text" id="username" name="username" value="ТекущееИмяПользователя" required>
