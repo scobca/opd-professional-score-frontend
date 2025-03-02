@@ -64,6 +64,37 @@ button:hover {
     background-color: #9a8bf8;
 }
 
+.profession-form textarea {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #5d558d;
+            border-radius: 5px;
+            transition: transform 0.3s;
+            margin-bottom: 15px;
+            font-size: 16px;
+            resize: none;
+}
+.profession-form textarea:hover {
+    transform: scale(1.05);
+}
+.profession-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #5d558d;
+    border-radius: 5px;
+    transition: transform 0.3s;
+    margin-bottom: 15px;
+    font-size: 16px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>');
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.profession-form select:hover{
+     cursor:pointer
+}
+
 
 #preview {
     max-width: 200px; 
