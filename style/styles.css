@@ -1,48 +1,10 @@
-a{
-	margin-bottom: 10px;
-}
 
-.form-container {
-    padding-top: 5vw;
-}
 
-.verify-email {
-    padding: 2%;
-    width: 25vw;
-}
-
-.auth-links {
+a, .primary{
     display: flex;
-    justify-content: space-between;
-}
-
-.code-field {
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
-    padding: 5% 0;
-}
-
-.code-field label {
-    display: flex;
-    width: 14%;
-    aspect-ratio: 1/1;
-}
-
-.code-field input {
-    width: 100%;
-    font-size: 2.3vw;
-    text-align: center;
-    border-radius: 10px;
-    border: solid 2px steelblue;
-}
-
-.code-field input[type='number'] {
-    -moz-appearance:textfield;
-    caret-color: transparent;
-}
-.code-field input::-webkit-outer-spin-button,
-.code-field input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+    margin-bottom: 10px;
 }
 
 form {
@@ -52,7 +14,7 @@ form {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 0 10px #4127e4;
-    width: 500px;
+    width: 500px; 
     margin: 0 auto; 
     position: relative; 
 	z-index: 1;
@@ -103,3 +65,30 @@ button:hover {
 }
 
 
+#preview {
+    max-width: 200px; 
+    max-height: 200px; 
+    margin: 15px; 
+}
+
+.file-input {
+    display: none; /* Скрываем стандартный элемент input */
+}
+
+.file-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    padding: 10px;
+    background-color: #4127e4; /* Цвет фона */
+    color: white; /* Цвет текста */
+    border-radius: 5px; /* Скругление углов */
+    cursor: pointer; /* Указатель при наведении */
+    transition: background-color 0.3s;
+    margin-bottom: 15px; /* Отступ снизу */
+}
+
+.file-label:hover {
+    background-color: #9a8bf8; /* Цвет фона при наведении */
+}
