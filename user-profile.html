@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/header.css">
+    <link rel="stylesheet" href="style/profile.css">
+    <title>User Profile</title>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo"><img src="assets/logo_end.png" width="150"> </a>
+
+            <div class="nav-links">
+                <a href="#professions" class="nav-item">Лист профессий</a>
+
+                <div class="auth-buttons unauthorized">
+                    <a href="sign-in.html" class="btn login">Вход</a>
+                    <a href="sign-up.html" class="btn register">Регистрация</a>
+                </div>
+                <div class="auth-buttons authorized">
+                    <a href="index.html" id="logout-btn" class="btn login">Выход</a>
+                    <a href="user-profile.html" class="btn register">Личный кабинет</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="profile-main">
+        <div class="container">
+            <div class="user-info">
+                <div class="user-data-block">
+                    <p class="block_header">Информация о пользователе</p>
+
+                    <div class="info-block">
+                        <p class="field_label">Имя пользователя</p>
+                        <p id="username" class="field"></p>
+                    </div>
+                    <div class="info-block">
+                        <p class="field_label">Email</p>
+                        <p id="email" class="field"></p>
+                    </div>
+                </div>
+                <div class="buttons_container">
+                    <button>
+                        Сменить пароль
+                    </button>
+                    <button class="logout_button">
+                        Выйти из аккаунта
+                    </button>
+                </div>
+            </div>
+            <div class="tests-info">
+                <p class="block_header">Информация о пройденных тестах</p>
+                <div class="test_data_block">
+                </div>
+            </div>
+        </div>
+    </main>
+    <script type="module" src="js/profile.js"></script>
+    <script type="module" src="js/header.js"></script>
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>

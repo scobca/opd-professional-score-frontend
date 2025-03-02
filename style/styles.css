@@ -1,13 +1,4 @@
-body {
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 2rem;
-    height: 100vh;
-    background-image: url("general-bg.webp");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-}
+
 
 a, .primary{
     display: flex;

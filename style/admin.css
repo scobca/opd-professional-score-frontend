@@ -1,0 +1,96 @@
+.role-select,
+.profession-edit{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-primary);
+    padding: 2vw;
+    width: 20vw;
+    box-sizing: border-box;
+}
+
+.role-select form,
+.profession-edit form {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.profession-edit label,
+.role-select label {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.profession-edit input,
+.profession-edit textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+.profession-edit textarea {
+    min-height: 10vh;
+}
+
+.role-select.hide,
+.profession-edit.hide {
+    display: none;
+}
+
+.userData, .userRow,
+.professionData, .professionRow,
+.testData, .testRow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.userData, .professionData, .testData {
+    justify-content: flex-start;
+    overflow-y: scroll;
+}
+
+.userRow, .professionRow, .testRow {
+    padding: 15px;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 4fr 3fr 2fr 2fr;
+    background: var(--background-secondary);
+    border-radius: 15px;
+    margin-bottom: 2vh;
+    min-height: 5vh;
+}
+
+.professionRow {
+    grid-template-columns: 1fr 2fr 5fr 1fr;
+}
+
+.userRow div,
+.professionRow div,
+.testRow div {
+    display: flex;
+    justify-content: center;
+    padding: 0 15%;
+    border-right: 1px solid black;
+}
+
+.userRow button,
+.professionRow button {
+    justify-self: center;
+    padding: 5%;
+    width: 70%;
+}
+
+.userRow div:first-child {
+    border-left: 1px solid black;
+}
+
+.pagination {
+    margin-top: auto;
+    margin-bottom: 1vw;
+    display: flex;
+    width: 90%;
+}
