@@ -17,6 +17,7 @@ import PopUp from "./components/PopUp.vue";
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  padding-bottom: 2rem;
 }
 
 .app_header {
