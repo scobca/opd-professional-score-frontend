@@ -3,11 +3,13 @@ import CommonButton from "./UI/CommonButton.vue";
 import CustomInput from "./UI/inputs/CustomInput.vue";
 import CustomTextareaInput from "./UI/inputs/CustomTextareaInput.vue";
 import CustomSelect from "./UI/inputs/CustomSelect.vue";
+import ApiResolverUtil from "../utils/ApiResolver.ts";
 
 export default {
   name: 'ProfessionForm',
   components: {CustomSelect, CustomInput, CustomTextareaInput, CommonButton},
   data() {
+
     return {
       name: "",
       description: "",
@@ -19,11 +21,25 @@ export default {
         {value: 'Образование', text: 'Образование'},
         {value: 'Другая', text: 'Другая'},
       ],
+      resolver: new ApiResolverUtil('professions'),
     }
   },
   methods: {
     create() {
-      console.log(this.name + " " + this.description + " " + this.requirements + " " + this.sphere);
+      const body = {
+        name: this.name,
+        description: this.description,
+        requirements: this.requirements,
+        sphere: this.sphere,
+      };
+      const token = localStorage.getItem("token")
+      if (token != null) {
+        this.resolver.request("createProfession", "POST", body, token).then((res) => {
+          console.log(res);
+        });
+      } else {
+        console.log("No token");
+      }
     }
   }
 }

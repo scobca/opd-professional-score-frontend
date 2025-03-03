@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiConf from "../api/apiConf.ts";
 
 export default class ApiResolverUtil {
     endpoint = ""
