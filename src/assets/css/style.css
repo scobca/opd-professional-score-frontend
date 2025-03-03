@@ -20,6 +20,6 @@ body {
   --danger-button-primary: rgba(255, 15, 15, 0.75);
   --danger-button-secondary: rgba(255, 83, 83, 0.6);
   --input-border: rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+  overflow: scroll;
 }
 
