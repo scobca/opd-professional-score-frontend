@@ -30,12 +30,12 @@
         <form action="#" method="post" id="email-verify-form" class="verify-email">
             <h3>Подтверждение электронной почты</h3>
             <div class="code-field">
-                <label for="digit1"><input required id="digit1" min="0" max="9" type="number"></label>
-                <label for="digit2"><input required id="digit2" min="0" max="9" type="number"></label>
-                <label for="digit3"><input required id="digit3" min="0" max="9" type="number"></label>
-                <label for="digit4"><input required id="digit4" min="0" max="9" type="number"></label>
-                <label for="digit5"><input required id="digit5" min="0" max="9" type="number"></label>
-                <label for="digit6"><input required id="digit6" min="0" max="9" type="number"></label>
+                <label for="digit1"><input required id="digit1" type="tel" autofocus></label>
+                <label for="digit2"><input required id="digit2" type="tel" ></label>
+                <label for="digit3"><input required id="digit3" type="tel" ></label>
+                <label for="digit4"><input required id="digit4" type="tel" ></label>
+                <label for="digit5"><input required id="digit5" type="tel" ></label>
+                <label for="digit6"><input required id="digit6" type="tel" ></label>
             </div>
             <a id="resend-code" href="#">Отправить код еще раз</a>
             <button type="submit">Подтвердить</button>
@@ -46,4 +46,5 @@
 <script type="module" src="js/popup.js"></script>
 <script type="module" src="js/auth.js"></script>
 <script type="module" src="js/validation.js"></script>
+<script type="module" src="js/auto-focus.js"></script>
 </html>
