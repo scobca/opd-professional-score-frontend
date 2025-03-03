@@ -81,11 +81,14 @@
 
 .userRow div,
 .professionRow div,
+.professionRow a,
 .testRow div {
     display: flex;
     justify-content: center;
     padding: 0 15%;
     border-right: 1px solid black;
+    text-decoration: none;
+    color: black;
 }
 
 .userRow button,

@@ -110,13 +110,14 @@ const renderProfessions = async (professionPage) => {
             const professionRow = document.createElement('div')
             professionRow.classList.add('professionRow')
             const idDiv = document.createElement('div')
-            const nameDiv = document.createElement('div')
+            const nameDiv = document.createElement('a')
             const descDiv = document.createElement('div')
             idDiv.classList.add('id')
             nameDiv.classList.add('username')
             descDiv.classList.add('email')
             idDiv.innerHTML = professions.data[i].id
             nameDiv.innerHTML = professions.data[i].name
+            nameDiv.href= `profession.html?id=${professions.data[i].id}`
             descDiv.innerHTML = professions.data[i].description
             professionRow.append(idDiv, nameDiv, descDiv)
             const changeProfession = document.createElement('button')

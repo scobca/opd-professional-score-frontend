@@ -20,7 +20,7 @@ if (jwt) {
             const result = await response.json()
             popupHandler(result)
             if (result.status === 200) {
-                location.replace("index.html")
+                window.location.replace("index.html")
             }
         })
     } else {

@@ -124,6 +124,8 @@
                 const professionDesc = document.createElement("p")
                 const professionName = document.createElement("h3")
                 const professionIcon = document.createElement("div")
+                const professionImg = document.createElement("img")
+                professionImg.src = "./assets/alisa_stock.png"
                 const professionLink = document.createElement("a")
 
                 professionCard.classList.add("profession-card")
@@ -138,6 +140,7 @@
                 professionName.innerHTML = profession.name
                 professionDesc.innerHTML = profession.description
                 professionLink.innerHTML = "Подробнее"
+                professionIcon.append(professionImg)
                 cardFront.append(professionIcon, professionName.cloneNode(true), professionDesc.cloneNode(true), professionLink)
                 professionDesc.innerHTML = profession.requirements
                 cardBack.append(professionName, professionDesc.cloneNode(true))

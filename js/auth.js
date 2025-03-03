@@ -52,7 +52,6 @@ if (emailVerifyForm) {
     emailVerifyForm.onsubmit = async (e) => {
         const email = getCookie("email")
 
-
         if (email) {
             e.preventDefault();
             const data = new FormData()
@@ -83,6 +82,7 @@ if (resendCode) {
         if (getCookie("email")) {
             const data = new FormData()
             data.set("email", getCookie("email"))
+            console.log(getCookie("email"))
             let response = await fetch("http://localhost:8081/resend-code", {
                 method: "POST",
                 body: data
