@@ -19,7 +19,6 @@ body {
     height: 100vh;
     background: #f0f2f5 url("../assets/general-bg.webp") fixed no-repeat;
     background-size: cover;
-    overflow: hidden;
 }
 
 .popup {
@@ -161,6 +160,16 @@ body {
     align-items: center;
     max-width: 1300px;
     margin: 0 auto;
+}
+
+.auth-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-container a {
+    text-decoration: none;
+    margin: 1vw 0
 }
 
 

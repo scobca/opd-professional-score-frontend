@@ -115,7 +115,8 @@
         const professions = await response.json()
         if (professions) {
             professions.data.forEach(profession => {
-                console.log(profession)
+                const description = profession.description.split(".")
+                console.log(description)
                 const professionCard = document.createElement("div")
                 const cardInner = document.createElement("div")
                 const cardFront = document.createElement("div")
@@ -135,14 +136,20 @@
                 professionLink.classList.add("profession-link")
 
                 professionName.innerHTML = profession.name
-                professionDesc.innerHTML = profession.description
+                professionDesc.innerHTML = description[0]
                 professionLink.innerHTML = "Подробнее"
                 cardFront.append(professionIcon, professionName.cloneNode(true), professionDesc.cloneNode(true), professionLink)
-                cardBack.append(professionName, professionDesc)
+                professionDesc.innerHTML = description[1]
+                cardBack.append(professionName, professionDesc.cloneNode(true))
+                professionDesc.innerHTML = description[2]
+                cardBack.append(professionDesc)
                 cardInner.append(cardFront, cardBack)
                 professionCard.append(cardInner)
                 professionCard.addEventListener("click",() => {
                     professionCard.classList.toggle("flipped")
+                })
+                professionLink.addEventListener("click", () => {
+                    window.location.replace(`profession.html?id=${profession.id}`)
                 })
                 cardSection.append(professionCard)
             })
