@@ -3,6 +3,39 @@ import {computed, type PropType, ref} from "vue";
 import CommonButton from "./UI/CommonButton.vue";
 import type {UserManagerInput} from "../api/dto/user-manager.input.dto.ts";
 import UserManagerElement from "./UI/UserManagerElement.vue";
+import {autoUpdate, hide, useFloating} from "@floating-ui/vue";
+import RoleSelectForm from "./RoleSelectForm.vue";
+import {UserState} from "../utils/userState/UserState.ts";
+
+
+const reference = ref(null)
+const floating = ref(null)
+const {floatingStyles, middlewareData} = useFloating(reference, floating, {
+  placement: 'bottom-end',
+  whileElementsMounted: autoUpdate,
+  middleware: [hide()]
+})
+
+const toggleForm = (el: HTMLElement, id: number, role: string) => {
+  if (lastEl.value != el) {
+    isOpen.value = false
+  }
+  if (!isOpen.value) {
+    reference.value = el
+    currentUser.value = {
+      id: id,
+      role: role
+    }
+  }
+  isOpen.value = !isOpen.value
+  lastEl.value = el
+}
+
+const currentUser = ref(null)
+const isOpen = ref(false)
+const lastEl = ref()
+
+defineEmits(['users-list-update'])
 
 const props = defineProps({
   maxElementsCount: {
@@ -41,6 +74,19 @@ const prevPage = () => {
 </script>
 
 <template>
+  <RoleSelectForm
+      v-if="isOpen"
+      ref="floating"
+      :style="{
+        ...floatingStyles,
+        visibility: middlewareData.hide?.referenceHidden
+          ? 'hidden'
+          : 'visible',
+      }"
+      :user-id="currentUser.id"
+      :user-role="currentUser.role"
+      @role-update="$emit('users-list-update'); isOpen = false"
+  />
   <div class="component_container">
     <div class="header">
       <div class="id" id="id">
@@ -56,6 +102,8 @@ const prevPage = () => {
     <UserManagerElement
         v-for="item in paginatedData"
         :key="item.id"
+        :is-disabled="UserState.role == item.role"
+        @change-role="el => toggleForm(el, item.id, item.role)"
     >
       <template #id>{{ item.id }}</template>
       <template #username>{{ item.username }}</template>
