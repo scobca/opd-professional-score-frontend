@@ -8,7 +8,7 @@
 body {
   margin: 0;
   height: 100vh;
-  background: #f0f2f5 url("assets/general-bg.webp") fixed no-repeat;
+  background: #f0f2f5 url("../general-bg.webp") fixed no-repeat;
   background-size: cover;
 }
 
@@ -19,8 +19,7 @@ body {
   --button-secondary: rgb(240, 240, 245, 0.4);
   --danger-button-primary: rgba(255, 15, 15, 0.75);
   --danger-button-secondary: rgba(255, 83, 83, 0.6);
-  --button-primary: rgb(240, 240, 245, 0.65);
-  --button-secondary: rgb(240, 240, 245, 0.4);
-  overflow: hidden;
+  --input-border: rgba(0, 0, 0, 0.2);
+  overflow: scroll;
 }
 
