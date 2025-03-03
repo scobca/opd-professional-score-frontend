@@ -136,12 +136,12 @@
                 professionLink.classList.add("profession-link")
 
                 professionName.innerHTML = profession.name
-                professionDesc.innerHTML = description[0]
+                professionDesc.innerHTML = profession.description
                 professionLink.innerHTML = "Подробнее"
                 cardFront.append(professionIcon, professionName.cloneNode(true), professionDesc.cloneNode(true), professionLink)
-                professionDesc.innerHTML = description[1]
+                professionDesc.innerHTML = profession.requirements
                 cardBack.append(professionName, professionDesc.cloneNode(true))
-                professionDesc.innerHTML = description[2]
+                professionDesc.innerHTML = profession.sphere
                 cardBack.append(professionDesc)
                 cardInner.append(cardFront, cardBack)
                 professionCard.append(cardInner)

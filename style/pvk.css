@@ -1,0 +1,26 @@
+.pvk {
+    display: grid;
+    grid-template-columns: 8fr 4vh;
+    column-gap: 2vw;
+    align-content: center;
+    margin: 1vw 0;
+}
+
+.pvk select {
+    margin: 0;
+    height: 4vh;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+
+.pvk option {
+    width: 50px;
+}
+.pvk input {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    box-sizing: border-box;
+
+    font-size: 16px;
+}

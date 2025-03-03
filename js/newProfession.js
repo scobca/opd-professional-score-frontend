@@ -9,26 +9,13 @@ if (jwt) {
     if (user.role === "admin" || user.role === "expert" || user.role === "moderator") {
         professionForm.addEventListener("submit", async (e) => {
             e.preventDefault()
-            let description = ""
-            let name = ""
-            Array.from(professionForm.elements).forEach(input => {
-                if (input.id !== "profession-name") {
-                    console.log(input, input.value)
-                    description = description + input.value + "."
-                } else {
-                    name = input.value
-                }
-            })
-            const data = new FormData()
-            data.append("profession_name", name)
-            data.append("profession_description", description)
 
             const response = await fetch("http://localhost:8081/create-profession", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${getCookie("jwt")}`
                 },
-                body: data
+                body: new FormData(professionForm)
             })
             const result = await response.json()
             popupHandler(result)

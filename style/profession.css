@@ -5,8 +5,8 @@ main {
 }
 .profession {
     display: grid;
-    grid-template-columns: 25vw auto;
-    grid-template-rows: 25vw auto ;
+    grid-template-columns: 15vw auto;
+    grid-template-rows: 15vw auto ;
     gap: 2vw;
     padding: 2vw;
     height: 75vh;

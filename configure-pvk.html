@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Добавить профессию</title>
+  <link rel="stylesheet" href="style/main.css">
+  <link rel="stylesheet" href="style/header.css">
+  <link rel="stylesheet" href="style/styles.css">
+  <link rel="stylesheet" href="style/pvk.css">
+</head>
+<body>
+<header class="header">
+  <nav class="nav-container">
+    <a href="index.html" class="logo"><img src="assets/logo_end.png" width="150"> </a>
+
+    <div class="nav-links">
+      <a href="#professions" class="nav-item">Лист профессий</a>
+
+      <div class="auth-buttons unauthorized">
+        <a href="sign-in.html" class="btn login">Вход</a>
+        <a href="sign-up.html" class="btn register">Регистрация</a>
+      </div>
+      <div class="auth-buttons authorized">
+        <a href="index.html" id="logout-btn" class="btn login">Выход</a>
+        <a href="user-profile.html" class="btn register">Личный кабинет</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<main class="form-container">
+  <form action="#" method="post" id="pvk-form" class="profession-form">
+    <h1>Добавить / Изменить профессионально-важные качества</h1>
+    <div class="pvk">
+      <label>
+        <select class="select-pvk" required name="pvk-personal" id="pvk-personal">
+          <option selected disabled>Выберите ПВК</option>
+        </select>
+      </label>
+      <label>
+        <input required type="number" min="0.1" step="0.1" max="10" value="0">
+      </label>
+    </div>
+    <div class="pvk">
+      <label>
+        <select class="select-pvk" required name="pvk-intellectual" id="pvk-intellectual">
+          <option selected disabled>Выберите ПВК</option>
+        </select>
+      </label>
+      <label>
+        <input required type="number" min="0.1" step="0.1" max="10" value="0">
+      </label>
+    </div>
+    <div class="pvk">
+      <label>
+        <select class="select-pvk" required name="pvk-physical" id="pvk-physical">
+          <option selected disabled>Выберите ПВК</option>
+        </select>
+      </label>
+      <label>
+        <input required type="number" min="0.1" step="0.1" max="10" value="0">
+      </label>
+    </div>
+    <div class="pvk">
+      <label>
+        <select class="select-pvk" required name="pvk-physiological" id="pvk-physiological">
+          <option selected disabled>Выберите ПВК</option>
+        </select>
+      </label>
+      <label>
+        <input required type="number" min="0.1" step="0.1" max="10" value="0">
+      </label>
+    </div>
+    <div class="pvk">
+      <label>
+        <select class="select-pvk" required name="pvk-psychophysiological" id="pvk-psychophysiological">
+          <option selected disabled>Выберите ПВК</option>
+        </select>
+      </label>
+      <label>
+        <input required type="number" min="0.1" step="0.1" max="10" value="0">
+      </label>
+    </div>
+    <div class="pvk">
+      <label>
+        <select class="select-pvk" required name="pvk-operational" id="pvk-operational">
+          <option selected disabled>Выберите ПВК</option>
+        </select>
+      </label>
+      <label>
+        <input required type="number" min="0.1" step="0.1" max="10" value="0">
+      </label>
+    </div>
+    <button type="submit">Применить</button>
+  </form>
+</main>
+</body>
+<script type="module" src="js/popup.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/header.js"></script>
+<script type="module" src="js/configure-pvk.js"></script>
+</html>
