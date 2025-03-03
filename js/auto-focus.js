@@ -15,8 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // обработка нажатия Backspace
         input.addEventListener('keydown', (e) => {
+            // если поле пустое и был нажат Backspace, переносим фокус на предыдущий инпут; если поле не пусто, то просто удаляется цифра
             if (e.key === 'Backspace' && !input.value && index > 0) {
-                // если поле пустое и был нажат Backspace, переносим фокус на предыдущий инпут; если поле не пусто, то просто удаляется цифра
+
                 inputs[index - 1].focus();
             }
         });
