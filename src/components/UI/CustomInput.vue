@@ -1,0 +1,54 @@
+<script lang="ts">
+export default {
+  name: 'CustomInput',
+  props: {
+    placeholder: String,
+    type: {
+      type: String,
+      default: 'text',
+    },
+    modelValue: String,
+  },
+}
+</script>
+
+<template>
+  <input class="input"
+         :placeholder="placeholder"
+         :type="type"
+         :value="modelValue"
+         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+  />
+</template>
+
+<style scoped>
+.input {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--input-border);
+  border-radius: 0.5rem;
+  transition-duration: 0.2s;
+  background-color: white;
+  text-align: left;
+  text-indent: 2%;
+}
+
+.input::placeholder {
+  text-align: left;
+  color: rgba(0, 0, 0, 0.7);
+  text-indent: 2%;
+}
+
+.input:active, .input:focus {
+  border: 1px solid var(--input-border);
+  outline: none;
+  transition-duration: 0.2s;
+  text-indent: 2%;
+}
+
+.input:hover {
+  border: 1px solid var(--input-border);
+  transition-duration: 0.2s;
+  text-indent: 2%;
+}
+</style>
