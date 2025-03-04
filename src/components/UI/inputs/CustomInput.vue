@@ -7,17 +7,54 @@ export default {
       type: String,
       default: 'text',
     },
-    modelValue: String,
+    modelValue: {
+      type: [String, Number],
+    },
+    minNumber: {
+      type: Number,
+      default: 0,
+    },
+    maxNumber: {
+      type: Number,
+      default: 100,
+    },
+  },
+  methods: {
+    validate(event: any) {
+      const inputValue = parseFloat(event.target.value);
+
+      if (isNaN(inputValue)) {
+        return;
+      }
+
+      if (inputValue < this.minNumber) {
+        this.$emit('update:modelValue', this.minNumber);
+      } else if (inputValue > this.maxNumber) {
+        this.$emit('update:modelValue', this.maxNumber);
+      } else {
+        this.$emit('update:modelValue', inputValue);
+      }
+    }
   },
 }
 </script>
 
 <template>
   <input class="input"
+         v-if="type=='text'"
          :placeholder="placeholder"
          :type="type"
          :value="modelValue"
          @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+  />
+  <input class="input"
+         v-if="type=='number'"
+         :placeholder="placeholder"
+         :type="type"
+         :min="minNumber"
+         :max="maxNumber"
+         :value="modelValue"
+         @input="validate($event)"
   />
 </template>
 
