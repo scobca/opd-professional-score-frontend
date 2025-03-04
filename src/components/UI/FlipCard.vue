@@ -3,9 +3,11 @@
 import {ref} from "vue";
 
 defineProps<{
+  id: number,
   title: string,
-  descFront: string,
-  descBack: string,
+  description: string,
+  requirements: string,
+  sphere: string,
   icon?: string,
 }>()
 
@@ -16,19 +18,22 @@ const isFlipped = ref(false)
   <div :class="isFlipped ? 'profession-card flipped' : 'profession-card'" @click="isFlipped = !isFlipped">
     <div class="card-inner">
       <div class="card-front">
-        <div class="profession-icon">
+        <div class="profession-icon" v-if="icon">
           <img :src="`../assets/${icon}`" alt="">
         </div>
         <h3 class="profession-title">{{ title }}</h3>
         <p class="profession-description">
-          {{ descFront }}
+          {{ description }}
         </p>
-        <a class="profession-link">Подробнее</a>
+        <a class="profession-link" :href="`/profession/${id}`">Подробнее</a>
       </div>
       <div class="card-back">
         <h3 class="profession-title">{{ title }}</h3>
         <p class="profession-description">
-          {{ descBack }}
+          {{ requirements }}
+        </p>
+        <p class="profession-description">
+          {{ `Сфера деятельности: ${requirements}` }}
         </p>
       </div>
     </div>

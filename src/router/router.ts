@@ -9,6 +9,7 @@ import ProfessionsList from "../components/ProfessionsList.vue";
 const routes = [
   { path: '/', component: ProfessionsList },
   { path: '/professions', component: ProfessionsList },
+  // { path: `/profession/:id`, component: ProfessionsPage, props: { id } },
   { path: '/profile', component: PersonalAccount, meta: { requiresAuth: true } },
   { path: '/auth/login', component: LogIn },
   { path: '/auth/registrationFirstStep', component: RegistrationFirstStep },
