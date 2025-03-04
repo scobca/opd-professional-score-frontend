@@ -63,7 +63,6 @@
 
 .userData, .professionData, .testData, .recentTestData, .completedTestData {
     justify-content: flex-start;
-    overflow-y: scroll;
 }
 
 .userRow, .professionRow, .testRow, .recentTestRow, .completedTestRow {
@@ -78,7 +77,7 @@
 }
 
 .professionRow {
-    grid-template-columns: 1fr 2fr 3fr 3fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 3fr 2.5fr 1fr 1fr;
 }
 
 .testRow {
@@ -114,7 +113,7 @@
 .testRow .text,
 .completedTestRow .text{
     justify-content: flex-start;
-    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .userRow button,
