@@ -19,7 +19,6 @@ body {
     height: 100vh;
     background: #f0f2f5 url("../assets/general-bg.webp") fixed no-repeat;
     background-size: cover;
-    overflow: hidden;
 }
 
 .popup {
@@ -63,6 +62,9 @@ body {
     background-color: #691b9a00; /* Фиолетовый фон */
     color: #fff;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .professions-section h2 {
@@ -73,10 +75,8 @@ body {
 
 .profession-cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 20vw));
-    justify-self: center;
-    justify-content: center;
-    width: 100%;
+    grid-template-columns: repeat(3, auto);
+    width: 65%;
     gap: 2vw;
 }
 
@@ -139,6 +139,7 @@ body {
     font-size: 16px;
     color: #555;
     margin-bottom: 20px;
+    overflow: scroll;
 }
 
 .profession-link {
@@ -161,6 +162,16 @@ body {
     align-items: center;
     max-width: 1300px;
     margin: 0 auto;
+}
+
+.auth-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-container a {
+    text-decoration: none;
+    margin: 1vw 0
 }
 
 

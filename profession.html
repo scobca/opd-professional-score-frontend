@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Профессия</title>
+  <link rel="stylesheet" href="style/main.css">
+  <link rel="stylesheet" href="style/header.css">
+  <link rel="stylesheet" href="style/styles.css">
+  <link rel="stylesheet" href="style/profession.css">
+</head>
+<body>
+<header class="header">
+  <nav class="nav-container">
+    <a href="index.html" class="logo"><img src="assets/logo_end.png" width="150"> </a>
+
+    <div class="nav-links">
+      <a href="#professions" class="nav-item">Лист профессий</a>
+
+      <div class="auth-buttons unauthorized">
+        <a href="sign-in.html" class="btn login">Вход</a>
+        <a href="sign-up.html" class="btn register">Регистрация</a>
+      </div>
+      <div class="auth-buttons authorized">
+        <a href="index.html" id="logout-btn" class="btn login">Выход</a>
+        <a href="user-profile.html" class="btn register">Личный кабинет</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+  <section class="profession">
+    <div class="short-info">
+      <h3 class="name"></h3>
+      <p class="description"></p>
+      <p class="requirements"></p>
+      <p class="sphere"></p>
+    </div>
+    <div class="qualities">
+      <h3>Профессионально-важные качества</h3>
+      <div class="quality">
+        <p class="name">Качество</p>
+        <p class="rating">Рейтинг</p>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+<script type="module" src="js/header.js"></script>
+<script type="module" src="js/profession.js"></script>
+<script type="module" src="js/auth.js"></script>
+</html>

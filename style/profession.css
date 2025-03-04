@@ -1,0 +1,73 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profession {
+    display: grid;
+    grid-template-columns: 25vw auto;
+    gap: 2vw;
+    padding: 2vw;
+    height: 75vh;
+    width: 85vw;
+    background-color: var(--background-primary);
+    border-radius: 15px;
+
+}
+
+.profession button {
+    margin-top: auto;
+}
+
+.profession div {
+    background-color: var(--background-secondary);
+    padding: 1vw;
+    border-radius: 10px;
+}
+
+.profession .short-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+.profession .short-info h3 {
+    margin-bottom: 1vw;
+}
+
+.profession .image img {
+    width: 100%;
+}
+
+.profession .qualities {
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+.qualities h3 {
+    margin-bottom: 1vw;
+}
+
+.quality {
+    margin-bottom: 1vw;
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+}
+
+.quality p {
+    display: flex;
+    align-items: center;
+    border-right: solid 2px black;
+    box-sizing: border-box;
+    justify-content: center;
+    width: 100%;
+}
+
+.quality p:first-child {
+    justify-content: flex-start;
+    border-left: solid 2px black;
+    text-wrap: pretty;
+    padding: 0 1vw;
+}

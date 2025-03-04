@@ -1,0 +1,28 @@
+.pvk {
+    display: grid;
+    grid-template-columns: 8fr minmax(4vh, 5vh);
+    gap: 1vw;
+    align-content: center;
+    margin: 0.5vw 0;
+}
+
+.pvk select {
+    height: 100%;
+    margin: 0;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.pvk input {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    text-align: center;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

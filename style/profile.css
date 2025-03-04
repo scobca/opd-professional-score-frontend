@@ -1,3 +1,17 @@
+button, input[type="submit"] {
+    padding: 0.5vw 0.25vw;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-color: var(--background-secondary);
+    cursor: pointer;
+}
+
 .profile-main {
     display: flex;
     justify-content: center;
@@ -90,7 +104,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     height: 100%;
 }
 

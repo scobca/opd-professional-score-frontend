@@ -1,3 +1,14 @@
+.professions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    width: 100%;
+}
+
+.professionData {
+    grid-column: 1 / 3;
+}
+
 .role-select,
 .profession-edit{
     position: absolute;
@@ -65,16 +76,24 @@
 }
 
 .professionRow {
-    grid-template-columns: 1fr 2fr 5fr 1fr;
+    grid-template-columns: 1fr 2fr 3fr 3fr 1fr 1fr;
 }
 
 .userRow div,
 .professionRow div,
+.professionRow a,
 .testRow div {
     display: flex;
     justify-content: center;
-    padding: 0 15%;
+    padding: 0 10%;
     border-right: 1px solid black;
+    text-decoration: none;
+    color: black;
+}
+
+.professionRow .text {
+    justify-content: flex-start;
+    text-overflow: ellipsis;
 }
 
 .userRow button,
@@ -88,9 +107,31 @@
     border-left: 1px solid black;
 }
 
-.pagination {
+.pagination,
+.new-profession {
     margin-top: auto;
+    margin-left: 2vw;
     margin-bottom: 1vw;
     display: flex;
     width: 90%;
+}
+
+.new-profession {
+    justify-self: flex-end;
+    width: auto;
+    margin-right: 2vw;
+}
+
+.new-profession a {
+    text-decoration: none;
+    padding: 0.5vw 1vw;
+    color: black;
+    background-color: var(--background-primary);
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.new-profession a:hover {
+    background-color: var(--background-secondary);
 }

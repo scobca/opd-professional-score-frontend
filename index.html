@@ -115,7 +115,8 @@
         const professions = await response.json()
         if (professions) {
             professions.data.forEach(profession => {
-                console.log(profession)
+                const description = profession.description.split(".")
+
                 const professionCard = document.createElement("div")
                 const cardInner = document.createElement("div")
                 const cardFront = document.createElement("div")
@@ -123,6 +124,8 @@
                 const professionDesc = document.createElement("p")
                 const professionName = document.createElement("h3")
                 const professionIcon = document.createElement("div")
+                const professionImg = document.createElement("img")
+                professionImg.src = "./assets/alisa_stock.png"
                 const professionLink = document.createElement("a")
 
                 professionCard.classList.add("profession-card")
@@ -137,12 +140,19 @@
                 professionName.innerHTML = profession.name
                 professionDesc.innerHTML = profession.description
                 professionLink.innerHTML = "Подробнее"
+                professionIcon.append(professionImg)
                 cardFront.append(professionIcon, professionName.cloneNode(true), professionDesc.cloneNode(true), professionLink)
-                cardBack.append(professionName, professionDesc)
+                professionDesc.innerHTML = `Требования: ${profession.requirements}`
+                cardBack.append(professionName, professionDesc.cloneNode(true))
+                professionDesc.innerHTML = `Сфера деятельности: ${profession.sphere}`
+                cardBack.append(professionDesc)
                 cardInner.append(cardFront, cardBack)
                 professionCard.append(cardInner)
                 professionCard.addEventListener("click",() => {
                     professionCard.classList.toggle("flipped")
+                })
+                professionLink.addEventListener("click", () => {
+                    window.location.replace(`profession.html?id=${profession.id}`)
                 })
                 cardSection.append(professionCard)
             })
