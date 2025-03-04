@@ -116,7 +116,7 @@
         if (professions) {
             professions.data.forEach(profession => {
                 const description = profession.description.split(".")
-                console.log(description)
+
                 const professionCard = document.createElement("div")
                 const cardInner = document.createElement("div")
                 const cardFront = document.createElement("div")
@@ -142,9 +142,9 @@
                 professionLink.innerHTML = "Подробнее"
                 professionIcon.append(professionImg)
                 cardFront.append(professionIcon, professionName.cloneNode(true), professionDesc.cloneNode(true), professionLink)
-                professionDesc.innerHTML = profession.requirements
+                professionDesc.innerHTML = `Требования: ${profession.requirements}`
                 cardBack.append(professionName, professionDesc.cloneNode(true))
-                professionDesc.innerHTML = profession.sphere
+                professionDesc.innerHTML = `Сфера деятельности: ${profession.sphere}`
                 cardBack.append(professionDesc)
                 cardInner.append(cardFront, cardBack)
                 professionCard.append(cardInner)

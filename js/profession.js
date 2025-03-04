@@ -4,10 +4,15 @@ import {dataFromJWT} from "./jwtHandler.js";
 const qualitiesBlock = document.querySelector(".qualities");
 const profName = document.querySelector(".name")
 const profDesc = document.querySelector(".description")
-const descParts = ["Описание: ", "Требования: ", "Категория: "]
+const profRequ = document.querySelector(".requirements")
+const profSphere = document.querySelector(".sphere")
 
 const loadPVK = async (id) => {
-    return false
+    const response = await fetch(`http://localhost:8081/pvk/profession/${id}`)
+    const result = await response.json()
+    if (result.status === 200) {
+        return result.data
+    }
 }
 
 const loadProfession = async (id) => {
@@ -15,17 +20,25 @@ const loadProfession = async (id) => {
     const result = await response.json();
 
     if (result.status === 200) {
-        const description = result.data.description.split(".")
         profName.innerHTML = `Профессия ${result.data.name}`
-        console.log(result.data.description);
-        for (let i = 0; i < description.length - 2; i++) {
-            const block = document.createElement("p")
-            block.innerHTML = descParts[i] + description[i]
-            profDesc.append(block)
-        }
+        profDesc.innerHTML = `Описание: ${result.data.description}`
+        profRequ.innerHTML = `Требования: ${result.data.requirements}`
+        profSphere.innerHTML = `Сфера деятельности: ${result.data.sphere}`
 
         const pvk = await loadPVK(id)
+        if (pvk) {
+            pvk.forEach((item) => {
+                const quality = document.createElement("div")
+                const qName = document.createElement("p")
+                const qRate = document.createElement("p")
 
+                quality.classList.add("quality")
+                qName.innerHTML = item.pvk.description
+                qRate.innerHTML = item.rating
+                quality.append(qName, qRate)
+                qualitiesBlock.append(quality)
+            })
+        }
 
         const jwt = getCookie("jwt")
         if (jwt) {
@@ -38,7 +51,7 @@ const loadProfession = async (id) => {
                     linkPVK.innerHTML = "Добавить ПВК"
                 }
                 linkPVK.addEventListener("click", () => {
-                    window.location.replace("configure-pvk.html")
+                    window.location.replace(`configure-pvk.html?id=${id}`)
                 })
                 qualitiesBlock.append(linkPVK)
             }
@@ -55,3 +68,5 @@ window.onload = () => {
         loadProfession(id)
     }
 }
+
+export { loadPVK }

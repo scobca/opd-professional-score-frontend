@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style/header.css">
     <link rel="stylesheet" href="style/profile.css">
     <link rel="stylesheet" href="style/admin.css">
-    <title>Profile - Admin</title>
+    <title>Profile - Expert</title>
 </head>
 <body>
   <header class="header">
@@ -52,42 +52,6 @@
         </div>
       </div>
       <div class="right-block">
-        <div class="tests-info">
-          <div class="role-select hide">
-            <h4>Изменить роль пользователя Username</h4>
-            <form action="" id="role-change-form">
-              <label><input name="role" type="radio" value="user">Пользователь</label>
-              <label><input name="role" type="radio" value="consultant">Консультант</label>
-              <label><input name="role" type="radio" value="expert">Эксперт</label>
-              <label><input name="role" type="radio" value="moderator">Модератор</label>
-              <label><input name="role" type="radio" value="admin">Администратор</label>
-              <label><input type="number" hidden="hidden" disabled></label>
-              <input type="submit" value="Изменить">
-            </form>
-          </div>
-          <p class="block_header">Все пользователи</p>
-          <div class="test_data_block">
-            <div class="userData">
-              <div class="userRow">
-                <div class="id">ID</div>
-                <div class="username">Username</div>
-                <div class="email">Email</div>
-                <div class="role">Role</div>
-              </div>
-            </div>
-            <div class="pagination">
-              <button id="prevBtnUsers" class="prevBtn">Prev</button>
-              <button id="nextBtnUsers" class="nextBtn">Next</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="tests-info">
-          <p class="block_header">Все тесты</p>
-          <div class="test_data_block">
-
-          </div>
-        </div>
 
         <div class="tests-info">
           <div class="profession-edit hide">
@@ -127,6 +91,6 @@
   <script type="module" src="js/profile.js"></script>
   <script type="module" src="js/header.js"></script>
   <script type="module" src="js/auth.js"></script>
-  <script type="module" src="js/admin.js"></script>
+  <script type="module" src="js/expert.js"></script>
 </body>
 </html>

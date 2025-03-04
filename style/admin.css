@@ -76,7 +76,7 @@
 }
 
 .professionRow {
-    grid-template-columns: 1fr 2fr 5fr 1fr;
+    grid-template-columns: 1fr 2fr 3fr 3fr 1fr 1fr;
 }
 
 .userRow div,
@@ -85,10 +85,15 @@
 .testRow div {
     display: flex;
     justify-content: center;
-    padding: 0 15%;
+    padding: 0 10%;
     border-right: 1px solid black;
     text-decoration: none;
     color: black;
+}
+
+.professionRow .text {
+    justify-content: flex-start;
+    text-overflow: ellipsis;
 }
 
 .userRow button,

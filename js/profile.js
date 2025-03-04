@@ -1,4 +1,4 @@
-import {deleteCookie, getCookie} from "./cookieHandler.js";
+import {getCookie} from "./cookieHandler.js";
 import {dataFromJWT} from "./jwtHandler.js";
 
 const jwt = getCookie("jwt")

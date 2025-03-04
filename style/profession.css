@@ -5,8 +5,7 @@ main {
 }
 .profession {
     display: grid;
-    grid-template-columns: 15vw auto;
-    grid-template-rows: 15vw auto ;
+    grid-template-columns: 25vw auto;
     gap: 2vw;
     padding: 2vw;
     height: 75vh;
@@ -22,25 +21,53 @@ main {
 
 .profession div {
     background-color: var(--background-secondary);
-    padding: 2vw;
+    padding: 1vw;
     border-radius: 10px;
+}
+
+.profession .short-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+.profession .short-info h3 {
+    margin-bottom: 1vw;
 }
 
 .profession .image img {
     width: 100%;
 }
 
-.profession .description {
-    padding: 2vw 0;
+.profession .qualities {
+    grid-column: 2 / 3;
     display: flex;
     flex-direction: column;
-    gap: 1vw;
-    list-style: armenian;
-    background-color: transparent;
+    overflow: scroll;
 }
 
-.profession .qualities {
- grid-column: 1 / 3;
+.qualities h3 {
+    margin-bottom: 1vw;
+}
+
+.quality {
+    margin-bottom: 1vw;
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+}
+
+.quality p {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    border-right: solid 2px black;
+    box-sizing: border-box;
+    justify-content: center;
+    width: 100%;
+}
+
+.quality p:first-child {
+    justify-content: flex-start;
+    border-left: solid 2px black;
+    text-wrap: pretty;
+    padding: 0 1vw;
 }
