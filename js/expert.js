@@ -12,7 +12,6 @@ let professionPage = 1
 const user = dataFromJWT(getCookie("jwt")).data;
 let renderedProfessionRows = []
 
-
 const loadProfessions = async() => {
     const response = await fetch("http://localhost:8081/get-professions-all")
     return await response.json()

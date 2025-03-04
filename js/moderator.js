@@ -19,7 +19,7 @@ const user = dataFromJWT(getCookie("jwt")).data;
 let renderedUserRows = []
 let renderedProfessionRows = []
 const loadUsers = async() => {
-    if (user.role === "admin") {
+    if (user.role === "moderator") {
         const response = await fetch("http://localhost:8081/get-users-all", {
             headers: {
                 Authorization: `Bearer ${getCookie("jwt")}`,
@@ -54,7 +54,7 @@ const renderUsers = async (userPage) => {
     }
 
     for (let i = (userPage - 1) * 5; i < (userPage) * 5; i++) {
-        if (users[i]) {
+        if (users[i] && users[i].role === "expert") {
             const userRow = document.createElement('div')
             userRow.classList.add('userRow')
             const idDiv = document.createElement('div')

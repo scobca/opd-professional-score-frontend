@@ -52,44 +52,40 @@
       </div>
     </div>
     <div class="right-block">
+      <div class="tests-info">
+        <div class="role-select hide">
+          <h4>Изменить роль пользователя Username</h4>
+          <form action="" id="role-change-form">
+            <label><input name="role" type="radio" value="user">Пользователь</label>
+            <label><input name="role" type="radio" value="consultant">Консультант</label>
+            <label><input name="role" type="radio" value="expert">Эксперт</label>
+            <label><input name="role" type="radio" value="moderator">Модератор</label>
+            <label><input name="role" type="radio" value="admin">Администратор</label>
+            <label><input type="number" hidden="hidden" disabled></label>
+            <input type="submit" value="Изменить">
+          </form>
+        </div>
+        <p class="block_header">Все эксперты</p>
+        <div class="test_data_block">
+          <div class="userData">
+            <div class="userRow">
+              <div class="id">ID</div>
+              <div class="username">Username</div>
+              <div class="email">Email</div>
+              <div class="role">Role</div>
+            </div>
+          </div>
+          <div class="pagination">
+            <button id="prevBtnUsers" class="prevBtn">Prev</button>
+            <button id="nextBtnUsers" class="nextBtn">Next</button>
+          </div>
+        </div>
+      </div>
 
       <div class="tests-info">
         <p class="block_header">Все тесты</p>
         <div class="test_data_block">
 
-        </div>
-      </div>
-
-      <div class="tests-info">
-        <div class="profession-edit hide">
-          <h4>Изменить профессию</h4>
-          <form action="" id="profession-change-form">
-            <label><input required type="text" id="profName"></label>
-            <label><textarea required id="profDesc"></textarea></label>
-            <label><textarea required id="profRequ"></textarea></label>
-            <label><input required type="text" id="profSphere"></label>
-            <label><input required type="number" id="profId" hidden="hidden" disabled></label>
-            <input type="submit" value="Изменить">
-          </form>
-        </div>
-        <p class="block_header">Все профессии</p>
-        <div class="test_data_block professions">
-          <div class="professionData">
-            <div class="professionRow">
-              <div class="id">ID</div>
-              <div class="username">Название</div>
-              <div class="text">Описание</div>
-              <div class="text">Требования</div>
-              <div class="email">Сфера</div>
-            </div>
-          </div>
-          <div class="pagination">
-            <button id="prevBtnProfessions" class="prevBtn">Prev</button>
-            <button id="nextBtnProfessions" class="nextBtn">Next</button>
-          </div>
-          <div class="new-profession">
-            <a href="new-profession-form.html">Добавить профессию</a>
-          </div>
         </div>
       </div>
     </div>
@@ -98,6 +94,6 @@
 <script type="module" src="js/profile.js"></script>
 <script type="module" src="js/header.js"></script>
 <script type="module" src="js/auth.js"></script>
-<script type="module" src="js/expert.js"></script>
+<script type="module" src="js/moderator.js"></script>
 </body>
 </html>
