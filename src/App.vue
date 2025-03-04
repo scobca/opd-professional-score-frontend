@@ -3,6 +3,7 @@ import Header from "./components/AppHeader.vue";
 import PopUp from "./components/PopUp.vue";
 import type {CreateProfessionDto} from "./api/dto/create-profession.dto.ts";
 import {ProfessionResolver} from "./api/resolvers/profession/profession.resolver.ts";
+import {onMounted} from "vue";
 
 const professionResolver = new ProfessionResolver()
 const professionsData: CreateProfessionDto[] = [
@@ -25,8 +26,14 @@ const professionsData: CreateProfessionDto[] = [
     sphere: "IT",
   }
 ]
-professionResolver.createPullOfProfessions(professionsData)
 
+onMounted(async () => {
+  const loadedProfessions = await professionResolver.getAll()
+  if (loadedProfessions.length == 0) {
+    professionResolver.createPullOfProfessions(professionsData)
+    window.location.reload()
+  }
+})
 
 </script>
 
