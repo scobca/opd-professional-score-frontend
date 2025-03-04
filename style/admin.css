@@ -51,7 +51,9 @@
 
 .userData, .userRow,
 .professionData, .professionRow,
-.testData, .testRow {
+.testData, .testRow,
+.recentTestData, .recentTestRow,
+.completedTestData, .completedTestRow {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,12 +61,12 @@
     width: 100%;
 }
 
-.userData, .professionData, .testData {
+.userData, .professionData, .testData, .recentTestData, .completedTestData {
     justify-content: flex-start;
     overflow-y: scroll;
 }
 
-.userRow, .professionRow, .testRow {
+.userRow, .professionRow, .testRow, .recentTestRow, .completedTestRow {
     padding: 15px;
     width: 90%;
     display: grid;
@@ -79,19 +81,38 @@
     grid-template-columns: 1fr 2fr 3fr 3fr 1fr 1fr;
 }
 
+.testRow {
+    grid-template-columns: 1fr 3fr 3fr 1.5fr 1.5fr;
+}
+
+.recentTestRow {
+    grid-template-columns: 1fr 1.5fr 1.25fr 1fr 1.5fr 1fr 1fr;
+}
+
+.completedTestRow {
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+}
+
 .userRow div,
 .professionRow div,
 .professionRow a,
-.testRow div {
+.testRow div,
+.recentTestRow div ,
+.recentTestRow a,
+.completedTestRow div ,
+.completedTestRow a{
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 0 10%;
     border-right: 1px solid black;
     text-decoration: none;
     color: black;
 }
 
-.professionRow .text {
+.professionRow .text,
+.testRow .text,
+.completedTestRow .text{
     justify-content: flex-start;
     text-overflow: ellipsis;
 }
@@ -103,7 +124,11 @@
     width: 70%;
 }
 
-.userRow div:first-child {
+.userRow div:first-child,
+.professionRow div:first-child,
+.testRow div:first-child,
+.recentTestRow div:first-child,
+.completedTestRow div:first-child {
     border-left: 1px solid black;
 }
 
