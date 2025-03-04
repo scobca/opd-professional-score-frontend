@@ -17,8 +17,6 @@
 body {
     margin: 0;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
     background: #f0f2f5 url("../assets/general-bg.webp") fixed no-repeat;
     background-size: cover;
     overflow: hidden;
@@ -165,8 +163,6 @@ body {
     margin: 0 auto;
 }
 
-
-
 .nav-links {
     display: flex;
     gap: 2rem;
@@ -242,7 +238,6 @@ body {
     position: relative;
 }
 
-
 .nav-container {
     display: flex;
     justify-content: space-between;
@@ -250,8 +245,6 @@ body {
     max-width: 1300px;
     margin: 0 auto;
 }
-
-
 
 .nav-links {
     display: flex;
@@ -328,54 +321,56 @@ body {
 }
 .content {
     flex: 1;
-    padding: 40px 20px;
+    padding: 2vw 2vw;
     text-align: center;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .footer-content {
-    max-width: 1200px;
+    max-width: 140vh;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 0 20px;
+    padding: 0 2vw;
 }
 
 .footer-section {
     flex: 1;
-    min-width: 250px;
-    margin-bottom: 5px;
+    min-width: 25vw;
+    margin-bottom: 5vh;
 }
 
 .footer-section h3 {
-    font-size: 20px;
-    margin-bottom: 15px;
+    font-size: 3.5vh;
+    margin-bottom: 1vw;
     position: relative;
+    color: white;
 }
 
 .footer-section h3::after {
     content: '';
     position: absolute;
     left: 0;
-    bottom: -5px;
-    width: 50px;
-    height: 2px;
+    bottom: -2vh;
+    width: 3vw;
+    height: 0.3vh;
     background-color: #ffffff;
 }
 
 .footer-section p {
-    font-size: 14px;
+    font-size: 2vh;
     line-height: 1.6;
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 1vh;
+    color: white;
 }
 
 .footer-bottom {
-    margin-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 10px;
-    font-size: 14px;
+    margin-top: 20vh;
+    border-top: 0.1vh solid rgba(255, 255, 255, 0.1);
+    padding-top: 1vh;
+    font-size: 3vh;
 }
