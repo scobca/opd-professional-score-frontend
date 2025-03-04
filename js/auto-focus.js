@@ -23,6 +23,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// для проверки корректности работы через консоль
-console.log("JavaScript подключен и работает!");
-

@@ -103,8 +103,9 @@ input[type="submit"]:hover {
 .test_data_block {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     height: 100%;
+    align-items: center;
+    overflow: scroll;
 }
 
 .prevBtn, .nextBtn {
