@@ -4,6 +4,12 @@ import type {CreateProfessionDto} from "./dto/CreateProfession.dto.ts";
 export class ProfessionResolver {
     apiResolver = new ApiResolverUtil('professions');
 
+    public create(data: CreateProfessionDto) {
+        this.apiResolver.request("createProfession", "POST", data).then((res) => {
+          console.log(res);
+        });
+      }
+  
     public async getAll() {
         const response = await this.apiResolver.request("getAll", "GET")
         response.data.sort((a, b) => a.id - b.id)

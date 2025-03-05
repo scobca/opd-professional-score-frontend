@@ -4,6 +4,7 @@ import CustomInput from "./UI/inputs/CustomInput.vue";
 import CustomTextareaInput from "./UI/inputs/CustomTextareaInput.vue";
 import CustomSelect from "./UI/inputs/CustomSelect.vue";
 import ApiResolverUtil from "../utils/ApiResolver.ts";
+import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
 import router from "../router/router.ts";
 
 export default {
@@ -27,7 +28,8 @@ export default {
   },
   methods: {
     create() {
-      const body = {
+      const professionResolver = new ProfessionResolver()
+      professionResolver.create({
         name: this.name,
         description: this.description,
         requirements: this.requirements,
