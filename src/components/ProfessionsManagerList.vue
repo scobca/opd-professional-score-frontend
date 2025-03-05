@@ -3,6 +3,43 @@ import {computed, type PropType, ref} from "vue";
 import CommonButton from "./UI/CommonButton.vue";
 import type {ProfessionsManagerInput} from "../api/dto/professions-manager.input.dto.ts";
 import ProfessionsManagerElement from "./UI/ProfessionsManagerElement.vue";
+import ProfessionEditForm from "./ProfessionEditForm.vue";
+import RoleSelectForm from "./RoleSelectForm.vue";
+import {autoUpdate, hide, useFloating} from "@floating-ui/vue";
+import router from "../router/router.ts";
+
+const reference = ref(null)
+const floating = ref(null)
+const {floatingStyles, middlewareData} = useFloating(reference, floating, {
+  placement: 'bottom-end',
+  whileElementsMounted: autoUpdate,
+  middleware: [hide()]
+})
+
+const toggleForm = (el: HTMLElement, id: number, name: string, description: string, requirements: string, sphere: string) => {
+  console.log('i')
+  if (lastEl.value != el) {
+    isOpen.value = false
+  }
+  if (!isOpen.value) {
+    reference.value = el
+    currentProfession.value = {
+      id: id,
+      name: name,
+      description: description,
+      requirements: requirements,
+      sphere: sphere
+    }
+  }
+  isOpen.value = !isOpen.value
+  lastEl.value = el
+}
+
+const currentProfession = ref(null)
+const isOpen = ref(false)
+const lastEl = ref()
+
+defineEmits(['professions-list-update'])
 
 const props = defineProps({
   maxElementsCount: {
@@ -41,24 +78,39 @@ const prevPage = () => {
 </script>
 
 <template>
+  <ProfessionEditForm
+      v-if="isOpen"
+      ref="floating"
+      :style="{
+        ...floatingStyles,
+        visibility: middlewareData.hide?.referenceHidden
+          ? 'hidden'
+          : 'visible',
+      }"
+      :profession="currentProfession"
+      @profession-update="$emit('professions-list-update'); isOpen = false"
+  />
   <div class="component_container">
     <div class="header">
       <div class="id" id="id">
         Id
       </div>
-      <div class="test_name" id="test_name">
-        Profession name
-      </div>
-      <div class="time">Created</div>
-      <div class="valid">Delete</div>
+      <div class="time">Название</div>
+      <div class="valid">Описание</div>
+      <div class="valid">Требования</div>
+      <div class="valid">Сфера</div>
     </div>
     <ProfessionsManagerElement
         v-for="item in paginatedData"
         :key="item.id"
+        :id="item.id"
+        @edit-profession="el => toggleForm(el, item.id, item.name, item.description, item.requirements, item.sphere)"
     >
       <template #id>{{ item.id }}</template>
-      <template #prof_name>{{ item.name }}</template>
-      <template #created>{{ item.username }}</template>
+      <template #name>{{ item.name }}</template>
+      <template #description>{{ item.description }}</template>
+      <template #requirements>{{ item.requirements }}</template>
+      <template #sphere>{{ item.sphere }}</template>
     </ProfessionsManagerElement>
 
     <div class="pagination_controls">
@@ -71,6 +123,10 @@ const prevPage = () => {
       <CommonButton @click="nextPage">
         <template v-slot:placeholder>Вперед</template>
       </CommonButton>
+
+      <CommonButton @click="router.push('/profession/new')">
+        <template v-slot:placeholder>Добавить профессию</template>
+      </CommonButton>
     </div>
   </div>
 </template>
@@ -81,7 +137,7 @@ const prevPage = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
+  gap: 1vw;
 }
 
 .pagination_controls {
@@ -101,7 +157,7 @@ const prevPage = () => {
   justify-content: center;
   align-items: center;
   display: grid;
-  grid-template-columns: 2fr 7fr 7fr 1fr;
+  grid-template-columns: 1fr 2fr 4fr 3fr 1fr 1fr;
   margin-bottom: 1rem;
 }
 

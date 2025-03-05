@@ -6,11 +6,13 @@ import PersonalAccount from "../pages/PersonalAccount.vue";
 import {UserState} from "../utils/userState/UserState.ts";
 import ProfessionsList from "../components/ProfessionsList.vue";
 import ProfessionPage from "../pages/ProfessionPage.vue";
+import ProfessionForm from "../components/ProfessionForm.vue";
 
 const routes = [
   { path: '/', component: ProfessionsList },
   { path: '/professions', component: ProfessionsList },
-  { path: `/profession/:id`, component: ProfessionPage, props: true },
+  { path: `/profession/new`, component: ProfessionForm, meta: {requiresAuth: true} },
+  { path: `/profession/:id`, component: ProfessionPage, meta: {requiresAuth: true}, props: true },
   { path: '/profile', component: PersonalAccount, meta: { requiresAuth: true } },
   { path: '/auth/login', component: LogIn },
   { path: '/auth/registrationFirstStep', component: RegistrationFirstStep },

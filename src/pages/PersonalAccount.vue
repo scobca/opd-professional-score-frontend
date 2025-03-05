@@ -9,6 +9,7 @@ import {UserState} from "../utils/userState/UserState.ts";
 import {logout} from "../services/auth.ts";
 import {getAllUsers} from "../services/user.ts";
 import {popUpState} from "../utils/popUpState.ts";
+import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
 
 
 const users = ref([
@@ -35,6 +36,16 @@ const reloadUsers = async () => {
     users.value = result.body
   } else {
     popUpState.value = result.message;
+  }
+}
+
+const reloadProfessions = async () => {
+  const professionResolver = new ProfessionResolver()
+  const result = await professionResolver.getAll();
+  if (result.length != 0) {
+    professions.value = result.sort((a, b) => a.id - b.id)
+  } else {
+    popUpState.value = "Error occurred"
   }
 }
 
@@ -96,6 +107,7 @@ const professions = ref([
 
 onMounted(() => {
   reloadUsers()
+  reloadProfessions()
 })
 </script>
 
@@ -152,7 +164,11 @@ onMounted(() => {
       <div class="tests-info" v-if="UserState.role == 'EXPERT' || UserState.role == 'ADMIN'">
         <p class="block_header">Все профессии</p>
         <div class="profession_data_block">
-          <ProfessionsManagerList :professions="professions" :max-elements-count="5"/>
+          <ProfessionsManagerList
+              :professions="professions"
+              :max-elements-count="5"
+              @professions-list-update="reloadProfessions"
+          />
         </div>
       </div>
 
@@ -170,10 +186,10 @@ onMounted(() => {
 <style scoped>
 .container {
   width: 95vw;
-  height: 75vh;
+  height: 80vh;
   background-color: var(--background-primary);
   border-radius: 15px;
-  padding: 1rem;
+  padding: 2vh;
   display: grid;
   grid-template-columns: 2fr 7fr;
   gap: 1rem;
@@ -182,22 +198,23 @@ onMounted(() => {
 .user-info, .tests-info {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
   background-color: var(--background-primary);
   padding: 0.75rem;
   border-radius: 15px;
-  height: 100%;
+  min-height: 75vh;
+  overflow: scroll;
 }
 
 .user-info {
   justify-content: space-between;
+  height: 75vh;
 }
 
 .right-block {
-  overflow: scroll;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.3rem;
 }
 
 .user-data-block {

@@ -4,6 +4,7 @@ import CustomInput from "./UI/inputs/CustomInput.vue";
 import CustomTextareaInput from "./UI/inputs/CustomTextareaInput.vue";
 import CustomSelect from "./UI/inputs/CustomSelect.vue";
 import ApiResolverUtil from "../utils/ApiResolver.ts";
+import router from "../router/router.ts";
 
 export default {
   name: 'ProfessionForm',
@@ -36,6 +37,7 @@ export default {
       if (token != null) {
         this.resolver.request("createProfession", "POST", body, token).then((res) => {
           console.log(res);
+          router.push('/profile')
         });
       } else {
         console.log("No token");
