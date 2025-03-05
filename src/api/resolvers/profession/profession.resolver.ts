@@ -1,12 +1,13 @@
 import ApiResolverUtil from "../../../utils/ApiResolver.ts";
-import type {CreateProfessionDto} from "../../dto/create-profession.dto.ts";
+import type {CreateProfessionDto} from "./dto/CreateProfession.dto.ts";
 
 export class ProfessionResolver {
     apiResolver = new ApiResolverUtil('professions');
 
     public async getAll() {
         const response = await this.apiResolver.request("getAll", "GET")
-        return response.data;
+        response.data.sort((a, b) => a.id - b.id)
+        return response.data
     }
 
     public async getById(id: number) {

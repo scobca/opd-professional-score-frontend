@@ -1,31 +1,37 @@
 <script setup lang="ts">
-import {
-  ProfessionCharacteristicResolver
-} from "../api/resolvers/profession-characteristic/profession-characteristic.resolver.ts";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
 import CommonButton from "../components/UI/CommonButton.vue";
 import {UserState} from "../utils/userState/UserState.ts";
 import router from "../router/router.ts";
+import {ProfessionStatisticResolver} from "../api/resolvers/professionStatistic/professionStatistic.resolver.ts";
 
 const props = defineProps<{
   id: string;
 }>()
 
-const professionCharacteristicResolver = new ProfessionCharacteristicResolver
+const professionStatisticsResolver = new ProfessionStatisticResolver()
 const professionResolver = new ProfessionResolver()
 
-const professionCharacteristics = ref(null)
+const professionStatistics = ref(null)
 const profession = ref(null)
 
 onMounted(async () => {
   try {
-    professionCharacteristics.value = await professionCharacteristicResolver.getProfessionStatistics(props.id)
+    professionStatistics.value = await professionStatisticsResolver.getProfessionStatistics(props.id)
   } catch (e) {
     console.error(e)
   }
   profession.value = await professionResolver.getById(props.id)
 })
+
+const filteredItems = (items) => {
+  console.log(items)
+  return items.filter(item => {
+    return item.averageScore != 0
+  })
+}
+
 </script>
 
 <template>
@@ -37,11 +43,18 @@ onMounted(async () => {
         <p class="requirements">{{ `Требования: ${profession.requirements}` }}</p>
         <p class="sphere">{{ `Сфера деятельности: ${profession.sphere}` }}</p>
       </div>
-      <div class="qualities">
+      <div class="qualities" v-if="professionStatistics">
         <h3>Профессионально-важные качества</h3>
         <div class="quality">
           <p class="name">Качество</p>
           <p class="rating">Рейтинг</p>
+        </div>
+        <div class="quality"
+             v-for="(statistics) in filteredItems(professionStatistics)"
+             :key="statistics.pcId"
+        >
+          <p class="name">{{ statistics.pcDescription }}</p>
+          <p class="rating">{{ statistics.averageScore }}</p>
         </div>
         <CommonButton
             v-if="UserState.role == 'ADMIN' || UserState.role == 'EXPERT'"
