@@ -5,6 +5,7 @@ import CustomTextareaInput from "./UI/inputs/CustomTextareaInput.vue";
 import CustomSelect from "./UI/inputs/CustomSelect.vue";
 import ApiResolverUtil from "../utils/ApiResolver.ts";
 import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
+import router from "../router/router.ts";
 
 export default {
   name: 'ProfessionForm',
@@ -33,7 +34,16 @@ export default {
         description: this.description,
         requirements: this.requirements,
         sphere: this.sphere,
-      })
+      };
+      const token = localStorage.getItem("token")
+      if (token != null) {
+        this.resolver.request("createProfession", "POST", body, token).then((res) => {
+          console.log(res);
+          router.push('/profile')
+        });
+      } else {
+        console.log("No token");
+      }
     }
   }
 }

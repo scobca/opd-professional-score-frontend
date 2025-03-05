@@ -13,6 +13,7 @@ defineProps<{disabled?: boolean}>()
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 0.5rem;
   border: 1px solid transparent;
   border-radius: 0.5rem;

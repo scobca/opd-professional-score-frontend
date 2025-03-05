@@ -17,6 +17,13 @@ export class ProfessionStatisticResolver {
     }
   }
 
+  public async getProfessionStatistics(id: number) {
+        const response = await this.apiResolver.request("getProfessionStatistic", "POST", {
+            "id": id
+        })
+        return response.data;
+  }
+
   public updateStats(data: CreateProfessionStatsDto[]) {
     if (this.token != null) {
       return this.apiResolver.request('updateStats', 'PATCH', data, this.token)
