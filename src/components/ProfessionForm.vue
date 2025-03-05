@@ -4,7 +4,6 @@ import CustomInput from "./UI/inputs/CustomInput.vue";
 import CustomTextareaInput from "./UI/inputs/CustomTextareaInput.vue";
 import CustomSelect from "./UI/inputs/CustomSelect.vue";
 import ApiResolverUtil from "../utils/ApiResolver.ts";
-import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
 import router from "../router/router.ts";
 
 export default {
