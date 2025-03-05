@@ -16,43 +16,68 @@ export default {
     professionId: {
       type: Number,
       default: 5
+    },
+    userId: {
+      type: Number,
+      default: 6
     }
   },
   data() {
     return {
+      pvkResolver: new PvkResolver(),
+      profScoresResolver: new ProfessionStatisticResolver(),
+
+      selectable: true,
       personalPvk: [] as PvkOptionStructureDto[],
       intellectualPvk: [] as PvkOptionStructureDto[],
       physicalPvk: [] as PvkOptionStructureDto[],
       physiologicalPvk: [] as PvkOptionStructureDto[],
       psychoPhysiologicalPvk: [] as PvkOptionStructureDto[],
       operationalPvk: [] as PvkOptionStructureDto[],
-
       pvkSelect: ['', '', '', '', '', ''],
       pvkScore: [0, 0, 0, 0, 0, 0],
+      oldPvk: []
     }
   },
   methods: {
     async submit() {
-      const resolver = new ProfessionStatisticResolver();
-      const pvkResolver = new PvkResolver();
       const statsData = [] as CreateProfessionStatsDto[];
-      const userId = 3;
 
       for (let i = 0; i < this.pvkSelect.length; i++) {
         statsData.push({
           professionId: this.professionId,
-          pcId: await pvkResolver.getByName(this.pvkSelect[i]).then((res) => {return res.data.id}),
-          userId: userId,
+          pcId: await this.pvkResolver.getByName(this.pvkSelect[i]).then((res) => {
+            return res.data.id
+          }),
+          userId: this.userId,
           score: this.pvkScore[i],
         })
       }
 
-      await resolver.createStats(statsData);
+      if (this.selectable) {
+        await this.profScoresResolver.createStats(statsData);
+        this.selectable = false;
+      } else {
+        await this.profScoresResolver.updateStats(statsData);
+      }
     }
   },
   async created() {
-    const pvkResolver = new PvkResolver();
-    const _pvk = await pvkResolver.getAll();
+    this.oldPvk = await this.profScoresResolver.getOldStats(this.userId, this.professionId).then((res) => {
+      return res.data
+    })
+
+    if (this.oldPvk.length > 0) {
+      this.selectable = false;
+      for (let i = 0; i < this.pvkSelect.length; i++) {
+        this.pvkSelect[i] = await this.pvkResolver.getProfCharById(this.oldPvk[i].profCharId).then((res) => {
+          return res.data.name
+        })
+        this.pvkScore[i] = this.oldPvk[i].score;
+      }
+    }
+
+    const _pvk = await this.pvkResolver.getAll();
     const allPvk = _pvk.data as FullPvkStructureDto[];
 
     for (let i = 0; i < allPvk.length; i++) {
@@ -110,31 +135,40 @@ export default {
   <div class="container">
     <h2 class="container-header">Добавить / Изменить профессионально важные качества</h2>
     <div class="pvk-block">
-      <CustomSelect :options="personalPvk" v-model.trim="pvkSelect[0]" class="selector"/>
+      <CustomSelect :options="personalPvk" v-model.trim="pvkSelect[0]" class="selector" v-if="selectable"/>
+      <div class="data-field" v-if="!selectable">{{ pvkSelect[0] }}</div>
       <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[0]"/>
     </div>
     <div class="pvk-block">
-      <CustomSelect :options="intellectualPvk" v-model.trim="pvkSelect[1]" class="selector"/>
+      <CustomSelect :options="intellectualPvk" v-model.trim="pvkSelect[1]" class="selector" v-if="selectable"/>
+      <div class="data-field" v-if="!selectable">{{ pvkSelect[1] }}</div>
       <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[1]"/>
     </div>
     <div class="pvk-block">
-      <CustomSelect :options="physicalPvk" v-model.trim="pvkSelect[2]" class="selector"/>
+      <CustomSelect :options="physicalPvk" v-model.trim="pvkSelect[2]" class="selector" v-if="selectable"/>
+      <div class="data-field" v-if="!selectable">{{ pvkSelect[2] }}</div>
       <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[2]"/>
     </div>
     <div class="pvk-block">
-      <CustomSelect :options="physiologicalPvk" v-model.trim="pvkSelect[3]" class="selector"/>
+      <CustomSelect :options="physiologicalPvk" v-model.trim="pvkSelect[3]" class="selector" v-if="selectable"/>
+      <div class="data-field" v-if="!selectable">{{ pvkSelect[3] }}</div>
       <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[3]"/>
     </div>
     <div class="pvk-block">
-      <CustomSelect :options="psychoPhysiologicalPvk" v-model.trim="pvkSelect[4]" class="selector"/>
+      <CustomSelect :options="psychoPhysiologicalPvk" v-model.trim="pvkSelect[4]" class="selector" v-if="selectable"/>
+      <div class="data-field" v-if="!selectable">{{ pvkSelect[4] }}</div>
       <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[4]"/>
     </div>
     <div class="pvk-block">
-      <CustomSelect :options="operationalPvk" v-model.trim="pvkSelect[5]" class="selector"/>
+      <CustomSelect :options="operationalPvk" v-model.trim="pvkSelect[5]" class="selector" v-if="selectable"/>
+      <div class="data-field" v-if="!selectable">{{ pvkSelect[5] }}</div>
       <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[5]"/>
     </div>
     <CommonButton @click="submit" class="button">
-      <template v-slot:placeholder>Установить оценку</template>
+      <template v-slot:placeholder>
+        <p v-if="selectable">Установить оценку</p>
+        <p v-if="!selectable">Обновить оценку</p>
+      </template>
     </CommonButton>
   </div>
 </template>
@@ -159,5 +193,14 @@ export default {
 .button, .button:hover {
   background-color: #4127e4;
   color: white;
+}
+
+.data-field {
+  display: flex;
+  align-items: center;
+  height: 4vh;
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  padding: 0.5rem;
 }
 </style>
