@@ -6,12 +6,17 @@ import type {FullPvkStructureDto} from "../api/resolvers/pvk/dto/FullPvkStructur
 import CustomSelect from "../components/UI/inputs/CustomSelect.vue";
 import CustomInput from "../components/UI/inputs/CustomInput.vue";
 import CommonButton from "../components/UI/CommonButton.vue";
+import {ProfessionStatisticResolver} from "../api/resolvers/professionStatistic/professionStatistic.resolver.ts";
+import type {CreateProfessionStatsDto} from "../api/resolvers/professionStatistic/dto/CreateProfessionStats.dto.ts";
 
 export default {
   name: 'PvkSetupPage',
   components: {CommonButton, CustomInput, CustomSelect},
   props: {
-    professionId: Number
+    professionId: {
+      type: Number,
+      default: 5
+    }
   },
   data() {
     return {
@@ -22,24 +27,27 @@ export default {
       psychoPhysiologicalPvk: [] as PvkOptionStructureDto[],
       operationalPvk: [] as PvkOptionStructureDto[],
 
-      personalPvkScore: 0,
-      intellectualPvkScore: 0,
-      physicalPvkScore: 0,
-      physiologicalPvkScore: 0,
-      psychoPhysiologicalPvkScore: 0,
-      operationalPvkScore: 0,
-
-      personalPvkSelect: '',
-      intellectualPvkSelect: '',
-      physicalPvkSelect: '',
-      physiologicalPvkSelect: '',
-      psychoPhysiologicalPvkSelect: '',
-      operationalPvkSelect: '',
+      pvkSelect: ['', '', '', '', '', ''],
+      pvkScore: [0, 0, 0, 0, 0, 0],
     }
   },
   methods: {
-    submit() {
+    async submit() {
+      const resolver = new ProfessionStatisticResolver();
+      const pvkResolver = new PvkResolver();
+      const statsData = [] as CreateProfessionStatsDto[];
+      const userId = 3;
 
+      for (let i = 0; i < this.pvkSelect.length; i++) {
+        statsData.push({
+          professionId: this.professionId,
+          pcId: await pvkResolver.getByName(this.pvkSelect[i]).then((res) => {return res.data.id}),
+          userId: userId,
+          score: this.pvkScore[i],
+        })
+      }
+
+      await resolver.createStats(statsData);
     }
   },
   async created() {
@@ -102,28 +110,28 @@ export default {
   <div class="container">
     <h2 class="container-header">Добавить / Изменить профессионально важные качества</h2>
     <div class="pvk-block">
-      <CustomSelect :options="personalPvk" v-model.trim="personalPvkSelect" class="selector"/>
-      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="personalPvkScore"/>
+      <CustomSelect :options="personalPvk" v-model.trim="pvkSelect[0]" class="selector"/>
+      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[0]"/>
     </div>
     <div class="pvk-block">
-      <CustomSelect :options="intellectualPvk" v-model.trim="intellectualPvkSelect" class="selector"/>
-      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="intellectualPvkScore"/>
+      <CustomSelect :options="intellectualPvk" v-model.trim="pvkSelect[1]" class="selector"/>
+      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[1]"/>
     </div>
     <div class="pvk-block">
-      <CustomSelect :options="physicalPvk" v-model.trim="physicalPvkSelect" class="selector"/>
-      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="physicalPvkScore"/>
+      <CustomSelect :options="physicalPvk" v-model.trim="pvkSelect[2]" class="selector"/>
+      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[2]"/>
     </div>
     <div class="pvk-block">
-      <CustomSelect :options="physiologicalPvk" v-model.trim="physiologicalPvkSelect" class="selector"/>
-      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="physiologicalPvkScore"/>
+      <CustomSelect :options="physiologicalPvk" v-model.trim="pvkSelect[3]" class="selector"/>
+      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[3]"/>
     </div>
     <div class="pvk-block">
-      <CustomSelect :options="psychoPhysiologicalPvk" v-model.trim="psychoPhysiologicalPvkSelect" class="selector"/>
-      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="psychoPhysiologicalPvkScore"/>
+      <CustomSelect :options="psychoPhysiologicalPvk" v-model.trim="pvkSelect[4]" class="selector"/>
+      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[4]"/>
     </div>
     <div class="pvk-block">
-      <CustomSelect :options="operationalPvk" v-model.trim="operationalPvkSelect" class="selector"/>
-      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="operationalPvkScore"/>
+      <CustomSelect :options="operationalPvk" v-model.trim="pvkSelect[5]" class="selector"/>
+      <CustomInput class="input" :type="'number'" :min-number="-10" :max-number="10" v-model="pvkScore[5]"/>
     </div>
     <CommonButton @click="submit" class="button">
       <template v-slot:placeholder>Установить оценку</template>
