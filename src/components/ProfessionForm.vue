@@ -28,13 +28,13 @@ export default {
   },
   methods: {
     create() {
-      const professionResolver = new ProfessionResolver()
-      professionResolver.create({
+      const body = {
         name: this.name,
         description: this.description,
         requirements: this.requirements,
         sphere: this.sphere,
       };
+
       const token = localStorage.getItem("token")
       if (token != null) {
         this.resolver.request("createProfession", "POST", body, token).then((res) => {
