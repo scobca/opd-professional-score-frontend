@@ -18,9 +18,7 @@ export class ProfessionStatisticResolver {
   }
 
   public async getProfessionStatistics(id: number) {
-        const response = await this.apiResolver.request("getProfessionStatistic", "POST", {
-            "id": id
-        })
+        const response = await this.apiResolver.request(`getProfessionStatistic/${id}`, "GET", null)
         return response.data;
   }
 

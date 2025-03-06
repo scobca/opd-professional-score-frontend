@@ -4,5 +4,7 @@ export type TestsScoresDto = {
   current_points: number;
   max_points: number;
   time: string;
+  username: string;
+  createdAt: string;
   valid: boolean;
 }
