@@ -119,7 +119,7 @@ export default {
   cursor: pointer
 }
 
-.button {
+.button, .button:hover {
   background-color: #4127e4;
   color: white;
 }

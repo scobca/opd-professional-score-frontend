@@ -55,6 +55,7 @@ export default {
          :max="maxNumber"
          :value="modelValue"
          @input="validate($event)"
+         required
   />
 </template>
 

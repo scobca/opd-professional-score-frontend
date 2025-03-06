@@ -12,6 +12,8 @@
     </div>
     <div class="score"><slot name="current_points">0</slot>/<slot name="max_points">100</slot></div>
     <div class="time"><slot name="time">00:00:00</slot></div>
+    <div class="username"><slot name="username">Имя пользователя</slot></div>
+    <div class="createdAt"><slot name="createdAt">2022-22-22</slot></div>
     <div class="valid"><slot name="valid">true</slot></div>
   </div>
 </template>
@@ -26,7 +28,7 @@
   justify-content: center;
   align-items: center;
   display: grid;
-  grid-template-columns: 1fr 7fr 2fr 2fr 1fr;
+  grid-template-columns: 1fr 1.5fr 1.25fr 1fr 1.5fr 1fr 1fr;
 }
 
 .wrapper:hover {

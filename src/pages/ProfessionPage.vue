@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
+import {onMounted, ref} from "vue";
 import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
 import CommonButton from "../components/UI/CommonButton.vue";
 import {UserState} from "../utils/userState/UserState.ts";
@@ -58,7 +58,7 @@ const filteredItems = (items) => {
         </div>
         <CommonButton
             v-if="UserState.role == 'ADMIN' || UserState.role == 'EXPERT'"
-            @click="router.push('/')"
+            @click="router.push(`/profession/setup/${this.id}`)"
             :disabled="false"
         >
           <template v-slot:placeholder>

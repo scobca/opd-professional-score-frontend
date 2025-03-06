@@ -33,7 +33,7 @@ const isFlipped = ref(false)
           {{ requirements }}
         </p>
         <p class="profession-description">
-          {{ `Сфера деятельности: ${requirements}` }}
+          {{ `Сфера деятельности: ${sphere}` }}
         </p>
       </div>
     </div>

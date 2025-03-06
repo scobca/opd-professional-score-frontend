@@ -7,12 +7,14 @@ import {UserState} from "../utils/userState/UserState.ts";
 import ProfessionsList from "../components/ProfessionsList.vue";
 import ProfessionPage from "../pages/ProfessionPage.vue";
 import ProfessionForm from "../components/ProfessionForm.vue";
+import PvkSetupPage from "../pages/PvkSetupPage.vue";
 
 const routes = [
   { path: '/', component: ProfessionsList },
   { path: '/professions', component: ProfessionsList },
   { path: `/profession/new`, component: ProfessionForm, meta: {requiresAuth: true} },
-  { path: `/profession/:id`, component: ProfessionPage, meta: {requiresAuth: true}, props: true },
+  { path: `/profession/setup/:professionId`, component: PvkSetupPage, meta: {requiresAuth: true}, props: true },
+  { path: `/profession/:id`, component: ProfessionPage, props: true },
   { path: '/profile', component: PersonalAccount, meta: { requiresAuth: true } },
   { path: '/auth/login', component: LogIn },
   { path: '/auth/registrationFirstStep', component: RegistrationFirstStep },

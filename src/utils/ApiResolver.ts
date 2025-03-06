@@ -8,7 +8,7 @@ export default class ApiResolverUtil {
         this.endpoint = endpoint
     }
 
-    async request(url: string, method: string, data: any, jwt?: string) {
+    async request(url: string, method: string, data?: unknown, jwt?: string) {
         url = `${apiConf.endpoint}/${this.endpoint}/${url}`
         return await (new Promise((resolve, reject) => axios({
             url,
@@ -17,9 +17,9 @@ export default class ApiResolverUtil {
             headers: {
                 "Authorization": `Bearer ${jwt}`,
             }
-        }).then(async (response: any) => {
+        }).then(async (response: unknown) => {
             resolve(response)
-        }).catch(async (error: any) => {
+        }).catch(async (error: unknown) => {
             reject(error)
         })))
     }

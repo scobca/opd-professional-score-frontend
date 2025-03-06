@@ -6,13 +6,13 @@ export class PvkResolver {
   token = localStorage.getItem("token");
 
   public async getAll() {
-        return await this.apiResolver.request('getAll', 'GET', null)
+    return await this.apiResolver.request('getAll', 'GET', null)
   }
-  
+
   public createPullOfProfChar(data: CreatePvkDto[]) {
-        this.apiResolver.request("createPullOfProfChar", "POST", data).then((res) => {
-            return res.body
-        })
+    this.apiResolver.request("createPullOfProfChar", "POST", data).then((res) => {
+      return res.body
+    })
   }
 
   public async getByName(name: string) {

@@ -51,6 +51,8 @@ const prevPage = () => {
       </div>
       <div class="score">Score</div>
       <div class="time">Time</div>
+      <div class="username">Username</div>
+      <div class="createdAt">Pass date</div>
       <div class="valid">Valid</div>
     </div>
     <TestScore
@@ -62,6 +64,8 @@ const prevPage = () => {
       <template #current_points>{{ item.current_points }}</template>
       <template #max_points>{{ item.max_points }}</template>
       <template #time>{{ item.time }}</template>
+      <template #username>{{ item.username }}</template>
+      <template #createdAt>{{ item.createdAt }}</template>
       <template #valid>{{ item.valid }}</template>
     </TestScore>
 
@@ -105,7 +109,7 @@ const prevPage = () => {
   justify-content: center;
   align-items: center;
   display: grid;
-  grid-template-columns: 1fr 7fr 2fr 2fr 1fr;
+  grid-template-columns: 1fr 1.5fr 1.25fr 1fr 1.5fr 1fr 1fr;
   margin-bottom: 1rem;
 }
 
