@@ -8,6 +8,7 @@ import CustomInput from "../components/UI/inputs/CustomInput.vue";
 import CommonButton from "../components/UI/CommonButton.vue";
 import {ProfessionStatisticResolver} from "../api/resolvers/professionStatistic/professionStatistic.resolver.ts";
 import type {CreateProfessionStatsDto} from "../api/resolvers/professionStatistic/dto/CreateProfessionStats.dto.ts";
+import {jwtDecode} from "jwt-decode";
 
 export default {
   name: 'PvkSetupPage',
@@ -17,10 +18,6 @@ export default {
       type: Number,
       default: 5
     },
-    userId: {
-      type: Number,
-      default: 6
-    }
   },
   data() {
     return {
@@ -36,7 +33,8 @@ export default {
       operationalPvk: [] as PvkOptionStructureDto[],
       pvkSelect: ['', '', '', '', '', ''],
       pvkScore: [0, 0, 0, 0, 0, 0],
-      oldPvk: []
+      oldPvk: [],
+      userId: 1,
     }
   },
   methods: {
@@ -56,6 +54,21 @@ export default {
 
       if (this.selectable) {
         await this.profScoresResolver.createStats(statsData);
+
+        this.oldPvk = await this.profScoresResolver.getOldStats(this.userId, this.professionId).then((res) => {
+          return res.data
+        })
+
+        if (this.oldPvk.length > 0) {
+          this.selectable = false;
+          for (let i = 0; i < this.pvkSelect.length; i++) {
+            this.pvkSelect[i] = await this.pvkResolver.getProfCharById(this.oldPvk[i].profCharId).then((res) => {
+              return res.data.description;
+            })
+            this.pvkScore[i] = this.oldPvk[i].score;
+          }
+        }
+
         this.selectable = false;
       } else {
         await this.profScoresResolver.updateStats(statsData);
@@ -63,6 +76,12 @@ export default {
     }
   },
   async created() {
+    const userId = jwtDecode(localStorage.getItem("token")).id
+
+    if (userId != null) {
+      this.userId = Number(userId as string);
+    }
+
     this.oldPvk = await this.profScoresResolver.getOldStats(this.userId, this.professionId).then((res) => {
       return res.data
     })
@@ -71,7 +90,7 @@ export default {
       this.selectable = false;
       for (let i = 0; i < this.pvkSelect.length; i++) {
         this.pvkSelect[i] = await this.pvkResolver.getProfCharById(this.oldPvk[i].profCharId).then((res) => {
-          return res.data.name
+          return res.data.description;
         })
         this.pvkScore[i] = this.oldPvk[i].score;
       }
@@ -87,42 +106,42 @@ export default {
         case "PERSONAL":
           this.personalPvk.push({
             value: pvk.name,
-            text: pvk.name
+            text: pvk.description
           });
           break;
 
         case "INTELLECTUAL":
           this.intellectualPvk.push({
             value: pvk.name,
-            text: pvk.name
+            text: pvk.description
           });
           break;
 
         case "PHYSICAL":
           this.physicalPvk.push({
             value: pvk.name,
-            text: pvk.name
+            text: pvk.description
           });
           break;
 
         case "PHYSIOLOGICAL":
           this.physiologicalPvk.push({
             value: pvk.name,
-            text: pvk.name
+            text: pvk.description
           });
           break;
 
         case "PSYCHO_PHYSIOLOGICAL":
           this.psychoPhysiologicalPvk.push({
             value: pvk.name,
-            text: pvk.name
+            text: pvk.description
           });
           break;
 
         case "OPERATIONAL":
           this.operationalPvk.push({
             value: pvk.name,
-            text: pvk.name
+            text: pvk.description
           });
           break;
       }
@@ -198,9 +217,12 @@ export default {
 .data-field {
   display: flex;
   align-items: center;
-  height: 4vh;
+  height: 6vh;
   border: 1px solid var(--input-border);
   border-radius: 10px;
   padding: 0.5rem;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: scroll;
 }
 </style>
