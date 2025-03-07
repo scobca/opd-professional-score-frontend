@@ -32,7 +32,7 @@ onMounted(async () => {
 const filteredItems = (items: GetProfessionalStatisticDto[]) => {
   return items.filter(item => {
     return item.averageScore != 0
-  }).sort((a, b) => b.averageScore - a.averageScore)
+  }).sort((a, b) => b.averageScore - a.averageScore).slice(0, 5);
 }
 
 </script>
