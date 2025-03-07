@@ -1,5 +1,5 @@
 import ApiResolverUtil from "../../../utils/ApiResolver.ts";
-import type {CreateProfessionStatsDto} from "./dto/CreateProfessionStats.dto.ts";
+import type {CreateProfessionStatsDto} from "./dto/output/CreateProfessionStats.dto.ts";
 
 export class ProfessionStatisticResolver {
   apiResolver = new ApiResolverUtil('professionStatistic');
