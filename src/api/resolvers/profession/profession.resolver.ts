@@ -1,7 +1,7 @@
 import ApiResolverUtil from "../../../utils/ApiResolver.ts";
 import type {CreateProfessionDto} from "./dto/input/create-profession.dto.ts";
 import type {UpdateProfessionDto} from "./dto/input/update-profession.dto.ts";
-import type {DefaultOutputDto} from "../../dto/common/default-output.dto.ts";
+import type {DefaultInputDto} from "../../dto/common/default-input.dto.ts";
 import type {UpdateProfessionBodyOutputDto} from "./dto/output/update-profession-body-output.dto.ts";
 import type {CreatePullOfProfessionsBodyOutputDto} from "./dto/output/create-pull-of-professions-body-output.dto.ts";
 import type {GetProfessionOutputDto} from "./dto/output/get-profession-output.dto.ts";
@@ -32,7 +32,7 @@ export class ProfessionResolver {
   }
 
   public async createPullOfProfessions(data: CreateProfessionDto[]) {
-    return await this.apiResolver.request<CreateProfessionDto[], DefaultOutputDto<CreatePullOfProfessionsBodyOutputDto>>(
+    return await this.apiResolver.request<CreateProfessionDto[], DefaultInputDto<CreatePullOfProfessionsBodyOutputDto>>(
       "createPullOfProfessions",
       "POST",
       data
@@ -40,7 +40,7 @@ export class ProfessionResolver {
   }
 
   public async updateProfession(data: UpdateProfessionDto) {
-    return await this.apiResolver.request<UpdateProfessionDto, DefaultOutputDto<UpdateProfessionBodyOutputDto>>(
+    return await this.apiResolver.request<UpdateProfessionDto, DefaultInputDto<UpdateProfessionBodyOutputDto>>(
       "updateProfession",
       "PATCH",
       data

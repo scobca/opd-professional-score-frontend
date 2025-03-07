@@ -2,7 +2,7 @@ import ApiResolverUtil from "../../../utils/ApiResolver.ts";
 import type {CreateProfessionStatsOutputDto} from "./dto/output/create-profession-stats-output.dto.ts";
 import type {GetOldStatsOutputDto} from "./dto/output/get-old-stats-output.dto.ts";
 import type {GetOldStatsInputDto} from "./dto/input/get-old-stats-input.dto.ts";
-import type {DefaultOutputDto} from "../../dto/common/default-output.dto.ts";
+import type {DefaultInputDto} from "../../dto/common/default-input.dto.ts";
 import type {GetProfessionStatisticsInputDto} from "./dto/input/get-profession-statistics-input.dto.ts";
 
 export class ProfessionStatisticResolver {
@@ -17,7 +17,7 @@ export class ProfessionStatisticResolver {
   }
 
   public async createStats(data: CreateProfessionStatsOutputDto[]) {
-    return await this.apiResolver.request<CreateProfessionStatsOutputDto[], DefaultOutputDto<string>>(
+    return await this.apiResolver.request<CreateProfessionStatsOutputDto[], DefaultInputDto<string>>(
       "createStats",
       "POST",
       data,
@@ -33,7 +33,7 @@ export class ProfessionStatisticResolver {
   }
 
   public async updateStats(data: CreateProfessionStatsOutputDto[]) {
-    return await this.apiResolver.request<CreateProfessionStatsOutputDto[], DefaultOutputDto<string>>(
+    return await this.apiResolver.request<CreateProfessionStatsOutputDto[], DefaultInputDto<string>>(
       "updateStats",
       "PATCH",
       data,
