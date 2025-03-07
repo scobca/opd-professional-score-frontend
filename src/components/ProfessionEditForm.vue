@@ -1,50 +1,49 @@
 <script setup lang="ts">
-import {hide} from "@floating-ui/vue";
-import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
+import type {UpdateProfessionDto} from "../api/resolvers/profession/dto/input/update-profession.dto.ts";
+import {onMounted, ref} from "vue";
 
 const emit = defineEmits(['profession-update'])
-  const props = defineProps<{
-    profession: {
-      id: number;
-      name: string;
-      description: string;
-      requirements: string;
-      sphere: string;
-    }
-  }>()
+const props = defineProps<{
+  profession: UpdateProfessionDto | null,
+}>()
 
+const localProfession = ref<UpdateProfessionDto | null>(null);
 const updateProfession = async () => {
-  const professionResolver = new ProfessionResolver()
-  const result = await professionResolver.updateProfession(props.profession);
   emit("profession-update")
 }
+
+onMounted(() => {
+  if (props.profession != null) {
+    localProfession.value = {...props.profession};
+  }
+})
 </script>
 
 <template>
-  <div class="profession-edit">
+  <div class="profession-edit" v-if="localProfession != null">
     <h4>Изменить профессию</h4>
     <form @submit.prevent="updateProfession" id="profession-change-form">
       <label><input
           required
           type="text"
           id="profName"
-          v-model="profession.name"
+          v-model="localProfession.updatedData.name"
       ></label>
       <label><textarea
           required
           id="profDesc"
-          v-model="profession.description"
-        ></textarea></label>
+          v-model="localProfession.updatedData.description"
+      ></textarea></label>
       <label><textarea
           required
           id="profRequ"
-          v-model="profession.requirements"
+          v-model="localProfession.updatedData.requirements"
       ></textarea></label>
       <label><input
           required
           type="text"
           id="profSphere"
-          v-model="profession.sphere"
+          v-model="localProfession.updatedData.sphere"
       ></label>
       <label><input
           required
@@ -52,7 +51,7 @@ const updateProfession = async () => {
           id="profId"
           hidden="hidden"
           disabled
-          v-model="profession.id"
+          v-model="localProfession.id"
       ></label>
       <input type="submit" value="Изменить">
     </form>
@@ -60,7 +59,7 @@ const updateProfession = async () => {
 </template>
 
 <style scoped>
-.profession-edit{
+.profession-edit {
   position: absolute;
   display: flex;
   flex-direction: column;

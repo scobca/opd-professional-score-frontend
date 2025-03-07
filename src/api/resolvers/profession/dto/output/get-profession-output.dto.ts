@@ -1,4 +1,4 @@
-export interface GetProfessionByIdDto {
+export interface GetProfessionOutputDto {
   id: number;
   name: string;
   requirements: string;

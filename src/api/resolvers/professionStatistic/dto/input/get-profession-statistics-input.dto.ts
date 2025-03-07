@@ -1,4 +1,4 @@
-export interface GetProfessionalStatisticDto {
+export interface GetProfessionStatisticsInputDto {
   professionalId: number;
   professionalName: string;
   professionalDescription: string;

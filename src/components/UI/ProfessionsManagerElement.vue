@@ -72,14 +72,4 @@ defineEmits(['edit-profession'])
 .wrapper > div:last-child {
   border-right: none;
 }
-
-.remove {
-  scale: 60%;
-  transition-duration: 0.2s;
-}
-
-.remove:hover {
-  scale: 65%;
-  transition-duration: 0.2s;
-}
 </style>
