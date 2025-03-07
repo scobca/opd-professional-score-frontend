@@ -48,7 +48,7 @@
   text-align: center;
 }
 
-#id, #test_name, #test_header{
+#id, #test_name, #test_header {
   text-align: left;
 }
 

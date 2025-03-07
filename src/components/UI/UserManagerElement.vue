@@ -3,7 +3,7 @@
 import CommonButton from "./CommonButton.vue";
 
 defineEmits(["changeRole"])
-defineProps<{isDisabled: boolean}>()
+defineProps<{ isDisabled: boolean }>()
 </script>
 
 <template>
