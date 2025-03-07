@@ -5,16 +5,20 @@ import CommonButton from "../components/UI/CommonButton.vue";
 import {UserState} from "../utils/userState/UserState.ts";
 import router from "../router/router.ts";
 import {ProfessionStatisticResolver} from "../api/resolvers/professionStatistic/professionStatistic.resolver.ts";
+import type {
+  GetProfessionalStatisticDto
+} from "../api/resolvers/professionStatistic/dto/input/GetProfessionalStatistic.dto.ts";
+import type {GetProfessionByIdDto} from "../api/resolvers/profession/dto/output/GetProfessionById.dto.ts";
 
 const props = defineProps<{
-  id: string;
+  id: number;
 }>()
 
 const professionStatisticsResolver = new ProfessionStatisticResolver()
 const professionResolver = new ProfessionResolver()
 
 const professionStatistics = ref(null)
-const profession = ref(null)
+const profession = ref<GetProfessionByIdDto | null>(null)
 
 onMounted(async () => {
   try {
@@ -22,14 +26,13 @@ onMounted(async () => {
   } catch (e) {
     console.error(e)
   }
-  profession.value = await professionResolver.getById(props.id)
+  profession.value = await professionResolver.getById(props.id) as GetProfessionByIdDto
 })
 
-const filteredItems = (items) => {
-  console.log(items)
+const filteredItems = (items: GetProfessionalStatisticDto[]) => {
   return items.filter(item => {
     return item.averageScore != 0
-  })
+  }).sort((a, b) => b.averageScore - a.averageScore)
 }
 
 </script>
@@ -58,7 +61,7 @@ const filteredItems = (items) => {
         </div>
         <CommonButton
             v-if="UserState.role == 'ADMIN' || UserState.role == 'EXPERT'"
-            @click="router.push(`/profession/setup/${this.id}`)"
+            @click="router.push(`/profession/setup/${id}`)"
             :disabled="false"
         >
           <template v-slot:placeholder>
@@ -76,6 +79,7 @@ main {
   justify-content: center;
   align-items: center;
 }
+
 .profession {
   display: grid;
   grid-template-columns: 25vw auto;

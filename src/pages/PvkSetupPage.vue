@@ -7,7 +7,7 @@ import CustomSelect from "../components/UI/inputs/CustomSelect.vue";
 import CustomInput from "../components/UI/inputs/CustomInput.vue";
 import CommonButton from "../components/UI/CommonButton.vue";
 import {ProfessionStatisticResolver} from "../api/resolvers/professionStatistic/professionStatistic.resolver.ts";
-import type {CreateProfessionStatsDto} from "../api/resolvers/professionStatistic/dto/CreateProfessionStats.dto.ts";
+import type {CreateProfessionStatsDto} from "../api/resolvers/professionStatistic/dto/output/CreateProfessionStats.dto.ts";
 import {jwtDecode} from "jwt-decode";
 
 export default {
