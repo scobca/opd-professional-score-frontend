@@ -1,26 +1,46 @@
-import axios from "axios";
+import axios from 'axios';
+import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import apiConf from "../api/apiConf.ts";
 
-export default class ApiResolverUtil {
-    endpoint = ""
+interface RequestConfig<T> extends AxiosRequestConfig {
+    data?: T;
+}
+
+class ApiResolverUtil {
+    private readonly endpoint: string;
 
     constructor(endpoint: string) {
-        this.endpoint = endpoint
+        this.endpoint = endpoint;
     }
 
-    async request(url: string, method: string, data?: unknown, jwt?: string) {
-        url = `${apiConf.endpoint}/${this.endpoint}/${url}`
-        return await (new Promise((resolve, reject) => axios({
-            url,
+    async request<U, S>(
+      url: string,
+      method: string,
+      data?: U,
+      jwt?: string
+    ): Promise<S> {
+        const fullUrl = `${apiConf.endpoint}/${this.endpoint}/${url}`;
+
+        const config: RequestConfig<U> = {
+            url: fullUrl,
             method,
             data,
             headers: {
-                "Authorization": `Bearer ${jwt}`,
+                "Authorization": jwt ? `Bearer ${jwt}` : undefined,
+            },
+        };
+
+        try {
+            const response: AxiosResponse<S> = await axios(config);
+            return response.data
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                throw error;
+            } else {
+                throw new Error("Неизвестная ошибка");
             }
-        }).then(async (response: unknown) => {
-            resolve(response)
-        }).catch(async (error: unknown) => {
-            reject(error)
-        })))
+        }
     }
 }
+
+export default ApiResolverUtil;
