@@ -1,11 +1,11 @@
 <script setup lang="ts">
-defineProps<{disabled?: boolean}>()
+defineProps<{ disabled?: boolean }>()
 </script>
 
 <template>
-<button :disabled="disabled" class="wrapper">
-  <slot name="placeholder">Button name</slot>
-</button>
+  <button :disabled="disabled" class="wrapper">
+    <slot name="placeholder">Button name</slot>
+  </button>
 </template>
 
 <style scoped>

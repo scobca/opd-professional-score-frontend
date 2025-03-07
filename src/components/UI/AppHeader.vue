@@ -1,7 +1,8 @@
 <script setup lang="ts">
 
-import {updateUserState, UserState} from "../utils/userState/UserState.ts";
-import {logout} from "../services/auth.ts";
+import {updateUserState, UserState} from "../../utils/userState/UserState.ts";
+import {logout} from "../../services/auth.ts";
+
 updateUserState()
 
 </script>
@@ -10,7 +11,7 @@ updateUserState()
   <header class="header">
     <nav class="nav-container">
       <router-link to="/">
-        <img src="../assets/logo_end.png" class="logo" alt="logo"/>
+        <img src="../../assets/logo_end.png" class="logo" alt="logo"/>
       </router-link>
 
       <div class="nav-links">
@@ -19,7 +20,8 @@ updateUserState()
           <router-link to="/auth/registrationFirstStep" class="btn register">Регистрация</router-link>
         </div>
         <div class="auth-buttons" v-if="UserState.status == 'unverified'">
-          <router-link to="/auth/registrationSecondStep" class="btn register" @click="logout">Подтвердить почту</router-link>
+          <router-link to="/auth/registrationSecondStep" class="btn register" @click="logout">Подтвердить почту
+          </router-link>
         </div>
         <div class="auth-buttons" v-if="UserState.status == 'authorized'">
           <router-link to="" class="btn login" @click="logout">Выход</router-link>
@@ -72,22 +74,22 @@ updateUserState()
   transition: all 0.3s;
 }
 
-.login, .logout {
+.login {
   color: white;
   border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-.login:hover, .logout:hover {
+.login:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: white;
 }
 
-.register, .account {
+.register {
   background: white;
   color: #1e3c72;
 }
 
-.register:hover, .account:hover {
+.register:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
