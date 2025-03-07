@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {computed, type PropType, ref} from "vue";
 import CommonButton from "./UI/CommonButton.vue";
-import type {ProfessionsManagerInput} from "../api/dto/professions-manager.input.dto.ts";
 import ProfessionsManagerElement from "./UI/ProfessionsManagerElement.vue";
 import ProfessionEditForm from "./ProfessionEditForm.vue";
-import RoleSelectForm from "./RoleSelectForm.vue";
 import {autoUpdate, hide, useFloating} from "@floating-ui/vue";
 import router from "../router/router.ts";
+import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
+import type {UpdateProfessionDto} from "../api/resolvers/profession/dto/input/update-profession.dto.ts";
 
-const reference = ref(null)
+const reference = ref<HTMLElement | null>(null)
 const floating = ref(null)
 const {floatingStyles, middlewareData} = useFloating(reference, floating, {
   placement: 'bottom-end',
@@ -17,7 +17,6 @@ const {floatingStyles, middlewareData} = useFloating(reference, floating, {
 })
 
 const toggleForm = (el: HTMLElement, id: number, name: string, description: string, requirements: string, sphere: string) => {
-  console.log('i')
   if (lastEl.value != el) {
     isOpen.value = false
   }
@@ -25,17 +24,19 @@ const toggleForm = (el: HTMLElement, id: number, name: string, description: stri
     reference.value = el
     currentProfession.value = {
       id: id,
-      name: name,
-      description: description,
-      requirements: requirements,
-      sphere: sphere
-    }
+      updatedData: {
+        name: name,
+        description: description,
+        requirements: requirements,
+        sphere: sphere
+      }
+    } as UpdateProfessionDto;
   }
   isOpen.value = !isOpen.value
   lastEl.value = el
 }
 
-const currentProfession = ref(null)
+const currentProfession = ref<UpdateProfessionDto | null>(null)
 const isOpen = ref(false)
 const lastEl = ref()
 
@@ -47,7 +48,7 @@ const props = defineProps({
     default: 5,
   },
   professions: {
-    type: Array as PropType<ProfessionsManagerInput[]>,
+    type: Array as PropType<GetProfessionOutputDto[]>,
     required: true,
   }
 });
@@ -175,7 +176,7 @@ const prevPage = () => {
   text-align: center;
 }
 
-#id, #test_name {
+#id {
   text-align: left;
 }
 

@@ -1,4 +1,4 @@
-import type {UpdatableProfessionValuesDto} from "./UpdatableProfessionValues.dto.ts";
+import type {UpdatableProfessionValuesDto} from "./updatable-profession-values.dto.ts";
 
 export interface UpdateProfessionDto {
   id: number;

@@ -10,6 +10,7 @@ import {logout} from "../services/auth.ts";
 import {getAllUsers} from "../services/user.ts";
 import {popUpState} from "../utils/popUpState.ts";
 import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
+import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
 
 
 const users = ref([]);
@@ -269,23 +270,7 @@ const testData = ref([
   },
 ]);
 
-const professions = ref([
-  {id: 1, name: "Software Engineer", username: "john_doe"},
-  {id: 2, name: "Project Manager", username: "jane_smith"},
-  {id: 3, name: "Data Scientist", username: "mike_johnson"},
-  {id: 4, name: "UX Designer", username: "lisa_white"},
-  {id: 5, name: "Financial Analyst", username: "david_brown"},
-  {id: 6, name: "Marketing Specialist", username: "sarah_davis"},
-  {id: 7, name: "HR Manager", username: "chris_miller"},
-  {id: 8, name: "Sales Representative", username: "patricia_wilson"},
-  {id: 9, name: "Accountant", username: "james_taylor"},
-  {id: 10, name: "Research Scientist", username: "emily_anderson"},
-  {id: 11, name: "Teacher", username: "robert_thomas"},
-  {id: 12, name: "Nurse", username: "jessica_jackson"},
-  {id: 13, name: "Chef", username: "william_harris"},
-  {id: 14, name: "Lawyer", username: "mary_clark"},
-  {id: 15, name: "Architect", username: "charles_lewis"}
-]);
+const professions = ref<GetProfessionOutputDto[] | null>(null);
 
 
 onMounted(() => {
@@ -351,6 +336,7 @@ onMounted(() => {
               :professions="professions"
               :max-elements-count="5"
               @professions-list-update="reloadProfessions"
+              v-if="professions != null"
           />
         </div>
       </div>

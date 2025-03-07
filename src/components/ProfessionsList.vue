@@ -3,8 +3,9 @@
 import FlipCard from "./UI/FlipCard.vue";
 import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
 import {onMounted, ref} from "vue";
+import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
 
-const cards = ref(null)
+const cards = ref<GetProfessionOutputDto[] | null>(null)
 const professionResolver: ProfessionResolver = new ProfessionResolver();
 
 onMounted(async () => {
@@ -31,24 +32,24 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-  .professions-section {
-    padding: 60px 20px;
-    background-color: #691b9a00; /* Фиолетовый фон */
-    color: #fff;
-    text-align: center;
-  }
+.professions-section {
+  padding: 60px 20px;
+  background-color: #691b9a00; /* Фиолетовый фон */
+  color: #fff;
+  text-align: center;
+}
 
-  .professions-section h2 {
-    font-size: 46px;
-    margin-bottom: 40px;
-    color: #fff;
-  }
+.professions-section h2 {
+  font-size: 46px;
+  margin-bottom: 40px;
+  color: #fff;
+}
 
-  .profession-cards-container {
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-  }
+.profession-cards-container {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
 </style>
