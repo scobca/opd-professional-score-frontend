@@ -7,7 +7,7 @@ import type {CreatePullOfProfessionsBodyOutputDto} from "./dto/output/create-pul
 import type {GetProfessionOutputDto} from "./dto/output/get-profession-output.dto.ts";
 
 export class ProfessionResolver {
-  apiResolver = new ApiResolverUtil('professions');
+  private apiResolver = new ApiResolverUtil('professions');
 
   public create(data: CreateProfessionDto) {
     this.apiResolver.request("createProfession", "POST", data).then((res) => {
