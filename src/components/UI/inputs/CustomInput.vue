@@ -41,7 +41,7 @@ export default {
 
 <template>
   <input class="input"
-         v-if="type=='text'"
+         v-if="type!='number'"
          :placeholder="placeholder"
          :type="type"
          :value="modelValue"
