@@ -19,6 +19,8 @@ export const usePopupStore = defineStore('popup', {
   },
   actions: {
     activateInfoPopup(message: string) {
+      this.errorPopupVisible = false;
+
       this.infoPopupVisible = true;
       this.popupMessage = message;
     },
@@ -28,6 +30,8 @@ export const usePopupStore = defineStore('popup', {
     },
 
     activateErrorPopup(message: string) {
+      this.infoPopupVisible = false;
+
       this.errorPopupVisible = true;
       this.popupMessage = message;
     },
