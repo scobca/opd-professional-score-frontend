@@ -2,8 +2,8 @@
   import {ref} from "vue";
   import {registrationSecondStep} from "../services/auth.ts";
   import router from "../router/router.ts";
-  import {popUpState} from "../utils/popUpState.ts";
   import {updateUserState, UserState} from "../utils/userState/UserState.ts";
+  import {usePopupStore} from "../store/popup.store.ts";
   const authData = ref({
     userData: {
       "username": UserState.username,
@@ -14,17 +14,18 @@
     codeArr: []
   })
 
+  const popupStore = usePopupStore();
+
   const signUp = async () => {
     updateUserState()
     const result = await registrationSecondStep(authData)
     if (result.status === 200) {
       localStorage.setItem("token", result.body.token)
       localStorage.removeItem("userToVerify");
-      popUpState.value = ""
       updateUserState()
       await router.push("/profile")
     } else {
-      popUpState.value = result.response.data.message
+      popupStore.activateErrorPopup(result.response.data.message)
     }
   }
 </script>

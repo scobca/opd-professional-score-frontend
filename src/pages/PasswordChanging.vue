@@ -4,6 +4,7 @@ import CommonButton from "../components/UI/CommonButton.vue";
 import {UserResolver} from "../api/resolvers/user/user.resolver.ts";
 import CodeVerification from "./CodeVerification.vue";
 import router from "../router/router.ts";
+import {usePopupStore} from "../store/popup.store.ts";
 
 export default {
   name: 'PasswordChangingPage',
@@ -16,6 +17,7 @@ export default {
       password: "",
       passwordCheck: "",
       userResolver,
+      popupStore: usePopupStore(),
     }
   },
   methods: {
@@ -26,20 +28,20 @@ export default {
 
     goToSecondStep() {
       if (this.email == "") {
-        alert("Please enter a valid email");
+        this.popupStore.activateErrorPopup("Please enter a valid email")
       } else this.step = 2;
     },
 
     checkPassword() {
       if (this.password != this.passwordCheck || this.password == "") {
-        alert("Пароли не совпадают");
+        this.popupStore.activateErrorPopup("Пароли не совпадают")
       } else {
         this.userResolver.changePasswordFirstStep(this.email).then((result) => {
           if (result.status == 200) {
             this.step = 3;
           }
         }).catch((err) => {
-          alert(err.response.data.message);
+          this.popupStore.activateErrorPopup(err.response.data.message)
         });
       }
     },
@@ -54,10 +56,10 @@ export default {
         if (result.status == 200) {
           localStorage.removeItem("token");
           router.push('/');
-          alert(result.body);
+          this.popupStore.activateInfoPopup(result.body)
         }
       }).catch((err) => {
-        alert(err.response.data.message);
+        this.popupStore.activateErrorPopup(err.response.data.message)
       })
     }
   },
