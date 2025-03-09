@@ -18,12 +18,22 @@ export default {
       type: Number,
       default: 100,
     },
+    maxLength: {
+      type: Number,
+      default: 1000,
+    }
   },
   methods: {
     validate(event: any) {
-      const inputValue = parseFloat(event.target.value);
+      const inputValue = event.target.value;
 
       if (isNaN(inputValue)) {
+        return;
+      }
+
+      if (inputValue.length > this.maxLength) {
+        event.target.value = inputValue.slice(0, this.maxLength);
+        this.$emit('update:modelValue', parseFloat(event.target.value));
         return;
       }
 
@@ -45,6 +55,7 @@ export default {
          :placeholder="placeholder"
          :type="type"
          :value="modelValue"
+         :maxlength="maxLength"
          @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
   />
   <input class="input"
@@ -88,5 +99,11 @@ export default {
   border: 1px solid var(--input-border);
   transition-duration: 0.2s;
   text-indent: 2%;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>
