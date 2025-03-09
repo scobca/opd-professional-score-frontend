@@ -37,13 +37,10 @@ const popupStore = usePopupStore();
 .popup-container {
   width: 100%;
   position: absolute;
-  top: 9vh;
+  top: 10vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: right;
   align-items: center;
-}
-
-.popup {
 }
 </style>
