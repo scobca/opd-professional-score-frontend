@@ -2,7 +2,7 @@ import ApiResolverUtil from "../../../utils/ApiResolver.ts";
 import type {FullPvkStructureInputDto} from "./dto/input/full-pvk-structure-input.dto.ts";
 
 export class PvkResolver {
-  apiResolver = new ApiResolverUtil('profChar');
+  private apiResolver = new ApiResolverUtil('profChar');
 
   public async getAll() {
     return await this.apiResolver.request<null, FullPvkStructureInputDto[]>(

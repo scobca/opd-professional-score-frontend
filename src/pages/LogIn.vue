@@ -27,8 +27,8 @@
       <input v-model="UserState.password" type="password" id="password" name="password" placeholder="Введите пароль" required>
 
       <div class="auth-links">
-<!--        <p >Забыли пароль?</p>-->
-        <a href="/auth/registrationFirstStep">Создать аккаунт</a>
+        <router-link to="/auth/changePassword">Забыли пароль?</router-link>
+        <router-link to="/auth/registrationFirstStep">Создать аккаунт</router-link>
       </div>
       <button type="submit">Войти</button>
     </form>

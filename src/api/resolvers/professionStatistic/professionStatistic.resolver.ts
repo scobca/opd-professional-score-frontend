@@ -6,8 +6,8 @@ import type {DefaultInputDto} from "../../dto/common/default-input.dto.ts";
 import type {GetProfessionStatisticsInputDto} from "./dto/input/get-profession-statistics-input.dto.ts";
 
 export class ProfessionStatisticResolver {
-  apiResolver = new ApiResolverUtil('professionStatistic');
-  token = localStorage.getItem("token");
+  private apiResolver = new ApiResolverUtil('professionStatistic');
+  private token = localStorage.getItem("token");
 
   public async getOldStats(data: GetOldStatsOutputDto) {
     return await this.apiResolver.request<GetOldStatsOutputDto, GetOldStatsInputDto[]>(
