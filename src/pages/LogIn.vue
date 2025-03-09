@@ -1,17 +1,19 @@
 <script setup lang="ts">
   import {login} from "../services/auth.ts";
   import router from "../router/router.ts";
-  import {popUpState} from "../utils/popUpState.ts";
   import {updateUserState, UserState} from "../utils/userState/UserState.ts";
+  import {usePopupStore} from "../store/popup.store.ts";
 
+  const popupStore = usePopupStore();
   const signIn = async() => {
     const result = await login(UserState)
     if (result.status === 200) {
       localStorage.setItem("token", result.body.token)
       updateUserState()
+      popupStore.activateInfoPopup("Login successfully")
       await router.push("/profile")
     } else {
-      popUpState.value = result.response.data.message;
+      popupStore.activateErrorPopup(result.response.data.message);
     }
   }
 </script>

@@ -8,11 +8,11 @@ import TestScoreList from "../components/TestsScoreList.vue";
 import {UserState} from "../utils/userState/UserState.ts";
 import {logout} from "../services/auth.ts";
 import {getAllUsers} from "../services/user.ts";
-import {popUpState} from "../utils/popUpState.ts";
 import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
 import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
+import {usePopupStore} from "../store/popup.store.ts";
 
-
+const popupStore = usePopupStore();
 const users = ref([]);
 
 const reloadUsers = async () => {
@@ -20,7 +20,7 @@ const reloadUsers = async () => {
   if (result.status == 200) {
     users.value = result.body
   } else {
-    popUpState.value = result.message;
+    popupStore.activateErrorPopup(result.message)
   }
 }
 
@@ -30,7 +30,7 @@ const reloadProfessions = async () => {
   if (result.length != 0) {
     professions.value = result.sort((a, b) => a.id - b.id)
   } else {
-    popUpState.value = "Error occurred"
+    popupStore.activateErrorPopup("Error occurred. No one profession found.")
   }
 }
 

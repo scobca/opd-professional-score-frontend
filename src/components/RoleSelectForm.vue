@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type {UserRole} from "../utils/userState/UserState.types.ts";
 import {setRole} from "../services/user.ts";
-import {popUpState} from "../utils/popUpState.ts";
 import {ref} from "vue";
+import {usePopupStore} from "../store/popup.store.ts";
 
 const emit = defineEmits(['role-update'])
 const props = defineProps<{
@@ -13,12 +13,15 @@ const roles: UserRole[] = [
     "ADMIN", "EXPERT", "CONSULTANT", "USER", "MODERATOR"
 ]
 const selectedRole = ref()
+const popupStore = usePopupStore();
 
 const updateRole = async () => {
   const result = await setRole(props.userId, selectedRole.value);
-  popUpState.value = result.body;
   if (result.status === 200) {
     emit("role-update");
+    popupStore.activateInfoPopup(result.body);
+  } else {
+    popupStore.activateErrorPopup(result.response.data.message)
   }
 }
 </script>

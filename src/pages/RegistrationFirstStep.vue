@@ -1,9 +1,10 @@
 <script setup lang="ts">
-  import {ref} from "vue";
   import {registrationFirstStep} from "../services/auth.ts";
   import router from "../router/router.ts";
-  import {popUpState} from "../utils/popUpState.ts";
   import {UserState} from "../utils/userState/UserState.ts";
+  import {usePopupStore} from "../store/popup.store.ts";
+
+  const popupStore = usePopupStore();
 
   const signUp = async () => {
     const passConf = document.getElementById("password-confirm")
@@ -17,11 +18,10 @@
         localStorage.setItem("userToVerify", JSON.stringify(UserState));
         await router.push("/auth/registrationSecondStep");
       } else {
-        console.log(result.message)
-        popUpState.value = result.response.data.message;
+        popupStore.activateErrorPopup(result.response.data.message);
       }
     } else {
-      popUpState.value = "Passwords don't match";
+      popupStore.activateErrorPopup("Passwords don't match");
     }
 
   }
