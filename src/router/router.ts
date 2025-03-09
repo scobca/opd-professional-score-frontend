@@ -8,6 +8,7 @@ import ProfessionsList from "../components/ProfessionsList.vue";
 import ProfessionPage from "../pages/ProfessionPage.vue";
 import ProfessionForm from "../components/ProfessionForm.vue";
 import PvkSetupPage from "../pages/PvkSetupPage.vue";
+import PasswordChanging from "../pages/PasswordChanging.vue";
 
 const routes = [
   { path: '/', component: ProfessionsList },
@@ -19,6 +20,7 @@ const routes = [
   { path: '/auth/login', component: LogIn },
   { path: '/auth/registrationFirstStep', component: RegistrationFirstStep },
   { path: '/auth/registrationSecondStep', component: RegistrationSecondStep },
+  { path: '/auth/changePassword', component: PasswordChanging },
 ];
 
 const router = createRouter({
