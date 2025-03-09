@@ -2,10 +2,12 @@
 import CustomInput from "../components/UI/inputs/CustomInput.vue";
 import CommonButton from "../components/UI/CommonButton.vue";
 import {UserResolver} from "../api/resolvers/user/user.resolver.ts";
+import CodeVerification from "./CodeVerification.vue";
+import router from "../router/router.ts";
 
 export default {
   name: 'PasswordChangingPage',
-  components: {CommonButton, CustomInput},
+  components: {CodeVerification, CommonButton, CustomInput},
   data() {
     const userResolver = new UserResolver();
     return {
@@ -34,12 +36,29 @@ export default {
       } else {
         this.userResolver.changePasswordFirstStep(this.email).then((result) => {
           if (result.status == 200) {
-            alert(result.body);
+            this.step = 3;
           }
         }).catch((err) => {
           alert(err.response.data.message);
         });
       }
+    },
+
+    approveCode(code: string) {
+      const data = {
+        email: this.email,
+        code: parseInt(code),
+        password: this.password,
+      }
+      this.userResolver.changePasswordSecondStep(data).then((result) => {
+        if (result.status == 200) {
+          localStorage.removeItem("token");
+          router.push('/');
+          alert(result.body);
+        }
+      }).catch((err) => {
+        alert(err.response.data.message);
+      })
     }
   },
   mounted() {
@@ -52,7 +71,7 @@ export default {
         }
       }
 
-      if (e.key == "Escape") {
+      if (e.key == "Escape" && this.step == 2) {
         this.goToFirstStep();
       }
     });
@@ -67,7 +86,7 @@ export default {
         }
       }
 
-      if (e.key == "Escape") {
+      if (e.key == "Escape" && this.step == 2) {
         this.goToFirstStep();
       }
     });
@@ -88,7 +107,7 @@ export default {
     </CommonButton>
   </div>
 
-  <div class="container" v-else>
+  <div class="container" v-if="step == 2">
     <div class="header-container">
       <img class="icon" src="../assets/icons/arrow-left-icon.svg" alt="arrow-back" @click="goToFirstStep">
       <h1 class="container-header">Изменение пароля</h1>
@@ -105,6 +124,10 @@ export default {
       <template v-slot:placeholder>Установить новый пароль</template>
     </CommonButton>
   </div>
+
+  <CodeVerification v-if="step == 3" @approve-code="approveCode">
+    <template v-slot:header>Изменение пароля</template>
+  </CodeVerification>
 </template>
 
 <style scoped>
