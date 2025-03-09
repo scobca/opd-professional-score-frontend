@@ -1,6 +1,7 @@
 <script lang="ts">
 import {usePopupStore} from "../../../store/popup.store.ts";
 import CommonButton from "../CommonButton.vue";
+import eventBus from "../../../store/event-bus.ts";
 
 export default {
   name: 'InfoPopup',
@@ -13,7 +14,7 @@ export default {
   methods: {
     onClick() {
       this.popupStore.deactivateInfoPopup();
-      this.$emit('popupCallback');
+      eventBus.emit("infoPopupCallback")
     }
   },
   mounted() {
@@ -42,7 +43,7 @@ export default {
     </div>
     <p class="popup-message">{{ popupStore.getMessage }}</p>
     <CommonButton @click="onClick" class="popup-button">
-      <template v-slot:placeholder> Готово </template>
+      <template v-slot:placeholder>Готово</template>
     </CommonButton>
   </div>
 </template>
