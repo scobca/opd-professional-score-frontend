@@ -26,3 +26,117 @@ input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+
+.pvk-rate {
+    display: flex;
+    gap: 3vw;
+}
+
+.multiselect {
+    flex: 1;
+    position: relative;
+    margin: 2vh 0;
+    .search-field {
+        display: flex;
+        border: solid 2px #4127e4;;
+        max-height: 5vh;
+        border-radius: 5px;
+
+        label {
+            flex: 15;
+            margin: 0;
+
+            input {
+                box-sizing: border-box;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                border: none;
+            }
+            input:hover {
+                transform: none;
+            }
+            input:focus {
+                outline: none;
+            }
+        }
+        button {
+            flex: 1;
+            background-color: transparent;
+
+            svg {
+                width: 75%;
+                fill: #4127e4;;
+                transition: transform 0.5s;
+            }
+        }
+
+        .clicked svg {
+            transform: rotate(180deg);
+        }
+    }
+
+    .options {
+        position: absolute;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        top: 110%;
+        border-radius: 5px;
+        transition: all 0.4s;
+        background-color: white;
+        max-height: 25vh;
+        overflow-y: scroll;
+
+        .option {
+            background-color: rgba(65, 39, 228, 0.2);
+            border-bottom: solid 1px rgba(65, 39, 228, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            label {
+                padding: 14px;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                margin: 0;
+                flex: 1;
+            }
+
+            input {
+                width: 70%;
+                aspect-ratio: 1 / 1;
+            }
+            
+            p {
+                padding: 14px;
+                white-space: nowrap;
+                -ms-text-overflow: ellipsis;
+                text-overflow: ellipsis;
+                overflow-x: hidden;
+                flex: 15;
+                user-select: none;
+            }
+        }
+
+        .option:hover {
+            cursor: pointer;
+        }
+    }
+
+    .options.show {
+        opacity: 1;
+        top: 100%;
+    }
+}
+
+.ratings {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: scroll;
+    height: 15vh;
+}

@@ -30,65 +30,24 @@
 <main class="form-container">
   <form action="#" method="post" id="pvk-form" class="profession-form">
     <h1>Добавить / Изменить профессионально-важные качества</h1>
-    <div class="pvk">
-      <label>
-        <select class="select-pvk" required name="pvk-personal" id="pvk-personal">
-          <option selected disabled>Выберите ПВК</option>
-        </select>
-      </label>
-      <label>
-        <input class="rating-pvk" required type="number" name="pvk-personal-rate" min="-10" max="10">
-      </label>
-    </div>
-    <div class="pvk">
-      <label>
-        <select class="select-pvk" required name="pvk-intellectual" id="pvk-intellectual">
-          <option selected disabled>Выберите ПВК</option>
-        </select>
-      </label>
-      <label>
-        <input class="rating-pvk" required type="number" name="pvk-intellectual-rate" min="-10" max="10">
-      </label>
-    </div>
-    <div class="pvk">
-      <label>
-        <select class="select-pvk" required name="pvk-physical" id="pvk-physical">
-          <option selected disabled>Выберите ПВК</option>
-        </select>
-      </label>
-      <label>
-        <input class="rating-pvk" required type="number" name="pvk-physical-rate" min="-10" max="10">
-      </label>
-    </div>
-    <div class="pvk">
-      <label>
-        <select class="select-pvk" required name="pvk-physiological" id="pvk-physiological">
-          <option selected disabled>Выберите ПВК</option>
-        </select>
-      </label>
-      <label>
-        <input class="rating-pvk" required type="number" name="pvk-physiological-rate" min="-10" max="10">
-      </label>
-    </div>
-    <div class="pvk">
-      <label>
-        <select class="select-pvk" required name="pvk-psychophysiological" id="pvk-psychophysiological">
-          <option selected disabled>Выберите ПВК</option>
-        </select>
-      </label>
-      <label>
-        <input class="rating-pvk" required type="number" name="pvk-psychophysiological-rate" min="-10" max="10">
-      </label>
-    </div>
-    <div class="pvk">
-      <label>
-        <select class="select-pvk" required name="pvk-operational" id="pvk-operational">
-          <option selected hidden disabled>Выберите ПВК</option>
-        </select>
-      </label>
-      <label>
-        <input class="rating-pvk" required type="number" name="pvk-operational-rate" min="-10" max="10">
-      </label>
+    <div class="pvk-rate">
+      <div class="multiselect">
+        <div class="search-field">
+          <label>
+            <input class="search-input" type="text" placeholder="Введите качество">
+          </label>
+          <button type="button" class="show-options">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
+          </button>
+        </div>
+        <div class="options">
+          <div class="option">
+            <p>Ничего не найдено</p>
+          </div>
+        </div>
+      </div>
+      <div class="ratings">
+      </div>
     </div>
     <button type="submit">Применить</button>
   </form>
