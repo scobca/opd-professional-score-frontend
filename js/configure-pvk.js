@@ -1,11 +1,12 @@
 import {dataFromJWT} from "./jwtHandler.js";
 import {getCookie} from "./cookieHandler.js";
 import {popupHandler} from "./popup.js";
-import {getPvkEmbeddings, findClosestMatch} from "./utils-betas.js";
-// import {getPvkEmbeddings, findClosestMatch} from "./utils.js";
+// import {getPvkEmbeddings, findClosestMatch} from "./utils-betas.js";
+// import {findClosestMatch} from "./utils.js";
+import { findClosestMatch } from "./utils-gamma.js";
 const params = new URLSearchParams(document.location.search);
 const professionId = params.get('id');
-
+let options = []
 const loadPVK = async (id) => {
     const response = await fetch(`http://localhost:8081/pvk/profession/${id}/user/${dataFromJWT(jwt).data.id}`, {
         method: "GET",
@@ -37,8 +38,7 @@ if (jwt) {
     const user = dataFromJWT(jwt).data
     if (user.role === "admin" || user.role === "expert") {
         const pvkOptions = await loadPvkList()
-        const pvkEmbeddings = await getPvkEmbeddings(pvkOptions)
-        console.log(pvkEmbeddings)
+        // const pvkEmbeddings = await getPvkEmbeddings(pvkOptions)
         const selects = document.querySelectorAll(".select-pvk");
         const ratingInputs = document.querySelectorAll(".rating-pvk");
         const pvkForm = document.getElementById("pvk-form");
@@ -55,10 +55,11 @@ if (jwt) {
         })
 
         searchInput.oninput = async () => {
-            const options = findClosestMatch(searchInput.value, pvkEmbeddings, pvkOptions);
+            options = await findClosestMatch(searchInput.value, pvkOptions);
             if (searchInput.value === "") {
                 optionsList.classList.remove("show");
                 showOptionsBtn.classList.remove("clicked");
+                options = pvkOptions
             } else {
                 optionsList.classList.add("show")
                 showOptionsBtn.classList.add("clicked");

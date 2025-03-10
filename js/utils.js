@@ -21,28 +21,6 @@ function levenshteinDistance(str1, str2) {
     return dp[lenStr1][lenStr2];
 }
 
-const getPvkEmbeddings = async (options) => {
-    const sentences = []
-    options.forEach(option => {
-        sentences.push(option.description)
-    })
-    try {
-        const response = await fetch('http://localhost:5000/embeddings', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                sentences: sentences
-            }),
-        });
-
-        const data = await response.json();
-        console.log(data);
-    } catch (error) {
-        console.error(error);
-    }
-}
 
 function findClosestMatch(query, options) {
     const dictionary = []
@@ -50,8 +28,6 @@ function findClosestMatch(query, options) {
     options.forEach(option => {
         dictionary.push(option.description.toLowerCase())
     })
-    let minDistance = Infinity;
-    let closestWord = null;
 
     dictionary.forEach((word, index) => {
         const distance = levenshteinDistance(query, word);
@@ -62,4 +38,4 @@ function findClosestMatch(query, options) {
     return distances.slice(0, 5);
 }
 
-export { getPvkEmbeddings, findClosestMatch }
+export { findClosestMatch }

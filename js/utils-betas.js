@@ -1,11 +1,11 @@
 let controllers = []
 
-async function generateSbertEmbedding(text) {
+async function generateSbertEmbedding(data) {
     try {
-        if (controller) {
+        controllers.forEach(controller => {
             controller.abort()
-        }
-        controller = new AbortController()
+        })
+        const controller = new AbortController()
         const signal = controller.signal
         const response = await fetch('https://api-inference.huggingface.co/models/ai-forever/sbert_large_nlu_ru', {
             method: 'POST',
@@ -13,80 +13,80 @@ async function generateSbertEmbedding(text) {
                 'Authorization': 'Bearer TOKEN',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(text),
+            body: JSON.stringify(data),
             signal
         });
-        const embedding = await response.json()
-        console.log(embedding)
-        return embedding[0]// Возвращает вектор предложения
+        return await response.json();
     } catch (error) {
 
     }
 }
 
-async function fetchWithDifferentBodies(bodies) {
-    try {
-        controllers.forEach(controller => {
-            controller.abort()
-        })
-        const promises = bodies.map(body => {
-            const controller = new AbortController()
-            const signal = controller.signal
-            return fetch('https://api-inference.huggingface.co/models/ai-forever/sbert_large_nlu_ru', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer TOKEN',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body),
-                signal
-            });
-        });
+// function cosineSimilarity(embedding1, embedding2) {
+//     if (embedding1.length !== embedding2.length) {
+//         throw new Error("Vectors must have the same length");
+//     }
+//     let dotProduct = 0;
+//     let magnitude1 = 0;
+//     let magnitude2 = 0;
+//
+//     for (let i = 0; i < embedding1.length; i++) {
+//         dotProduct += embedding1[i] * embedding2[i];
+//         magnitude1 += Math.pow(embedding1[i], 2);
+//         magnitude2 += Math.pow(embedding2[i], 2);
+//     }
+//
+//     magnitude1 = Math.sqrt(magnitude1);
+//     magnitude2 = Math.sqrt(magnitude2);
+//
+//     if (magnitude1 === 0 || magnitude2 === 0) {
+//         return 0; // Handle zero vectors
+//     }
+//
+//     return dotProduct / (magnitude1 * magnitude2);
+// }
 
-        const responses = await Promise.all(promises);
-        return await Promise.all(responses.map(response => response.json()));
-    } catch (error) {
+function cosineSimilarity(A, B) {
+    let dotProduct = 0;
+    let mA = 0;
+    let mB = 0;
+
+    for(let i = 0; i < A.length; i++) {
+        dotProduct += A[i] * B[i];
+        mA += A[i] * A[i];
+        mB += B[i] * B[i];
     }
+
+    mA = Math.sqrt(mA);
+    mB = Math.sqrt(mB);
+    return dotProduct / (mA * mB);
 }
 
-function dotProduct(a, b) {
-    return a.reduce((sum, val, idx) => sum + val * b[idx], 0);
-}
-
-function magnitude(vector) {
-    return Math.sqrt(vector.reduce((sum, val) => sum + val ** 2, 0));
-}
-
-function cosineSimilarity(a, b) {
-    return dotProduct(a, b) / (magnitude(a) * magnitude(b));
-}
 
 const getPvkEmbeddings = async (options) => {
     const bodies = []
     options.forEach((option) => {
         bodies.push(option.description)
     })
-    return await fetchWithDifferentBodies(bodies)
+    return await generateSbertEmbedding({inputs: bodies})
 }
 
 async function findClosestMatch(searchString, embeddedData, options) {
     const embeddedSearch = await generateSbertEmbedding(searchString)
     try {
-        let closestMatch = null;
-        let maxSimilarity = -Infinity;
+        const matches = []
 
         embeddedData.forEach(((embedding, index) => {
-            if (index !== 0) {
-                const similarity = cosineSimilarity(embeddedSearch, embedding);
-                if (similarity > maxSimilarity) {
-                    maxSimilarity = similarity;
-                    closestMatch = index;
-                }
-            }
+            const similarity = cosineSimilarity(embeddedSearch[0][0], embedding[0][0]);
+            matches.push([similarity, index]);
         }))
-
-        console.log(options[closestMatch+1].description)
-        return options[closestMatch+1];
+        matches.sort((a, b) => b[0] - a[0])
+        const topMatches = matches.slice(0, 5)
+        const topOptions = []
+        topMatches.forEach(match => {
+            topOptions.push({...options[match[1]], score: match[0]});
+        })
+        return topOptions;
     } catch (error) {
         console.error('Ошибка в поиске:', error);
     }
