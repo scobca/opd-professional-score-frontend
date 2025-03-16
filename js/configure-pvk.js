@@ -120,6 +120,7 @@ if (jwt) {
         }
         const renderRatings = () => {
             ratings.replaceChildren()
+            selectedPvks.sort((a, b) => a.description.localeCompare(b.description))
             selectedPvks.forEach(pvk => {
                 const ratingDiv = document.createElement("div")
                 const ratingP = document.createElement("p");
@@ -164,7 +165,6 @@ if (jwt) {
         }
 
         renderOptions(pvkOptions)
-        let pvkList = pvkOptions
         const pvkData = await loadPVK(professionId)
         if (pvkData) {
             pvkData.forEach(pvk => {
@@ -174,16 +174,6 @@ if (jwt) {
             renderOptions(pvkOptions)
             renderRatings()
         }
-
-        ratingInputs.forEach((input) => {
-            if (pvkData) {
-                pvkData.forEach((pvkItem) => {
-                    if (input.name === `pvk-${pvkItem.pvk.category}-rate`) {
-                        input.value = pvkItem.rating
-                    }
-                })
-            }
-        })
 
         pvkForm.addEventListener("submit", async (e) => {
             e.preventDefault()

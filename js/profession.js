@@ -19,33 +19,50 @@ const loadProfession = async (id) => {
     const response = await fetch(`http://localhost:8081/profession/${id}`)
     const result = await response.json();
 
+    const renderPvk = (topPvks) => {
+        topPvks.forEach(item => {
+            const quality = document.createElement("div")
+            const qName = document.createElement("p")
+            const qRate = document.createElement("p")
+
+            quality.classList.add("quality")
+            qName.innerHTML = item.pvk.description
+            qRate.innerHTML = item.rating
+            quality.append(qName, qRate)
+            qualitiesBlock.append(quality)
+        })
+    }
+
     if (result.status === 200) {
         profName.innerHTML = `Профессия ${result.data.name}`
         profDesc.innerHTML = `Описание: ${result.data.description}`
         profRequ.innerHTML = `Требования: ${result.data.requirements}`
         profSphere.innerHTML = `Сфера деятельности: ${result.data.sphere}`
 
-        const pvk = await loadPVK(id)
-        if (pvk) {
-            pvk.forEach((item) => {
-                const quality = document.createElement("div")
-                const qName = document.createElement("p")
-                const qRate = document.createElement("p")
-
-                quality.classList.add("quality")
-                qName.innerHTML = item.pvk.description
-                qRate.innerHTML = item.rating
-                quality.append(qName, qRate)
-                qualitiesBlock.append(quality)
+        const pvks = await loadPVK(id)
+        if (pvks) {
+            const ratings = []
+            pvks.forEach(pvk => {
+                ratings.push(pvk.rating)
             })
+            const sum = ratings.reduce((accumulator, currPvk) => accumulator + currPvk.rating, 0);
+            const avg = sum / ratings.length
+            const disp = Math.max(...ratings)
+            pvks.forEach((pvk) => {
+                pvk.score = avg + (1 / disp) * avg
+            })
+            pvks.sort((a, b) => b.rating - a.rating)
+            renderPvk(pvks.slice(0, 5))
         }
+
+
 
         const jwt = getCookie("jwt")
         if (jwt) {
             const user = dataFromJWT(jwt).data
             if (user.role === "admin" || user.role === "expert" || user.role === "moderator") {
                 const linkPVK = document.createElement("button")
-                if (pvk) {
+                if (pvks) {
                     linkPVK.innerHTML = "Изменить ПВК"
                 } else {
                     linkPVK.innerHTML = "Добавить ПВК"
