@@ -1,26 +1,28 @@
-let controller = null
+import {getCookie} from "./cookieHandler.js";
+
+let controller = new AbortController()
 
 async function query(data) {
     try {
-        if (controller) {
-            controller.abort()
-        }
+        controller.abort()
         controller = new AbortController()
         const signal = controller.signal
         const response = await fetch(
-            "https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2",
-            {
-                headers: {
-                    Authorization: "Bearer TOKEN",
-                    "Content-Type": "application/json",
-                },
+            "http://localhost:8081/get-sentences-vectors", {
                 method: "POST",
                 body: JSON.stringify(data),
+                headers: {
+                    Authorization: `Bearer ${getCookie("jwt")}`,
+                    "Content-type": "application/json"
+                },
                 signal
             }
         );
         const result = await response.json();
-        return result;
+        console.log(result)
+        if (result.status === 200) {
+            return result.data
+        }
     } catch (error) {}
 }
 
@@ -40,7 +42,7 @@ async function findClosestMatch(searchString, options) {
                 similarities.push({score: match, ...options[index]})
             })
             similarities.sort((a, b) => b.score - a.score)
-            return similarities.slice(0, 5);
+            return similarities.slice(0, 7);
         }
         return []
     } catch (error) {}
