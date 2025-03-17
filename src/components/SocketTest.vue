@@ -1,6 +1,7 @@
 <script lang="ts">
 import {defineComponent, inject} from 'vue'
 import {io} from "socket.io-client";
+
 import CustomInput from "./UI/inputs/CustomInput.vue";
 
 export default defineComponent({
