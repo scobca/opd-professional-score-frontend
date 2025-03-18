@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {UpdateProfessionDto} from "../api/resolvers/profession/dto/input/update-profession.dto.ts";
-import {onMounted, ref} from "vue";
+import { computed } from 'vue';
 import { ProfessionResolver } from '../api/resolvers/profession/profession.resolver.ts';
 import { UserState } from '../utils/userState/UserState.ts';
 
@@ -9,7 +9,9 @@ const props = defineProps<{
   profession: UpdateProfessionDto | null,
 }>()
 
-const localProfession = ref<UpdateProfessionDto | null>(null);
+const localProfession = computed({
+  get: () => props.profession,
+})
 const updateProfession = async () => {
   if (localProfession.value != null) {
     const professionResolver = new ProfessionResolver()
@@ -18,11 +20,6 @@ const updateProfession = async () => {
   }
 }
 
-onMounted(() => {
-  if (props.profession != null) {
-    localProfession.value = {...props.profession};
-  }
-})
 </script>
 
 <template>

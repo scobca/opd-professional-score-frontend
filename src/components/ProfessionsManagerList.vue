@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, type PropType, ref} from "vue";
+import { computed, type PropType, ref } from 'vue';
 import CommonButton from "./UI/CommonButton.vue";
 import ProfessionsManagerElement from "./UI/ProfessionsManagerElement.vue";
 import ProfessionEditForm from "./ProfessionEditForm.vue";
@@ -7,7 +7,6 @@ import {autoUpdate, hide, useFloating} from "@floating-ui/vue";
 import router from "../router/router.ts";
 import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
 import type {UpdateProfessionDto} from "../api/resolvers/profession/dto/input/update-profession.dto.ts";
-import RoleSelectForm from './RoleSelectForm.vue';
 
 const reference = ref(null)
 const floating = ref(null)
