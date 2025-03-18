@@ -14,7 +14,6 @@ import { ProfessionStatisticResolver } from '../api/resolvers/professionStatisti
 import router from '../router/router.ts';
 import { usePopupStore } from '../store/popup.store.ts';
 import type { GetOldStatsOutputDto } from '../api/resolvers/professionStatistic/dto/output/get-old-stats-output.dto.ts';
-import * as querystring from 'node:querystring';
 
 type Socket = ReturnType<typeof io>;
 
@@ -40,6 +39,7 @@ socket.on('searchResults', (data) => {
   if (data.length == 0) {
     if (searchQuery.value.length > 0) {
       pvks.value = [{
+        id: 0,
         name: "default",
         description: "Ничего не найдено",
       }]
