@@ -227,7 +227,6 @@ modalProfessionForm.onsubmit = async (e) => {
     const professionRequirements = Array.from(modalProfessionForm.elements).find(input => input.id === "profRequ").value
     const professionSphere = Array.from(modalProfessionForm.elements).find(input => input.id === "profSphere").value
     const professionArchive = Array.from(modalProfessionForm.elements).find(input => input.id === "profArchive").checked
-    console.log(professionArchive)
     const data = new FormData
     data.append("profession_id", professionId)
     data.append("profession_name", professionName)
