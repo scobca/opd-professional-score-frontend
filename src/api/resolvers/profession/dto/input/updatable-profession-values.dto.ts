@@ -3,4 +3,5 @@ export interface UpdatableProfessionValuesDto {
   description?: string;
   requirements?: string;
   sphere?: string;
+  archive?: string;
 }

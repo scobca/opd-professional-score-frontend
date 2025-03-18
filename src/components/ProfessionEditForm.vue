@@ -2,6 +2,7 @@
 import type {UpdateProfessionDto} from "../api/resolvers/profession/dto/input/update-profession.dto.ts";
 import {onMounted, ref} from "vue";
 import { ProfessionResolver } from '../api/resolvers/profession/profession.resolver.ts';
+import { UserState } from '../utils/userState/UserState.ts';
 
 const emit = defineEmits(['profession-update'])
 const props = defineProps<{
@@ -55,6 +56,14 @@ onMounted(() => {
           hidden="hidden"
           disabled
           v-model="localProfession.id"
+      ></label>
+      <label>
+        Архивировать
+        <input
+        type="checkbox"
+        id="profArchive"
+        :disabled="UserState.role != 'ADMIN'"
+        v-model="localProfession.updatedData.archived"
       ></label>
       <input type="submit" value="Изменить">
     </form>
