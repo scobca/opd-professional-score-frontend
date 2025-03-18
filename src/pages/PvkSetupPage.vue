@@ -164,7 +164,7 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
-      <div :class="allowedToRate ? 'ratings' : 'ratings disabled'">
+      <div :class="allowedToRate || selectedPvks.length == 7 ? 'ratings' : 'ratings disabled'">
         <div
           class="rating"
           v-for="(pvk, index) in selectedPvks"
