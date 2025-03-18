@@ -37,7 +37,10 @@ const pvks = ref<PvkOptionStructureDto[]>(null)
 
 socket.on('searchResults', (data) => {
   if (data.length == 0) {
-    pvks.value = allPvks
+    pvks.value = [{
+      name: "default",
+      description: "Ничего не найдено",
+    }]
   } else {
     pvks.value = data
   }
@@ -58,6 +61,8 @@ const search = async (query) => {
   socket.emit('search', query);
   if (query.length > 0) {
     isOpened.value = true
+  } else {
+    pvks.value = allPvks
   }
 }
 
