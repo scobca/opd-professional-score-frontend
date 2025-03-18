@@ -3,6 +3,7 @@ import Header from "./components/UI/AppHeader.vue";
 import InfoPopup from "./components/UI/popups/InfoPopup.vue";
 import ErrorPopup from "./components/UI/popups/ErrorPopup.vue";
 import {usePopupStore} from "./store/popup.store.ts";
+import SocketTest from "./components/SocketTest.vue";
 
 const popupStore = usePopupStore();
 </script>

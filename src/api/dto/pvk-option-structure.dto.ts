@@ -1,4 +1,6 @@
 export interface PvkOptionStructureDto {
-  value: string;
-  text: string;
+  id: number;
+  name: string;
+  description: string;
+  rating: number | null;
 }

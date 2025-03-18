@@ -10,9 +10,7 @@ export class ProfessionResolver {
   private apiResolver = new ApiResolverUtil('professions');
 
   public create(data: CreateProfessionDto) {
-    this.apiResolver.request("createProfession", "POST", data).then((res) => {
-      console.log(res);
-    });
+    this.apiResolver.request("createProfession", "POST", data);
   }
 
   public async getAll() {

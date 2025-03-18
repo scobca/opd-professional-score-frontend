@@ -1,6 +1,7 @@
 <script lang="ts">
 export default {
   name: 'CustomInput',
+  emits: ['search'],
   props: {
     placeholder: String,
     type: {
@@ -44,6 +45,10 @@ export default {
       } else {
         this.$emit('update:modelValue', inputValue);
       }
+    },
+    update(event: any) {
+      this.$emit('search');
+      this.$emit('update:modelValue', event.target.value)
     }
   },
 }
@@ -56,10 +61,10 @@ export default {
          :type="type"
          :value="modelValue"
          :maxlength="maxLength"
-         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+         @input="update($event)"
   />
   <input class="input"
-         v-if="type=='number'"
+         v-else
          :placeholder="placeholder"
          :type="type"
          :min="minNumber"
