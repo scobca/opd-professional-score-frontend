@@ -64,7 +64,7 @@ export default {
          @input="update($event)"
   />
   <input class="input"
-         v-if="type=='number'"
+         v-else
          :placeholder="placeholder"
          :type="type"
          :min="minNumber"
