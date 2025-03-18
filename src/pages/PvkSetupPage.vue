@@ -99,7 +99,6 @@ const rate = async () => {
         await profStatsResolver.updateStats(statsData)
         await router.push(`/profession/${props.professionId}`)
       }
-      popupStore.activateErrorPopup(error.message);
     }
   } else {
     popupStore.activateErrorPopup("Rate 7 professional characteristics!")
