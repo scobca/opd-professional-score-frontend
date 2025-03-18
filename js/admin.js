@@ -52,6 +52,7 @@ const renderUsers = async (userPage) => {
             row.remove()
         })
     }
+    users.sort((a, b) => a.id - b.id)
 
     for (let i = (userPage - 1) * 5; i < (userPage) * 5; i++) {
         if (users[i]) {
@@ -148,6 +149,8 @@ const renderProfessions = async (professionPage) => {
                         case "profId":
                             input.value = professions.data[i].id
                             break
+                        case "profArchive":
+                            input.checked = professions.data[i].is_archive
                     }
                 })
                 modalProfession.classList.toggle("hide")
@@ -223,13 +226,15 @@ modalProfessionForm.onsubmit = async (e) => {
     const professionDescription = Array.from(modalProfessionForm.elements).find(input => input.id === "profDesc").value
     const professionRequirements = Array.from(modalProfessionForm.elements).find(input => input.id === "profRequ").value
     const professionSphere = Array.from(modalProfessionForm.elements).find(input => input.id === "profSphere").value
-
+    const professionArchive = Array.from(modalProfessionForm.elements).find(input => input.id === "profArchive").checked
+    console.log(professionArchive)
     const data = new FormData
     data.append("profession_id", professionId)
     data.append("profession_name", professionName)
     data.append("profession_description", professionDescription)
     data.append("profession_requirements", professionRequirements)
     data.append("profession_sphere", professionSphere)
+    data.append("profession_archive", professionArchive)
     e.preventDefault()
     const response = await fetch("http://localhost:8081/update-profession", {
         method: "POST",
