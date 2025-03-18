@@ -1,8 +1,20 @@
 <script setup lang="ts">
 
 import CommonButton from "./CommonButton.vue";
-defineProps<{ id: number }>()
+import { onMounted, ref } from 'vue';
+import { ProfessionStatisticResolver } from '../../api/resolvers/professionStatistic/professionStatistic.resolver.ts';
+const props = defineProps<{ id: number }>()
 defineEmits(['edit-profession'])
+
+const noStats = ref(true)
+
+onMounted(async () => {
+  const profStatsResolver = new ProfessionStatisticResolver()
+  const stats = await profStatsResolver.getProfessionStatistics(props.id)
+  if (stats.length > 0) {
+    noStats.value = false
+  }
+})
 </script>
 
 <template>
@@ -26,6 +38,7 @@ defineEmits(['edit-profession'])
       <CommonButton
           @click="$emit('edit-profession', $event.currentTarget)"
           :disabled="false"
+          v-if="noStats"
       >
         <template v-slot:placeholder>
           <slot name="placeholder">Изменить</slot>

@@ -24,13 +24,32 @@ const reloadUsers = async () => {
   }
 }
 
+const professions = ref<GetProfessionOutputDto[] | null>(null);
+const professionsArchive = ref<GetProfessionOutputDto[] | null>(null)
+const professionsPublished = ref<GetProfessionOutputDto[] | null>(null)
+const professionResolver = new ProfessionResolver()
+
 const reloadProfessions = async () => {
-  const professionResolver = new ProfessionResolver()
-  const result = await professionResolver.getAll();
-  if (result.length != 0) {
-    professions.value = result.sort((a, b) => a.id - b.id)
-  } else {
-    popupStore.activateErrorPopup("Error occurred. No one profession found.")
+  professionsArchive.value = []
+  professionsPublished.value = []
+  try {
+    professions.value = await professionResolver.getAll();
+    if (professions.value.length != 0) {
+      professions.value.forEach(profession => {
+        if (profession.archived) {
+          professionsArchive.value.push(profession)
+        } else {
+          professionsPublished.value.push(profession)
+        }
+      })
+      professionsArchive.value.sort((a, b) => a.id - b.id );
+      professionsPublished.value.sort((a, b) => a.id - b.id );
+
+    } else {
+      popupStore.activateErrorPopup("Error occurred. No one profession found.")
+    }
+  } catch (error) {
+    console.error(error.message)
   }
 }
 
@@ -270,8 +289,6 @@ const testData = ref([
   },
 ]);
 
-const professions = ref<GetProfessionOutputDto[] | null>(null);
-
 
 onMounted(() => {
   if (UserState.role == "ADMIN") {
@@ -329,13 +346,26 @@ onMounted(() => {
       </div>
 
       <div class="tests-info" v-if="UserState.role == 'EXPERT' || UserState.role == 'ADMIN'">
-        <p class="block_header">Все профессии</p>
+        <p class="block_header">Опубликованные профессии</p>
         <div class="profession_data_block">
           <ProfessionsManagerList
-              :professions="professions"
+              :professions="professionsPublished"
               :max-elements-count="5"
               @professions-list-update="reloadProfessions"
               v-if="professions != null"
+          />
+        </div>
+      </div>
+
+      <div class="tests-info" v-if="UserState.role == 'EXPERT' || UserState.role == 'ADMIN'">
+        <p class="block_header">Архивные профессии</p>
+        <div class="profession_data_block">
+          <ProfessionsManagerList
+            :professions="professionsArchive"
+            :max-elements-count="5"
+            :is-archive="true"
+            @professions-list-update="reloadProfessions"
+            v-if="professions != null"
           />
         </div>
       </div>

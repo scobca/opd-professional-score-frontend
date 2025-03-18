@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import type {UpdateProfessionDto} from "../api/resolvers/profession/dto/input/update-profession.dto.ts";
-import {onMounted, ref} from "vue";
+import { computed } from 'vue';
+import { ProfessionResolver } from '../api/resolvers/profession/profession.resolver.ts';
+import { UserState } from '../utils/userState/UserState.ts';
 
 const emit = defineEmits(['profession-update'])
 const props = defineProps<{
   profession: UpdateProfessionDto | null,
 }>()
 
-const localProfession = ref<UpdateProfessionDto | null>(null);
+const localProfession = computed({
+  get: () => props.profession,
+})
 const updateProfession = async () => {
-  emit("profession-update")
+  if (localProfession.value != null) {
+    const professionResolver = new ProfessionResolver()
+    await professionResolver.updateProfession(localProfession.value)
+    emit("profession-update")
+  }
 }
 
-onMounted(() => {
-  if (props.profession != null) {
-    localProfession.value = {...props.profession};
-  }
-})
 </script>
 
 <template>
@@ -52,6 +55,14 @@ onMounted(() => {
           hidden="hidden"
           disabled
           v-model="localProfession.id"
+      ></label>
+      <label>
+        Архивировать
+        <input
+        type="checkbox"
+        id="profArchive"
+        :disabled="UserState.role != 'ADMIN'"
+        v-model="localProfession.updatedData.archived"
       ></label>
       <input type="submit" value="Изменить">
     </form>

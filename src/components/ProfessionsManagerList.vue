@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, type PropType, ref} from "vue";
+import { computed, type PropType, ref } from 'vue';
 import CommonButton from "./UI/CommonButton.vue";
 import ProfessionsManagerElement from "./UI/ProfessionsManagerElement.vue";
 import ProfessionEditForm from "./ProfessionEditForm.vue";
@@ -8,7 +8,7 @@ import router from "../router/router.ts";
 import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
 import type {UpdateProfessionDto} from "../api/resolvers/profession/dto/input/update-profession.dto.ts";
 
-const reference = ref<HTMLElement | null>(null)
+const reference = ref(null)
 const floating = ref(null)
 const {floatingStyles, middlewareData} = useFloating(reference, floating, {
   placement: 'bottom-end',
@@ -16,7 +16,7 @@ const {floatingStyles, middlewareData} = useFloating(reference, floating, {
   middleware: [hide()]
 })
 
-const toggleForm = (el: HTMLElement, id: number, name: string, description: string, requirements: string, sphere: string) => {
+const toggleForm = (el: HTMLElement, id: number, name: string, description: string, requirements: string, sphere: string, archived: boolean) => {
   if (lastEl.value != el) {
     isOpen.value = false
   }
@@ -28,7 +28,8 @@ const toggleForm = (el: HTMLElement, id: number, name: string, description: stri
         name: name,
         description: description,
         requirements: requirements,
-        sphere: sphere
+        sphere: sphere,
+        archived: archived,
       }
     } as UpdateProfessionDto;
   }
@@ -50,6 +51,10 @@ const props = defineProps({
   professions: {
     type: Array as PropType<GetProfessionOutputDto[]>,
     required: true,
+  },
+  isArchive: {
+    type: Boolean,
+    required: false
   }
 });
 
@@ -105,7 +110,7 @@ const prevPage = () => {
         v-for="item in paginatedData"
         :key="item.id"
         :id="item.id"
-        @edit-profession="el => toggleForm(el, item.id, item.name, item.description, item.requirements, item.sphere)"
+        @edit-profession="el => toggleForm(el, item.id, item.name, item.description, item.requirements, item.sphere, item.archived)"
     >
       <template #id>{{ item.id }}</template>
       <template #name>{{ item.name }}</template>
@@ -125,7 +130,7 @@ const prevPage = () => {
         <template v-slot:placeholder>Вперед</template>
       </CommonButton>
 
-      <CommonButton @click="router.push('/profession/new')">
+      <CommonButton @click="router.push('/profession/new')" v-if="isArchive">
         <template v-slot:placeholder>Добавить профессию</template>
       </CommonButton>
     </div>
