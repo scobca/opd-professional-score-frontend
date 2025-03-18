@@ -5,29 +5,123 @@ import { inject, onMounted, onUnmounted, ref } from 'vue';
 import { io } from 'socket.io-client';
 import type { PvkOptionStructureDto } from '../api/dto/pvk-option-structure.dto.ts';
 import type { PvkOptionSelectedStructureDto} from '../api/dto/pvk-option-selected-structure.dto.ts';
+import { PvkResolver } from '../api/resolvers/pvk/pvk.resolver.ts';
+import type {
+  CreateProfessionStatsOutputDto
+} from '../api/resolvers/professionStatistic/dto/output/create-profession-stats-output.dto.ts';
+import { UserState } from '../utils/userState/UserState.ts';
+import { ProfessionStatisticResolver } from '../api/resolvers/professionStatistic/professionStatistic.resolver.ts';
+import router from '../router/router.ts';
+import { usePopupStore } from '../store/popup.store.ts';
+import type { GetOldStatsOutputDto } from '../api/resolvers/professionStatistic/dto/output/get-old-stats-output.dto.ts';
 
 type Socket = ReturnType<typeof io>;
 
 defineEmits(['search'])
-const searchQuery = ref("")
+const props = defineProps<{
+  professionId: string;
+}>()
+
+const popupStore = usePopupStore();
 const socket = inject<Socket>('socket');
+
 const isOpened = ref(false)
-let pvks: PvkOptionStructureDto[]
+const allowedToRate = ref(false)
+const searchQuery = ref("")
+
+const pvkResolver = new PvkResolver()
+const profStatsResolver = new ProfessionStatisticResolver()
+
+let allPvks: PvkOptionStructureDto[]
+const pvks = ref<PvkOptionStructureDto[]>(null)
+
 socket.on('searchResults', (data) => {
-  pvks = data
+  if (data.length == 0) {
+    pvks.value = allPvks
+  } else {
+    pvks.value = data
+  }
 })
-let selectedPvks: PvkOptionSelectedStructureDto[];
+const selectedPvks = ref<PvkOptionSelectedStructureDto[]>([])
 
 const showOptions = () => {
   isOpened.value = !isOpened.value
 }
 
-const search = async (query) => {
-  socket.emit('search', query);
-  isOpened.value = query.length > 0;
+const validate = (el) => {
+  if (Math.abs(el.value) > 10) {
+    el.value = ""
+  }
 }
 
-onMounted(() => {
+const search = async (query) => {
+  socket.emit('search', query);
+  if (query.length > 0) {
+    isOpened.value = true
+  }
+}
+
+const addPvk = (newPvk, optionEl) => {
+  const isDuplicate = selectedPvks.value.some(pvk => pvk.id === newPvk.id)
+  if (isDuplicate) {
+    selectedPvks.value.forEach(pvk => {
+      if (pvk.id === newPvk.id) {
+        selectedPvks.value.splice(selectedPvks.value.indexOf(pvk), 1)
+      }
+    })
+  } else {
+    if (selectedPvks.value.length < 7) {
+      optionEl.classList.add("selected");
+      selectedPvks.value.push(newPvk)
+    }
+  }
+  allowedToRate.value = selectedPvks.value.length == 7
+}
+
+const rate = async () => {
+  const statsData: CreateProfessionStatsOutputDto[] = []
+  if (selectedPvks.value.length == 7) {
+    selectedPvks.value.forEach(pvk => {
+      statsData.push(<CreateProfessionStatsOutputDto>{
+        professionId: parseInt(props.professionId),
+        pcId: pvk.id,
+        userId: UserState.id,
+        score: pvk.rating
+      })
+    })
+    try {
+      const result = await profStatsResolver.createStats(statsData)
+      if (result.status == 200) {
+        await router.push(`/profession/${props.professionId}`)
+      }
+    } catch (error) {
+      if (error.message.includes("409")) {
+        await profStatsResolver.updateStats(statsData)
+        await router.push(`/profession/${props.professionId}`)
+      }
+      popupStore.activateErrorPopup(error.message);
+    }
+  } else {
+    popupStore.activateErrorPopup("Rate 7 professional characteristics!")
+  }
+
+}
+
+onMounted(async () => {
+  allPvks = await pvkResolver.getAll()
+  pvks.value = allPvks
+  const oldPvks = await profStatsResolver.getOldStats(<GetOldStatsOutputDto>{
+    professionId: parseInt(props.professionId),
+    userId: UserState.id
+  })
+  oldPvks.forEach(oldPvk => {
+    allPvks.forEach(pvk => {
+      if (oldPvk.profCharId == pvk.id) {
+        selectedPvks.value.push({...pvk, rating: oldPvk.score})
+      }
+    })
+  })
+  selectedPvks.value.sort((a,b) => a.description.localeCompare(b.description))
   socket.connect()
 })
 
@@ -40,7 +134,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <form action="#" method="post" id="pvk-form" class="profession-form">
+  <form @submit.prevent="rate">
     <h1>Добавить / Изменить профессионально-важные качества</h1>
     <div class="pvk-rate">
       <div class="multiselect">
@@ -57,10 +151,11 @@ onUnmounted(() => {
         <div :class="isOpened ? 'options show' : 'options'" v-if="pvks">
           <div
             :key="index"
-            class="option"
+            :class="selectedPvks.some(sPvk => sPvk.id == pvk.id) ? 'option selected ' : 'option'"
             v-for="(pvk, index) in pvks"
+            @click="addPvk(pvk, $event.target)"
           >
-            <p>{{ pvk.text }}</p>
+            <p>{{ pvk.description }}</p>
           </div>
         </div>
         <div :class="isOpened ? 'options show' : 'options'" v-else>
@@ -69,35 +164,44 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
-      <div class="ratings disabled">
+      <div :class="allowedToRate ? 'ratings' : 'ratings disabled'">
         <div
           class="rating"
           v-for="(pvk, index) in selectedPvks"
           :key="index"
         >
-          <p>{{ pvk.text }}</p>
+          <p>{{ pvk.description }}</p>
           <label>
-            <input type="checkbox" :value="pvk.rating">
+            <input
+              @input="validate($event.target)"
+              type="number"
+              min="-10"
+              max="10"
+              step="1"
+              required
+              v-model="selectedPvks[index].rating"
+            >
           </label>
         </div>
       </div>
     </div>
-    <button type="submit">Применить</button>
+    <button :disabled="selectedPvks.length != 7" type="submit">Применить</button>
   </form>
 </template>
 
 <style scoped>
 form {
+  margin-top: 5vh;
   display: flex;
   flex-direction: column;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 0 10px #4127e4;
-  margin: 0 auto;
   position: relative;
   z-index: 1;
   width: 60vw;
+  box-sizing: content-box;
 }
 button {
   width: 100%;
@@ -167,6 +271,7 @@ button:hover {
   }
 
   .options {
+    box-sizing: border-box;
     position: absolute;
     width: 100%;
     display: flex;
@@ -183,7 +288,7 @@ button:hover {
     .option {
       background-color: rgba(65, 39, 228, 0.2);
       border-bottom: solid 1px rgba(65, 39, 228, 0.5);
-      min-height: calc((40vh - 7px) / 7);
+      min-height: calc((40vh) / 7);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -256,12 +361,14 @@ button:hover {
     align-items: center;
     padding: 1vh;
     gap: 2vw;
+    width: calc(34vw - 2vw);
 
     p {
       overflow-x: hidden;
       -ms-text-overflow: ellipsis;
       text-overflow: ellipsis;
       white-space: nowrap;
+      width: calc(100% - 3vh);
     }
 
     label {
@@ -276,6 +383,12 @@ button:hover {
         box-sizing: border-box;
         display: flex;
         text-align: center;
+
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0
       }
     }
   }

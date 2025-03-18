@@ -18,7 +18,6 @@ export default defineComponent({
   },
   created() {
     this.socket.on('searchResults', (data: any) => {
-      console.log('Результаты:', data)
     })
   },
   methods: {

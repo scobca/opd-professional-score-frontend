@@ -18,7 +18,6 @@ const popupStore = usePopupStore();
       <ErrorPopup class="popup"/>
     </div>
     <router-view></router-view>
-    <SocketTest/>
   </div>
 </template>
 

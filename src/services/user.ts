@@ -2,7 +2,6 @@ import http from "../http-common.ts";
 import {UserState} from "../utils/userState/UserState.ts";
 
 export const setRole = async (id: number, role: string) => {
-    console.log(role)
     if (UserState.role != "ADMIN") {
         return {
             status: "403",

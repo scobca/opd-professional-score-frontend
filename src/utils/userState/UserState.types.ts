@@ -3,6 +3,10 @@ export type UserRole = "USER" | "EXPERT" | "CONSULTANT" | "MODERATOR" | "ADMIN"
 
 export interface UserState {
     /**
+     * id of User in system
+     */
+    id: number;
+    /**
      * status of User - on what step of authentication currently is
      */
     status: UserStatus;

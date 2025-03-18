@@ -27,7 +27,6 @@ onMounted(async () => {
     console.error(e)
   }
   profession.value = await professionResolver.getById(props.id) as GetProfessionOutputDto
-  console.log(profession.value)
 })
 
 const filteredItems = (items: GetProfessionStatisticsInputDto[]) => {

@@ -13,6 +13,7 @@ export const updateUserState = () => {
         const userData = jwtDecode(token);
 
         if (userData) {
+            UserState.id = userData.id
             UserState.status = "authorized";
             UserState.username = userData.username;
             UserState.email = userData.email;
@@ -23,6 +24,7 @@ export const updateUserState = () => {
             }
         }
     } else if (userToVerify) {
+        UserState.id = userToVerify.id;
         UserState.status = userToVerify.status;
         UserState.username = userToVerify.username;
         UserState.password = userToVerify.password;
@@ -30,6 +32,7 @@ export const updateUserState = () => {
         UserState.role = userToVerify.role;
     } else {
         UserState.status = "unauthorized"
+        UserState.id = null
         UserState.username = null
         UserState.password = null
         UserState.email = null
