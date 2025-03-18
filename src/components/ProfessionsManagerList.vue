@@ -50,6 +50,10 @@ const props = defineProps({
   professions: {
     type: Array as PropType<GetProfessionOutputDto[]>,
     required: true,
+  },
+  isArchive: {
+    type: Boolean,
+    required: false
   }
 });
 
@@ -125,7 +129,7 @@ const prevPage = () => {
         <template v-slot:placeholder>Вперед</template>
       </CommonButton>
 
-      <CommonButton @click="router.push('/profession/new')">
+      <CommonButton @click="router.push('/profession/new')" v-if="isArchive">
         <template v-slot:placeholder>Добавить профессию</template>
       </CommonButton>
     </div>

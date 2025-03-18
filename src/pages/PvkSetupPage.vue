@@ -14,7 +14,6 @@ import { ProfessionStatisticResolver } from '../api/resolvers/professionStatisti
 import router from '../router/router.ts';
 import { usePopupStore } from '../store/popup.store.ts';
 import type { GetOldStatsOutputDto } from '../api/resolvers/professionStatistic/dto/output/get-old-stats-output.dto.ts';
-import * as querystring from 'node:querystring';
 
 type Socket = ReturnType<typeof io>;
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {UpdateProfessionDto} from "../api/resolvers/profession/dto/input/update-profession.dto.ts";
 import {onMounted, ref} from "vue";
+import { ProfessionResolver } from '../api/resolvers/profession/profession.resolver.ts';
 
 const emit = defineEmits(['profession-update'])
 const props = defineProps<{
@@ -9,6 +10,8 @@ const props = defineProps<{
 
 const localProfession = ref<UpdateProfessionDto | null>(null);
 const updateProfession = async () => {
+  const professionResolver = new ProfessionResolver()
+  await professionResolver.updateProfession(localProfession.value)
   emit("profession-update")
 }
 

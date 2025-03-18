@@ -32,6 +32,7 @@ export default {
         description: this.description,
         requirements: this.requirements,
         sphere: this.sphere,
+        archived: true,
       };
 
       const token = localStorage.getItem("token")
