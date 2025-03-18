@@ -11,6 +11,7 @@ import {getAllUsers} from "../services/user.ts";
 import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
 import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
 import {usePopupStore} from "../store/popup.store.ts";
+import type {DefaultErrorDto} from "../api/dto/common/default-error.dto.ts";
 
 const popupStore = usePopupStore();
 const users = ref([]);
@@ -37,9 +38,9 @@ const reloadProfessions = async () => {
     if (professions.value.length != 0) {
       professions.value.forEach(profession => {
         if (profession.archived) {
-          professionsArchive.value.push(profession)
+          professionsArchive.value?.push(profession)
         } else {
-          professionsPublished.value.push(profession)
+          professionsPublished.value?.push(profession)
         }
       })
       professionsArchive.value.sort((a, b) => a.id - b.id );
@@ -48,8 +49,8 @@ const reloadProfessions = async () => {
     } else {
       popupStore.activateErrorPopup("Error occurred. No one profession found.")
     }
-  } catch (error) {
-    console.error(error.message)
+  } catch (e) {
+    popupStore.activateErrorPopup((e as DefaultErrorDto).message)
   }
 }
 
