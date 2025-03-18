@@ -5,12 +5,12 @@ import CustomTextareaInput from "./UI/inputs/CustomTextareaInput.vue";
 import CustomSelect from "./UI/inputs/CustomSelect.vue";
 import ApiResolverUtil from "../utils/ApiResolver.ts";
 import router from "../router/router.ts";
+import {usePopupStore} from "../store/popup.store.ts";
 
 export default {
   name: 'ProfessionForm',
   components: {CustomSelect, CustomInput, CustomTextareaInput, CommonButton},
   data() {
-
     return {
       name: "",
       description: "",
@@ -23,6 +23,7 @@ export default {
         {value: 'Другая', text: 'Другая'},
       ],
       resolver: new ApiResolverUtil('professions'),
+      popupStore: usePopupStore()
     }
   },
   methods: {
@@ -41,7 +42,7 @@ export default {
           router.push('/profile')
         });
       } else {
-        console.log("No token");
+        this.popupStore.activateErrorPopup("No token")
       }
     }
   }
