@@ -1,8 +1,6 @@
 import {dataFromJWT} from "./jwtHandler.js";
 import {getCookie} from "./cookieHandler.js";
 import {popupHandler} from "./popup.js";
-// import {getPvkEmbeddings, findClosestMatch} from "./utils-betas.js";
-// import {findClosestMatch} from "./utils.js";
 import { findClosestMatch } from "./utils-gamma.js";
 const params = new URLSearchParams(document.location.search);
 const professionId = params.get('id');
@@ -39,11 +37,7 @@ if (jwt) {
     const user = dataFromJWT(jwt).data
     if (user.role === "admin" || user.role === "expert") {
         const pvkOptions = await loadPvkList()
-        // const pvkEmbeddings = await getPvkEmbeddings(pvkOptions)
-        const selects = document.querySelectorAll(".select-pvk");
-        const ratingInputs = document.querySelectorAll(".rating-pvk");
         const pvkForm = document.getElementById("pvk-form");
-        const multiselect = document.querySelector(".multiselect");
         const ratings = document.querySelector(".ratings")
         const showOptionsBtn = document.querySelector(".show-options");
         const optionsList = document.querySelector(".options");
