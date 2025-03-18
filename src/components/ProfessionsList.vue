@@ -8,15 +8,17 @@ import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/outpu
 const cards = ref<GetProfessionOutputDto[] | null>(null)
 const cardsPublished = ref<GetProfessionOutputDto[] | null>(null)
 const professionResolver: ProfessionResolver = new ProfessionResolver();
+const cardsCount = ref(cardsPublished?.value?.length || 0);
 
 onMounted(async () => {
   cardsPublished.value = []
   cards.value = await professionResolver.getAll()
   cards.value.forEach(card => {
     if (!card.archived) {
-      cardsPublished.value.push(card)
+      cardsPublished.value?.push(card)
     }
   })
+  console.log(cardsPublished.value.length)
 })
 
 </script>
@@ -24,7 +26,7 @@ onMounted(async () => {
 <template>
   <section class="professions-section">
     <h2>Популярные профессии</h2>
-    <div class="profession-cards-container" v-if="cardsPublished">
+    <div class="profession-cards-container" v-if="cardsCount > 0">
       <FlipCard
           v-for="(card, index) in cardsPublished"
           :key="index"
@@ -34,6 +36,9 @@ onMounted(async () => {
           :requirements="card.requirements"
           :sphere="card.sphere"
       />
+    </div>
+    <div class="no-professions-message" v-else>
+      К сожалению, на данный момент еще нет верифицированных профессий.
     </div>
   </section>
 </template>
@@ -58,5 +63,16 @@ onMounted(async () => {
   justify-content: center;
   flex-wrap: wrap;
   gap: 30px;
+}
+
+.no-professions-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  color: #000;
 }
 </style>
