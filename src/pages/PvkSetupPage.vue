@@ -301,6 +301,7 @@ button:hover {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      overflow-x: scroll;
 
       label {
         padding: 14px;
@@ -319,9 +320,6 @@ button:hover {
       p {
         padding: 14px;
         white-space: nowrap;
-        -ms-text-overflow: ellipsis;
-        text-overflow: ellipsis;
-        overflow-x: hidden;
         flex: 15;
         user-select: none;
       }
