@@ -36,8 +36,7 @@ export default {
 
       const token = localStorage.getItem("token")
       if (token != null) {
-        this.resolver.request("createProfession", "POST", body, token).then((res) => {
-          console.log(res);
+        this.resolver.request("createProfession", "POST", body, token).then(() => {
           router.push('/profile')
         });
       } else {

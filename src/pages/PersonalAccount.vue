@@ -301,9 +301,6 @@ onMounted(() => {
         </div>
       </div>
       <div class="buttons_container">
-<!--        <Button @click="console.log(1)">-->
-<!--          <template v-slot:placeholder>Сменить пароль</template>-->
-<!--        </Button>-->
         <Button @click="logout" class="logout_button">
           <template v-slot:placeholder>Выйти из аккаунта</template>
         </Button>
