@@ -6,9 +6,14 @@ import UserManagerElement from "./UI/UserManagerElement.vue";
 import {autoUpdate, hide, useFloating} from "@floating-ui/vue";
 import RoleSelectForm from "./RoleSelectForm.vue";
 import {UserState} from "../utils/userState/UserState.ts";
+import type {UserRole} from "../utils/userState/UserState.types.ts";
 
+interface CurrentUser {
+  id: number;
+  role: UserRole;
+}
 
-const reference = ref(null)
+const reference = ref<HTMLElement | null>(null)
 const floating = ref(null)
 const {floatingStyles, middlewareData} = useFloating(reference, floating, {
   placement: 'bottom-end',
@@ -24,14 +29,14 @@ const toggleForm = (el: HTMLElement, id: number, role: string) => {
     reference.value = el
     currentUser.value = {
       id: id,
-      role: role
+      role: role as UserRole,
     }
   }
   isOpen.value = !isOpen.value
   lastEl.value = el
 }
 
-const currentUser = ref(null)
+const currentUser = ref<CurrentUser | null>(null)
 const isOpen = ref(false)
 const lastEl = ref()
 
@@ -83,8 +88,8 @@ const prevPage = () => {
           ? 'hidden'
           : 'visible',
       }"
-      :user-id="currentUser.id"
-      :user-role="currentUser.role"
+      :user-id="(currentUser as CurrentUser).id"
+      :user-role="(currentUser as CurrentUser).role"
       @role-update="$emit('users-list-update'); isOpen = false"
   />
   <div class="component_container">
