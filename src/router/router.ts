@@ -1,5 +1,4 @@
 import {createRouter, createWebHistory} from "vue-router";
-import LogIn from "../pages/LogIn.vue";
 import RegistrationFirstStep from "../pages/RegistrationFirstStep.vue";
 import RegistrationSecondStep from "../pages/RegistrationSecondStep.vue";
 import PersonalAccount from "../pages/PersonalAccount.vue";
@@ -9,6 +8,7 @@ import ProfessionPage from "../pages/ProfessionPage.vue";
 import ProfessionForm from "../components/ProfessionForm.vue";
 import PvkSetupPage from "../pages/PvkSetupPage.vue";
 import PasswordChanging from "../pages/PasswordChanging.vue";
+import LogInPage from "../pages/LogInPage.vue";
 
 const routes = [
   {
@@ -45,7 +45,7 @@ const routes = [
   },
   {
     path: '/auth/login',
-    component: LogIn,
+    component: LogInPage,
     meta: {ruName: "Вход"}
   },
   {
