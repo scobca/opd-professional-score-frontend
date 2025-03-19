@@ -18,7 +18,6 @@ onMounted(async () => {
       cardsPublished.value?.push(card)
     }
   })
-  console.log(cardsPublished.value.length)
 })
 
 </script>

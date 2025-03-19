@@ -11,6 +11,7 @@ import {getAllUsers} from "../services/user.ts";
 import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
 import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
 import {usePopupStore} from "../store/popup.store.ts";
+import type {DefaultErrorDto} from "../api/dto/common/default-error.dto.ts";
 
 const popupStore = usePopupStore();
 const users = ref([]);
@@ -37,9 +38,9 @@ const reloadProfessions = async () => {
     if (professions.value.length != 0) {
       professions.value.forEach(profession => {
         if (profession.archived) {
-          professionsArchive.value.push(profession)
+          professionsArchive.value?.push(profession)
         } else {
-          professionsPublished.value.push(profession)
+          professionsPublished.value?.push(profession)
         }
       })
       professionsArchive.value.sort((a, b) => a.id - b.id );
@@ -48,8 +49,8 @@ const reloadProfessions = async () => {
     } else {
       popupStore.activateErrorPopup("Error occurred. No one profession found.")
     }
-  } catch (error) {
-    console.error(error.message)
+  } catch (e) {
+    popupStore.activateErrorPopup((e as DefaultErrorDto).message)
   }
 }
 
@@ -349,7 +350,7 @@ onMounted(() => {
         <p class="block_header">Опубликованные профессии</p>
         <div class="profession_data_block">
           <ProfessionsManagerList
-              :professions="professionsPublished"
+              :professions="professionsPublished as GetProfessionOutputDto[]"
               :max-elements-count="5"
               @professions-list-update="reloadProfessions"
               v-if="professions != null"
@@ -357,15 +358,14 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="tests-info" v-if="UserState.role == 'EXPERT' || UserState.role == 'ADMIN'">
+      <div class="tests-info" v-if="(UserState.role == 'EXPERT' || UserState.role == 'ADMIN') && professions != null">
         <p class="block_header">Архивные профессии</p>
         <div class="profession_data_block">
           <ProfessionsManagerList
-            :professions="professionsArchive"
+            :professions="professionsArchive as GetProfessionOutputDto[]"
             :max-elements-count="5"
             :is-archive="true"
             @professions-list-update="reloadProfessions"
-            v-if="professions != null"
           />
         </div>
       </div>

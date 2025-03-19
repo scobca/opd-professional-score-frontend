@@ -9,6 +9,8 @@ import type {
   GetProfessionStatisticsInputDto
 } from "../api/resolvers/professionStatistic/dto/input/get-profession-statistics-input.dto.ts";
 import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
+import {usePopupStore} from "../store/popup.store.ts";
+import type {DefaultErrorDto} from "../api/dto/common/default-error.dto.ts";
 
 const props = defineProps<{
   id: number;
@@ -21,10 +23,12 @@ const professionStatistics = ref<GetProfessionStatisticsInputDto[] | null>(null)
 const profession = ref<GetProfessionOutputDto | null>(null)
 
 onMounted(async () => {
+  const popupStore = usePopupStore()
+
   try {
     professionStatistics.value = await professionStatisticsResolver.getProfessionStatistics(props.id)
   } catch (e) {
-    console.error(e)
+      popupStore.activateErrorPopup((e as DefaultErrorDto).message)
   }
   profession.value = await professionResolver.getById(props.id) as GetProfessionOutputDto
 })

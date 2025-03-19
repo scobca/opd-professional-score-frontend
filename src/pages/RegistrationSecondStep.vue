@@ -84,7 +84,6 @@ a{
 }
 
 .code-field input[type='number'] {
-  -moz-appearance:textfield;
   caret-color: transparent;
 }
 .code-field input::-webkit-outer-spin-button,

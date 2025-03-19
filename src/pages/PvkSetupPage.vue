@@ -14,6 +14,7 @@ import { ProfessionStatisticResolver } from '../api/resolvers/professionStatisti
 import router from '../router/router.ts';
 import { usePopupStore } from '../store/popup.store.ts';
 import type { GetOldStatsOutputDto } from '../api/resolvers/professionStatistic/dto/output/get-old-stats-output.dto.ts';
+import {AxiosError} from "axios";
 
 type Socket = ReturnType<typeof io>;
 
@@ -23,7 +24,7 @@ const props = defineProps<{
 }>()
 
 const popupStore = usePopupStore();
-const socket = inject<Socket>('socket');
+const socket = inject<Socket>('socket') as ReturnType<typeof io>;
 
 const isOpened = ref(false)
 const allowedToRate = ref(false)
@@ -33,7 +34,7 @@ const pvkResolver = new PvkResolver()
 const profStatsResolver = new ProfessionStatisticResolver()
 
 let allPvks: PvkOptionStructureDto[]
-const pvks = ref<PvkOptionStructureDto[]>(null)
+const pvks = ref<PvkOptionStructureDto[] | null>(null)
 
 socket.on('searchResults', (data) => {
   if (data.length == 0) {
@@ -42,6 +43,7 @@ socket.on('searchResults', (data) => {
         id: 0,
         name: "default",
         description: "Ничего не найдено",
+        rating: null,
       }]
     } else {
       pvks.value = allPvks
@@ -62,7 +64,7 @@ const validate = (el) => {
   }
 }
 
-const search = async (query) => {
+const search = async (query: string) => {
   socket.emit('search', query);
   if (query.length > 0) {
     isOpened.value = true
@@ -105,7 +107,7 @@ const rate = async () => {
         await router.push(`/profession/${props.professionId}`)
       }
     } catch (error) {
-      if (error.message.includes("409")) {
+      if ((error as AxiosError).response?.status == 409) {
         await profStatsResolver.updateStats(statsData)
         await router.push(`/profession/${props.professionId}`)
       }

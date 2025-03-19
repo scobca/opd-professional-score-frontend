@@ -20,11 +20,11 @@ const currentPage = ref(1);
 const paginatedData = computed(() => {
   const start = (currentPage.value - 1) * props.maxElementsCount;
   const end = start + props.maxElementsCount;
-  return props.tests.slice(start, end); // Используем props.items
+  return props.tests.slice(start, end);
 });
 
 const totalPages = computed(() => {
-  return Math.ceil(props.tests.length / props.maxElementsCount); // Используем props.items
+  return Math.ceil(props.tests.length / props.maxElementsCount);
 });
 
 const nextPage = () => {
