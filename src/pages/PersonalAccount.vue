@@ -350,7 +350,7 @@ onMounted(() => {
         <p class="block_header">Опубликованные профессии</p>
         <div class="profession_data_block">
           <ProfessionsManagerList
-              :professions="professionsPublished"
+              :professions="professionsPublished as GetProfessionOutputDto[]"
               :max-elements-count="5"
               @professions-list-update="reloadProfessions"
               v-if="professions != null"
@@ -358,15 +358,14 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="tests-info" v-if="UserState.role == 'EXPERT' || UserState.role == 'ADMIN'">
+      <div class="tests-info" v-if="(UserState.role == 'EXPERT' || UserState.role == 'ADMIN') && professions != null">
         <p class="block_header">Архивные профессии</p>
         <div class="profession_data_block">
           <ProfessionsManagerList
-            :professions="professionsArchive"
+            :professions="professionsArchive as GetProfessionOutputDto[]"
             :max-elements-count="5"
             :is-archive="true"
             @professions-list-update="reloadProfessions"
-            v-if="professions != null"
           />
         </div>
       </div>

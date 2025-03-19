@@ -8,7 +8,7 @@
 
   const signUp = async () => {
     const passConf = document.getElementById("password-confirm")
-    if (passConf.value === UserState.password) {
+    if (passConf?.value === UserState.password) {
       const result = await registrationFirstStep({
         "username": UserState.username,
         "email": UserState.email,

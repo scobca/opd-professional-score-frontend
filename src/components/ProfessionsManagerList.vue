@@ -8,7 +8,7 @@ import router from "../router/router.ts";
 import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
 import type {UpdateProfessionDto} from "../api/resolvers/profession/dto/input/update-profession.dto.ts";
 
-const reference = ref(null)
+const reference: HTMLElement | null = ref(null)
 const floating = ref(null)
 const {floatingStyles, middlewareData} = useFloating(reference, floating, {
   placement: 'bottom-end',
@@ -21,7 +21,6 @@ const toggleForm = (el: HTMLElement, id: number, name: string, description: stri
     isOpen.value = false
   }
   if (!isOpen.value) {
-    reference.value = el
     currentProfession.value = {
       id: id,
       updatedData: {
