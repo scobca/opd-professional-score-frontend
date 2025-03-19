@@ -58,8 +58,8 @@ const showOptions = () => {
   isOpened.value = !isOpened.value
 }
 
-const validate = (el) => {
-  if (Math.abs(el.value) > 10) {
+const validate = (el: HTMLInputElement) => {
+  if (Math.abs(Number(el.value)) > 10) {
     el.value = ""
   }
 }
@@ -73,7 +73,7 @@ const search = async (query: string) => {
   }
 }
 
-const addPvk = (newPvk, optionEl) => {
+const addPvk = (newPvk: PvkOptionStructureDto, optionEl: HTMLInputElement) => {
   const isDuplicate = selectedPvks.value.some(pvk => pvk.id === newPvk.id)
   if (isDuplicate) {
     selectedPvks.value.forEach(pvk => {
@@ -84,7 +84,17 @@ const addPvk = (newPvk, optionEl) => {
   } else {
     if (selectedPvks.value.length < 7) {
       optionEl.classList.add("selected");
-      selectedPvks.value.push(newPvk)
+      selectedPvks.value.push(newPvk.rating == null ? ({
+        id: newPvk.id,
+        name: newPvk.name,
+        description: newPvk.description,
+        rating: 0,
+      } as PvkOptionSelectedStructureDto) : ({
+        id: newPvk.id,
+        name: newPvk.name,
+        description: newPvk.description,
+        rating: newPvk.rating,
+      } as PvkOptionSelectedStructureDto))
     }
   }
   allowedToRate.value = selectedPvks.value.length == 7
@@ -119,7 +129,7 @@ const rate = async () => {
 }
 
 onMounted(async () => {
-  allPvks = await pvkResolver.getAll()
+  allPvks = await pvkResolver.getAll() as PvkOptionStructureDto[]
   pvks.value = allPvks
   const oldPvks = await profStatsResolver.getOldStats(<GetOldStatsOutputDto>{
     professionId: parseInt(props.professionId),
@@ -164,7 +174,7 @@ onUnmounted(() => {
             :key="index"
             :class="selectedPvks.some(sPvk => sPvk.id == pvk.id) ? 'option selected ' : 'option'"
             v-for="(pvk, index) in pvks"
-            @click="addPvk(pvk, $event.target)"
+            @click="addPvk(pvk, ($event.target as HTMLInputElement))"
           >
             <p>{{ pvk.description }}</p>
           </div>
@@ -184,7 +194,7 @@ onUnmounted(() => {
           <p>{{ pvk.description }}</p>
           <label>
             <input
-              @input="validate($event.target)"
+              @input="validate($event.target as HTMLInputElement)"
               type="number"
               min="-10"
               max="10"
