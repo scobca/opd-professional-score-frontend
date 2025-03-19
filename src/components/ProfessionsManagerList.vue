@@ -8,7 +8,7 @@ import router from "../router/router.ts";
 import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
 import type {UpdateProfessionDto} from "../api/resolvers/profession/dto/input/update-profession.dto.ts";
 
-const reference: HTMLElement | null = ref(null)
+const reference = ref<HTMLElement | null>(null)
 const floating = ref(null)
 const {floatingStyles, middlewareData} = useFloating(reference, floating, {
   placement: 'bottom-end',
@@ -66,11 +66,15 @@ const paginatedData = computed(() => {
 });
 
 const totalPages = computed(() => {
-  return Math.ceil(props.professions.length / props.maxElementsCount);
+  if (Math.ceil(props.professions.length / props.maxElementsCount) == 0) {
+    return 1
+  } else {
+    return Math.ceil(props.professions.length / props.maxElementsCount)
+  }
 });
 
 const nextPage = () => {
-  if (currentPage.value < totalPages.value) {
+  if (currentPage.value < (totalPages.value as number)) {
     currentPage.value++;
   }
 };
