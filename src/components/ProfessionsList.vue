@@ -8,7 +8,7 @@ import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/outpu
 const cards = ref<GetProfessionOutputDto[] | null>(null)
 const cardsPublished = ref<GetProfessionOutputDto[] | null>(null)
 const professionResolver: ProfessionResolver = new ProfessionResolver();
-const cardsCount = ref(cardsPublished?.value?.length || 0);
+const cardsCount = ref( 0);
 
 onMounted(async () => {
   cardsPublished.value = []
@@ -16,6 +16,7 @@ onMounted(async () => {
   cards.value.forEach(card => {
     if (!card.archived) {
       cardsPublished.value?.push(card)
+      cardsCount.value += 1
     }
   })
 })
