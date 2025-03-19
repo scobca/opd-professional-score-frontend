@@ -5,18 +5,23 @@ import {UserResolver} from "../api/resolvers/user/user.resolver.ts";
 import CodeVerification from "./CodeVerification.vue";
 import router from "../router/router.ts";
 import {usePopupStore} from "../store/popup.store.ts";
+import {AuthResolver} from "../api/resolvers/auth/auth.resolver.ts";
+import type {SendCodeAgainDto} from "../api/resolvers/auth/dto/output/send-code-again-output.dto.ts";
+import type {UserDataInputDto} from "../api/resolvers/user/dto/input/user-data-input.dto.ts";
 
 export default {
   name: 'PasswordChangingPage',
   components: {CodeVerification, CommonButton, CustomInput},
   data() {
     const userResolver = new UserResolver();
+    const authResolver = new AuthResolver();
     return {
       step: 1,
       email: "",
       password: "",
       passwordCheck: "",
       userResolver,
+      authResolver,
       popupStore: usePopupStore(),
     }
   },
@@ -61,6 +66,17 @@ export default {
       }).catch((err) => {
         this.popupStore.activateErrorPopup(err.response.data.message)
       })
+    },
+
+    async sendCode() {
+      const user = (await this.userResolver.getByEmail(this.email))?.body as UserDataInputDto;
+      const data: SendCodeAgainDto = {
+        email: this.email,
+        username: user.username,
+        codeType: "PASSWORD",
+      }
+
+      return this.authResolver.sendCodeAgain(data);
     }
   },
   mounted() {
@@ -79,7 +95,7 @@ export default {
     });
   },
   unmounted() {
-    document.addEventListener('keydown', (e) => {
+    document.removeEventListener('keydown', (e) => {
       if (e.key == "Enter") {
         if (this.step == 1) {
           this.goToSecondStep();
@@ -127,7 +143,7 @@ export default {
     </CommonButton>
   </div>
 
-  <CodeVerification v-if="step == 3" @approve-code="approveCode">
+  <CodeVerification v-if="step == 3" @approveCode="approveCode" @sendCode="sendCode">
     <template v-slot:header>Изменение пароля</template>
   </CodeVerification>
 </template>
