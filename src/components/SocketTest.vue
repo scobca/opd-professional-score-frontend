@@ -3,6 +3,7 @@ import {defineComponent, inject} from 'vue'
 import {io} from "socket.io-client";
 
 import CustomInput from "./UI/inputs/CustomInput.vue";
+import type {PvkOptionStructureDto} from "../api/dto/pvk-option-structure.dto.ts";
 
 export default defineComponent({
   name: "SocketTest",
@@ -17,7 +18,8 @@ export default defineComponent({
     this.socket.connect();
   },
   created() {
-    this.socket.on('searchResults', (data: any) => {
+    this.socket.on('searchResults', (data: PvkOptionStructureDto[]) => {
+      return data;
     })
   },
   methods: {
