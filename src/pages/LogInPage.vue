@@ -54,7 +54,7 @@ export default defineComponent({
     </div>
     <div class="auth-links-container">
       <router-link to="/auth/changePassword">Забыли пароль?</router-link>
-      <router-link to="/auth/registrationFirstStep">Создать аккаунт</router-link>
+      <router-link to="/auth/registration">Создать аккаунт</router-link>
     </div>
     <CommonButton class="auth-button" @click="login">
       <template v-slot:placeholder>Войти</template>

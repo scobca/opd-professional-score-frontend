@@ -1,6 +1,4 @@
 import {createRouter, createWebHistory} from "vue-router";
-import RegistrationFirstStep from "../pages/RegistrationFirstStep.vue";
-import RegistrationSecondStep from "../pages/RegistrationSecondStep.vue";
 import PersonalAccount from "../pages/PersonalAccount.vue";
 import {UserState} from "../utils/userState/UserState.ts";
 import ProfessionsList from "../components/ProfessionsList.vue";
@@ -9,6 +7,7 @@ import ProfessionForm from "../components/ProfessionForm.vue";
 import PvkSetupPage from "../pages/PvkSetupPage.vue";
 import PasswordChanging from "../pages/PasswordChanging.vue";
 import LogInPage from "../pages/LogInPage.vue";
+import RegistrationPage from "../pages/RegistrationPage.vue";
 
 const routes = [
   {
@@ -49,13 +48,8 @@ const routes = [
     meta: {ruName: "Вход"}
   },
   {
-    path: '/auth/registrationFirstStep',
-    component: RegistrationFirstStep,
-    meta: {ruName: "Регистрация"}
-  },
-  {
-    path: '/auth/registrationSecondStep',
-    component: RegistrationSecondStep,
+    path: '/auth/registration',
+    component: RegistrationPage,
     meta: {ruName: "Регистрация"}
   },
   {
