@@ -61,7 +61,7 @@ const filteredItems = (items: GetProfessionStatisticsInputDto[]) => {
              :key="statistics.pcId"
         >
           <p class="name">{{ statistics.pcDescription }}</p>
-          <p class="rating">{{ statistics.averageScore }}</p>
+          <p class="rating">{{ (statistics.averageScore / 2).toFixed(1) }}</p>
         </div>
         <CommonButton
             v-if="UserState.role == 'ADMIN' || UserState.role == 'EXPERT'"
