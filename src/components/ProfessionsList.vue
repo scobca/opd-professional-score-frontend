@@ -14,7 +14,7 @@ onMounted(async () => {
   cardsPublished.value = []
   cards.value = await professionResolver.getAll()
   cards.value.forEach(card => {
-    if (card.archived == false) {
+    if (!card.archived) {
       cardsPublished.value?.push(card)
       cardsCount.value += 1
     }
