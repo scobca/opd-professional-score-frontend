@@ -64,8 +64,9 @@ const router = createRouter({
   routes,
 });
 
+
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && UserState.status != "authorized") {
+  if ((to.meta.requiresAuth && UserState.status != "authorized") || from.meta.requiresAuth && UserState.status != "authorized") {
     next({path: '/auth/login/'})
   } else {
     next()
@@ -73,5 +74,6 @@ router.beforeEach((to, from, next) => {
 
   document.title = to.meta.ruName ? `${to.meta.ruName} | OPD Professional Score` : `OPD Professional Score`;
 })
+
 
 export default router;
