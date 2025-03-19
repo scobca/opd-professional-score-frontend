@@ -11,16 +11,58 @@ import PvkSetupPage from "../pages/PvkSetupPage.vue";
 import PasswordChanging from "../pages/PasswordChanging.vue";
 
 const routes = [
-  { path: '/', component: ProfessionsList },
-  { path: '/professions', component: ProfessionsList },
-  { path: `/profession/new`, component: ProfessionForm, meta: {requiresAuth: true} },
-  { path: `/profession/setup/:professionId`, component: PvkSetupPage, meta: {requiresAuth: true}, props: true },
-  { path: `/profession/:id`, component: ProfessionPage, props: true },
-  { path: '/profile', component: PersonalAccount, meta: { requiresAuth: true } },
-  { path: '/auth/login', component: LogIn },
-  { path: '/auth/registrationFirstStep', component: RegistrationFirstStep },
-  { path: '/auth/registrationSecondStep', component: RegistrationSecondStep },
-  { path: '/auth/changePassword', component: PasswordChanging },
+  {
+    path: '/',
+    component: ProfessionsList,
+    meta: {ruName: "Главная"}
+  },
+  {
+    path: '/professions',
+    component: ProfessionsList,
+    meta: {ruName: "Профессии"}
+  },
+  {
+    path: `/profession/new`,
+    component: ProfessionForm,
+    meta: {requiresAuth: true, ruName: "Новая профессия"}
+  },
+  {
+    path: `/profession/setup/:professionId`,
+    component: PvkSetupPage,
+    meta: {requiresAuth: true, ruName: "Установка ПВК"},
+    props: true
+  },
+  {
+    path: `/profession/:id`,
+    component: ProfessionPage,
+    props: true,
+    meta: {ruName: "Профессия "}
+  },
+  {
+    path: '/profile',
+    component: PersonalAccount,
+    meta: {requiresAuth: true, ruName: "Профиль"}
+  },
+  {
+    path: '/auth/login',
+    component: LogIn,
+    meta: {ruName: "Вход"}
+  },
+  {
+    path: '/auth/registrationFirstStep',
+    component: RegistrationFirstStep,
+    meta: {ruName: "Регистрация"}
+  },
+  {
+    path: '/auth/registrationSecondStep',
+    component: RegistrationSecondStep,
+    meta: {ruName: "Регистрация"}
+  },
+  {
+    path: '/auth/changePassword',
+    component: PasswordChanging,
+    meta: {ruName: "Изменение пароля"}
+  },
 ];
 
 const router = createRouter({
@@ -30,10 +72,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && UserState.status != "authorized") {
-    next({ path: '/auth/login/'})
+    next({path: '/auth/login/'})
   } else {
     next()
   }
+
+  document.title = to.meta.ruName ? `${to.meta.ruName} | OPD Professional Score` : `OPD Professional Score`;
 })
 
 export default router;
