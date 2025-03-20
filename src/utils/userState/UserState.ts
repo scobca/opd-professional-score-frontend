@@ -1,16 +1,26 @@
 import { reactive } from "vue";
-import type {UserState, UserStatus} from "./UserState.types.ts";
+import type {UserRole, UserStateInterface} from "./UserState.types.ts";
 import {jwtDecode} from "jwt-decode";
 
-export const UserState = reactive<UserState>({
+export const UserState = reactive<UserStateInterface>({
     status: "unauthorized",
 })
 
+interface UserJwt {
+    id: number;
+    username: string;
+    email: string;
+    role: UserRole;
+    isBanned: boolean;
+    iat: number;
+    exp: number;
+}
+
 export const updateUserState = () => {
     const token = localStorage.getItem("token");
-    const userToVerify = JSON.parse(localStorage.getItem("userToVerify"))
+    const userToVerify = JSON.parse(<string>localStorage.getItem("userToVerify"))
     if (token) {
-        const userData = jwtDecode(token);
+        const userData = jwtDecode(token) as UserJwt;
 
         if (userData) {
             UserState.id = userData.id

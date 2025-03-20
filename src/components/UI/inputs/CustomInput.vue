@@ -1,7 +1,7 @@
 <script lang="ts">
 export default {
   name: 'CustomInput',
-  emits: ['search'],
+  emits: ['search', 'update:modelValue'],
   props: {
     placeholder: String,
     type: {
@@ -25,30 +25,30 @@ export default {
     }
   },
   methods: {
-    validate(event: any) {
-      const inputValue = event.target.value;
+    validate(event: InputEvent) {
+      const inputValue = (event.target as HTMLInputElement).value;
 
-      if (isNaN(inputValue)) {
+      if (isNaN(Number(inputValue))) {
         return;
       }
 
       if (inputValue.length > this.maxLength) {
-        event.target.value = inputValue.slice(0, this.maxLength);
-        this.$emit('update:modelValue', parseFloat(event.target.value));
+        (event.target as HTMLInputElement).value = inputValue.slice(0, this.maxLength);
+        this.$emit('update:modelValue', parseFloat((event.target as HTMLInputElement).value));
         return;
       }
 
-      if (inputValue < this.minNumber) {
+      if (Number(inputValue) < this.minNumber) {
         this.$emit('update:modelValue', this.minNumber);
-      } else if (inputValue > this.maxNumber) {
+      } else if (Number(inputValue) > this.maxNumber) {
         this.$emit('update:modelValue', this.maxNumber);
       } else {
         this.$emit('update:modelValue', inputValue);
       }
     },
-    update(event: any) {
+    update(event: InputEvent) {
       this.$emit('search');
-      this.$emit('update:modelValue', event.target.value)
+      this.$emit('update:modelValue', (event.target as HTMLInputElement).value)
     }
   },
 }
@@ -61,7 +61,7 @@ export default {
          :type="type"
          :value="modelValue"
          :maxlength="maxLength"
-         @input="update($event)"
+         @input="update($event as InputEvent)"
   />
   <input class="input"
          v-else
@@ -70,7 +70,7 @@ export default {
          :min="minNumber"
          :max="maxNumber"
          :value="modelValue"
-         @input="validate($event)"
+         @input="validate($event as InputEvent)"
          required
   />
 </template>

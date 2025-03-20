@@ -9,9 +9,7 @@ const props = defineProps<{
   profession: UpdateProfessionDto | null,
 }>()
 
-const localProfession = computed({
-  get: () => props.profession,
-})
+const localProfession = computed(() => props.profession)
 const updateProfession = async () => {
   if (localProfession.value != null) {
     const professionResolver = new ProfessionResolver()
@@ -62,7 +60,7 @@ const updateProfession = async () => {
         type="checkbox"
         id="profArchive"
         :disabled="UserState.role != 'ADMIN'"
-        v-model="localProfession.updatedData.archived"
+        v-model="localProfession.updatedData.archive"
       ></label>
       <input type="submit" value="Изменить">
     </form>
