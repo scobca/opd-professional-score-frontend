@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
 import {updateUserState, UserState} from "../../utils/userState/UserState.ts";
-import {logout} from "../../services/auth.ts";
+import {AuthResolver} from "../../api/resolvers/auth/auth.resolver.ts";
 
 updateUserState()
-
+const authResolver = new AuthResolver();
 </script>
 
 <template>
@@ -17,14 +17,15 @@ updateUserState()
       <div class="nav-links">
         <div class="auth-buttons" v-if="UserState.status == 'unauthorized'">
           <router-link to="/auth/login" class="btn login">Вход</router-link>
-          <router-link to="/auth/registrationFirstStep" class="btn register">Регистрация</router-link>
+          <router-link to="/auth/registration" class="btn register">Регистрация</router-link>
         </div>
         <div class="auth-buttons" v-if="UserState.status == 'unverified'">
-          <router-link to="/auth/registrationSecondStep" class="btn register" @click="logout">Подтвердить почту
+          <router-link to="/auth/registrationSecondStep" class="btn register" @click="authResolver.logout">Подтвердить
+            почту
           </router-link>
         </div>
         <div class="auth-buttons" v-if="UserState.status == 'authorized'">
-          <router-link to="" class="btn login" @click="logout">Выход</router-link>
+          <router-link to="" class="btn login" @click="authResolver.logout">Выход</router-link>
           <router-link to="/profile" class="btn register">Личный кабинет</router-link>
         </div>
       </div>

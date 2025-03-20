@@ -6,13 +6,14 @@ import UserManagerList from "../components/UserManagerList.vue";
 import ProfessionsManagerList from "../components/ProfessionsManagerList.vue";
 import TestScoreList from "../components/TestsScoreList.vue";
 import {UserState} from "../utils/userState/UserState.ts";
-import {logout} from "../services/auth.ts";
 import {getAllUsers} from "../services/user.ts";
 import {ProfessionResolver} from "../api/resolvers/profession/profession.resolver.ts";
 import type {GetProfessionOutputDto} from "../api/resolvers/profession/dto/output/get-profession-output.dto.ts";
 import {usePopupStore} from "../store/popup.store.ts";
 import type {DefaultErrorDto} from "../api/dto/common/default-error.dto.ts";
+import {AuthResolver} from "../api/resolvers/auth/auth.resolver.ts";
 
+const authResolver = new AuthResolver();
 const popupStore = usePopupStore();
 const users = ref([]);
 
@@ -319,7 +320,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="buttons_container">
-        <Button @click="logout" class="logout_button">
+        <Button @click="authResolver.logout" class="logout_button">
           <template v-slot:placeholder>Выйти из аккаунта</template>
         </Button>
       </div>

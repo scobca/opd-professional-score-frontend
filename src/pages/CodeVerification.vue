@@ -5,6 +5,7 @@ import CommonButton from "../components/UI/CommonButton.vue";
 export default {
   name: "CodeVerification",
   components: {CommonButton, CustomInput},
+  emits: ["approveCode", "sendCode"],
   data() {
     return {
       code: ""
@@ -24,7 +25,11 @@ export default {
                    :placeholder="'Введите код с почты'"/>
     </div>
 
-    <CommonButton class="button" @click="$emit('approve-code', code)">
+    <div class="code-links-container">
+      <p @click="$emit('sendCode')">Отправить код еще раз</p>
+    </div>
+
+    <CommonButton class="button" @click="$emit('approveCode', code)">
       <template v-slot:placeholder>Подтвердить</template>
     </CommonButton>
   </div>
@@ -52,5 +57,21 @@ export default {
   width: 100%;
   background-color: #4127e4;
   color: white;
+}
+
+.code-links-container {
+  display: flex;
+  width: 100%;
+  justify-content: left;
+  font-size: 90%;
+
+  p {
+    border-bottom: 1px solid #0d6efd;
+    color: #0d6efd;
+  }
+}
+
+.code-links-container:hover {
+  cursor: pointer;
 }
 </style>
